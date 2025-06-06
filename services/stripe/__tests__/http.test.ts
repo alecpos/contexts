@@ -15,7 +15,8 @@ import {
   retrieveSetupIntent,
   detachPaymentMethod,
   capturePaymentIntent,
-  updatePaymentIntent
+  updatePaymentIntent,
+  main
 } from '../http'
 
 describe('stripe http api', () => {
@@ -84,5 +85,24 @@ describe('stripe http api', () => {
     const charges = await listCharges(1)
     console.log('listCharges', charges)
     expect(Array.isArray(charges.data)).toBe(true)
+  }, 30000)
+
+  it('creates and attaches a payment method', async () => {
+    const customer = await createCustomer()
+    const pm = await createPaymentMethod('tok_visa')
+    expect(pm.id).toMatch(/^pm_/)
+    const attached = await attachPaymentMethod(pm.id, customer.id)
+    expect(attached.customer).toBe(customer.id)
+    const methods = await listPaymentMethods(customer.id)
+    const found = methods.data.find((m: any) => m.id === pm.id)
+    expect(found).toBeTruthy()
+  }, 30000)
+
+  it('updates and deletes a customer', async () => {
+    const customer = await createCustomer()
+    const updated = await updateCustomer(customer.id, { description: 'updated' })
+    expect(updated.description).toBe('updated')
+    const deleted = await deleteCustomer(customer.id)
+    expect(deleted.deleted).toBe(true)
   }, 30000)
 })
