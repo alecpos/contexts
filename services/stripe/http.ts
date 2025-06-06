@@ -58,3 +58,29 @@ export async function createSetupIntent(customerId: string) {
 export async function listCharges(limit: number = 1) {
   return fetchWithFallback(`/charges?limit=${limit}`)
 }
+
+export async function createPaymentIntent(
+  amount: number,
+  currency: string,
+  customerId?: string
+) {
+  const body = new URLSearchParams({
+    amount: amount.toString(),
+    currency,
+  })
+  if (customerId) body.append('customer', customerId)
+  body.append('payment_method_types[]', 'card')
+  return fetchWithFallback('/payment_intents', { method: 'POST', body })
+}
+
+export async function retrievePaymentIntent(id: string) {
+  return fetchWithFallback(`/payment_intents/${id}`)
+}
+
+export async function retrieveCustomer(id: string) {
+  return fetchWithFallback(`/customers/${id}`)
+}
+
+export async function listCustomers(limit: number = 3) {
+  return fetchWithFallback(`/customers?limit=${limit}`)
+}
