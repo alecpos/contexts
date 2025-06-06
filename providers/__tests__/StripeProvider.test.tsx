@@ -4,15 +4,18 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { StripeProvider, useStripeContext } from '../StripeProvider';
 import { createSetupIntentServerCustomer } from '../../services/stripe/setupIntent';
+import { createCheckoutSessionServer } from '../../services/stripe/checkoutSession';
 
 // Mock all external dependencies
 jest.mock('@stripe/stripe-js');
 jest.mock('axios');
 jest.mock('../../services/stripe/setupIntent');
+jest.mock('../../services/stripe/checkoutSession');
 
 const mockedLoadStripe = loadStripe as jest.MockedFunction<typeof loadStripe>;
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedCreateSetupIntent = createSetupIntentServerCustomer as jest.Mock;
+const mockedCreateCheckoutSession = createCheckoutSessionServer as jest.Mock;
 
 // Mock environment variables
 const originalEnv = process.env;
@@ -33,6 +36,7 @@ describe('StripeProvider', () => {
     const mockStripeInstance = {
         elements: jest.fn(),
         confirmPayment: jest.fn(),
+        redirectToCheckout: jest.fn(),
     };
 
 // Add this to your test setup
@@ -49,8 +53,9 @@ beforeEach(() => {
     mockedAxios.post.mockResolvedValue({
         data: { success: true, digits: '4242' },
     });
-    
+
     mockedCreateSetupIntent.mockResolvedValue({ id: 'setup' });
+    mockedCreateCheckoutSession.mockResolvedValue({ id: 'sess_123' });
 });
 
 afterEach(() => {
@@ -122,6 +127,88 @@ afterEach(() => {
             }
         );
         expect(res).toEqual({ success: true, digits: '4242' });
+    });
+
+    it('starts a checkout session and redirects', async () => {
+        mockStripeInstance.redirectToCheckout = jest.fn().mockResolvedValue({});
+        mockedAxios.post.mockResolvedValueOnce({ data: { sessionId: 'sess_123' } });
+        const wrapper = ({ children }: { children: React.ReactNode }) => (
+            <StripeProvider>{children}</StripeProvider>
+        );
+        const { result } = renderHook(() => useStripeContext(), { wrapper });
+
+        await waitForStripeInit();
+
+        await act(async () => {
+            await result.current.startCheckoutSession({
+                priceId: 'price_1',
+                quantity: 1,
+                successUrl: 'https://success',
+                cancelUrl: 'https://cancel',
+            });
+        });
+
+        expect(mockedAxios.post).toHaveBeenCalledWith(
+            '/api/stripe/checkout-session',
+            {
+                priceId: 'price_1',
+                quantity: 1,
+                successUrl: 'https://success',
+                cancelUrl: 'https://cancel',
+            },
+        );
+        expect(mockStripeInstance.redirectToCheckout).toHaveBeenCalledWith({
+            sessionId: 'sess_123',
+        });
+    });
+
+    it('throws when checkout session creation fails', async () => {
+        const error = new Error('create fail');
+        mockedAxios.post.mockRejectedValueOnce(error);
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+        const wrapper = ({ children }: { children: React.ReactNode }) => (
+            <StripeProvider>{children}</StripeProvider>
+        );
+        const { result } = renderHook(() => useStripeContext(), { wrapper });
+
+        await waitForStripeInit();
+
+        await expect(
+            result.current.startCheckoutSession({
+                priceId: 'price_1',
+                quantity: 1,
+                successUrl: 's',
+                cancelUrl: 'c',
+            })
+        ).rejects.toThrow('create fail');
+
+        expect(consoleSpy).toHaveBeenCalledWith(
+            'Failed to start checkout session',
+            expect.objectContaining({ error })
+        );
+        consoleSpy.mockRestore();
+    });
+
+    it('throws when redirectToCheckout returns an error', async () => {
+        mockStripeInstance.redirectToCheckout = jest
+            .fn()
+            .mockResolvedValue({ error: new Error('redirect fail') });
+        mockedAxios.post.mockResolvedValueOnce({ data: { sessionId: 'sess_123' } });
+        const wrapper = ({ children }: { children: React.ReactNode }) => (
+            <StripeProvider>{children}</StripeProvider>
+        );
+        const { result } = renderHook(() => useStripeContext(), { wrapper });
+
+        await waitForStripeInit();
+
+        await expect(
+            result.current.startCheckoutSession({
+                priceId: 'price_1',
+                quantity: 1,
+                successUrl: 's',
+                cancelUrl: 'c',
+            })
+        ).rejects.toThrow('redirect fail');
     });
 
     describe('Environment Configuration', () => {
@@ -216,12 +303,12 @@ it('handles loadStripe failure gracefully', async () => {
         .spyOn(console, 'error')
         .mockImplementation(() => {});
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-        <StripeProvider>{children}</StripeProvider>
-    );
-    const { result } = renderHook(() => useStripeContext(), { wrapper });
+        const wrapper = ({ children }: { children: React.ReactNode }) => (
+            <StripeProvider>{children}</StripeProvider>
+        );
+        const { result } = renderHook(() => useStripeContext(), { wrapper });
 
-    await act(async () => {
+        await act(async () => {
         await Promise.resolve();
     });
 

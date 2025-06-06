@@ -9,6 +9,10 @@ import {
     PropsWithChildren,
 } from 'react';
 import { createSetupIntentServerCustomer } from '../services/stripe/setupIntent';
+import {
+    createCheckoutSessionServer,
+    CheckoutSessionOptions,
+} from '../services/stripe/checkoutSession';
 
 interface UpdatePMResponse {
     success: boolean;
@@ -25,6 +29,7 @@ interface StripeContextType {
         customerId: string,
         subscriptionId: string,
     ) => Promise<UpdatePMResponse>;
+    startCheckoutSession: (options: CheckoutSessionOptions) => Promise<void>;
     simulateWebhookEvent?: (eventType: string, data: any) => Promise<void>;
 }
 
@@ -136,6 +141,31 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
         }
     };
 
+    const startCheckoutSession = async (options: CheckoutSessionOptions) => {
+        if (!stripe) {
+            throw new Error('Stripe has not been initialized');
+        }
+
+        try {
+            const { data } = await axios.post<{ sessionId: string }>(
+                '/api/stripe/checkout-session',
+                options,
+            );
+            const result = await stripe.redirectToCheckout({
+                sessionId: data.sessionId,
+            });
+            if (result.error) {
+                throw result.error;
+            }
+        } catch (err) {
+            console.error('Failed to start checkout session', {
+                error: err,
+                environment: process.env.NODE_ENV,
+            });
+            throw err;
+        }
+    };
+
     const simulateWebhookEvent = async (eventType: string, data: any): Promise<void> => {
         if (process.env.NODE_ENV === 'production') {
             console.warn('Webhook simulation not available in production');
@@ -164,6 +194,7 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
                 createSetupIntentForCustomer,
                 updateCustomerDefaultPaymentMethod,
                 updateSubscriptionPaymentMethod,
+                startCheckoutSession,
                 simulateWebhookEvent: process.env.NODE_ENV !== 'production' ? simulateWebhookEvent : undefined,
             }}
         >
