@@ -14,7 +14,9 @@ import {
   createEphemeralKey,
   listPrices,
   createProduct,
-  createPrice
+  createPrice,
+  retrieveProduct,
+  retrievePrice
 } from '../http'
 
 describe('stripe http api', () => {
@@ -67,12 +69,22 @@ describe('stripe http api', () => {
     expect(key.secret).toBeDefined()
   }, 30000)
 
-  it('creates a product and price', async () => {
+
+  it('creates and retrieves a product and price', async () => {
     const product = await createProduct('Test Product')
     expect(product.id).toMatch(/^prod_/)
     const price = await createPrice(1500, 'usd', product.id)
     expect(price.unit_amount).toBe(1500)
     expect(price.product).toBe(product.id)
+
+
+    const fetchedProduct = await retrieveProduct(product.id)
+    expect(fetchedProduct.name).toBe('Test Product')
+
+    const fetchedPrice = await retrievePrice(price.id)
+    expect(fetchedPrice.currency).toBe('usd')
+    expect(fetchedPrice.product).toBe(product.id)
+
   }, 30000)
 
 })
