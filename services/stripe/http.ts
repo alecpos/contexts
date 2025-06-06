@@ -1,4 +1,5 @@
 const { exec } = require('child_process')
+const { appendFileSync, existsSync, mkdirSync } = require('fs')
 
 const STRIPE_URL = 'https://api.stripe.com/v1'
 
@@ -6,6 +7,13 @@ interface RequestOptions {
   method?: string
   body?: URLSearchParams
   headers?: Record<string, string>
+}
+
+function logEntry(entry: any) {
+  if (!existsSync('logs')) {
+    mkdirSync('logs')
+  }
+  appendFileSync('logs/stripe.log', JSON.stringify(entry) + '\n')
 }
 
 async function fetchWithFallback(endpoint: string, options: RequestOptions = {}) {
@@ -28,7 +36,9 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
       body,
     })
     console.info('stripe response', { status: res.status })
-    return await res.json()
+    const json = await res.json()
+    logEntry({ time: new Date().toISOString(), method, url, status: res.status })
+    return json
   } catch (err) {
     console.warn('fetch failed, using curl fallback', err)
     return new Promise((resolve, reject) => {
@@ -47,7 +57,9 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
         if (error) return reject(error)
         if (stderr) console.error(stderr)
         try {
-          resolve(JSON.parse(stdout))
+          const parsed = JSON.parse(stdout)
+          logEntry({ time: new Date().toISOString(), method, url, status: 'curl' })
+          resolve(parsed)
         } catch (e) {
           reject(e)
         }

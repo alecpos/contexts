@@ -1,4 +1,5 @@
 import { createCustomer, createSetupIntent } from '../../services/stripe/http'
+import { readFileSync } from 'fs'
 
 describe('StripeProvider', () => {
   it('initializes a customer and setup intent via API', async () => {
@@ -6,6 +7,8 @@ describe('StripeProvider', () => {
     expect(customer.id).toMatch(/^cus_/)
     const intent = await createSetupIntent(customer.id)
     expect(intent.client_secret).toMatch(/^seti_/)
+    const log = readFileSync('logs/stripe.log', 'utf8')
+    expect(log).toContain('https://api.stripe.com')
   }, 30000)
 
   it('fails if STRIPE_SK is missing', async () => {
