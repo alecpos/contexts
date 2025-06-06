@@ -5,6 +5,7 @@ const STRIPE_URL = 'https://api.stripe.com/v1'
 interface RequestOptions {
   method?: string
   body?: URLSearchParams
+  headers?: Record<string, string>
 }
 
 async function fetchWithFallback(endpoint: string, options: RequestOptions = {}) {
@@ -14,23 +15,34 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
   const method = options.method || 'GET'
   const body = options.body ? options.body.toString() : undefined
 
+  console.info('stripe request', { method, url, body })
+
   try {
     const res = await fetch(url, {
       method,
       headers: {
         Authorization: `Bearer ${sk}`,
         'Content-Type': 'application/x-www-form-urlencoded',
+        ...(options.headers || {}),
       },
       body,
     })
+    console.info('stripe response', { status: res.status })
     return await res.json()
   } catch (err) {
+    console.warn('fetch failed, using curl fallback', err)
     return new Promise((resolve, reject) => {
       let cmd = `curl -s "${url}" -u ${sk}:`
       if (method !== 'GET') {
         cmd += ` -X ${method}`
         if (body) cmd += ` -d "${body}"`
       }
+      if (options.headers) {
+        for (const [k, v] of Object.entries(options.headers)) {
+          cmd += ` -H "${k}: ${v}"`
+        }
+      }
+      console.info('curl command', cmd)
       exec(cmd, (error, stdout, stderr) => {
         if (error) return reject(error)
         if (stderr) console.error(stderr)
@@ -122,4 +134,32 @@ export async function updateCustomer(
 
 export async function deleteCustomer(customerId: string) {
   return fetchWithFallback(`/customers/${customerId}`, { method: 'DELETE' })
+}
+
+export async function listPrices(limit: number = 1) {
+  return fetchWithFallback(`/prices?limit=${limit}`)
+}
+
+export async function createEphemeralKey(
+  customerId: string,
+  stripeVersion: string = '2023-10-16'
+) {
+  const body = new URLSearchParams({ customer: customerId })
+  return fetchWithFallback('/ephemeral_keys', {
+    method: 'POST',
+    body,
+    headers: { 'Stripe-Version': stripeVersion },
+  } as any)
+}
+
+export async function createSubscription(
+  customerId: string,
+  priceId: string
+) {
+  const body = new URLSearchParams({ customer: customerId, 'items[0][price]': priceId })
+  return fetchWithFallback('/subscriptions', { method: 'POST', body })
+}
+
+export async function cancelSubscription(id: string) {
+  return fetchWithFallback(`/subscriptions/${id}`, { method: 'DELETE' })
 }
