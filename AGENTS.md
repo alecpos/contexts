@@ -54,7 +54,7 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!)
+    loadStripe(process.env.STRIPE_PK!)
       .then(setStripe)
       .catch(err => {
         setError(err.message)
@@ -124,7 +124,7 @@ describe('StripeProvider', () => {
   })
 
   it('falls back gracefully on error', async () => {
-    process.env.NEXT_PUBLIC_STRIPE_KEY = 'bad-key'
+    process.env.STRIPE_PK = 'bad-key'
     render(<StripeProvider><TestChild /></StripeProvider>)
     await waitFor(() => expect(useStripe().error).not.toBeNull())
   })
@@ -192,7 +192,7 @@ When guiding an LLM:
 * Place `AGENTS.md` in all key subdirs (`providers/`, `components/`) to scope rules.
 * `.env.example` must document:
 
-  * `NEXT_PUBLIC_STRIPE_KEY`
+  * `STRIPE_PK`
   * `SUPABASE_URL`
   * `RUDDERSTACK_WRITE_KEY`
 

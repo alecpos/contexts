@@ -7,13 +7,13 @@ This guide explains how to integrate new Stripe features across the codebase and
 Create a `.env` file based on `.env.example` and provide the following keys:
 
 ```
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_TEST=<test publishable key>
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_SANDBOX=<sandbox key>
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE=<live key>
+// NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_TEST=<test publishable key>
+STRIPE_PK=<sandbox key>
+// NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE=<live key>
 STRIPE_SK=<secret key for server requests>
-NEXT_PUBLIC_SUPABASE_URL=<your Supabase URL>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<your Supabase anon key>
-RUDDERSTACK_WRITE_KEY=<analytics key>
+// NEXT_PUBLIC_SUPABASE_URL=<your Supabase URL>
+// NEXT_PUBLIC_SUPABASE_ANON_KEY=<your Supabase anon key>
+// RUDDERSTACK_WRITE_KEY=<analytics key>
 ```
 
 Use test mode keys during development. Sandbox mode can be selected by setting `STRIPE_ENVIRONMENT=sandbox`.
