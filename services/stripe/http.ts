@@ -26,9 +26,9 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
     return await res.json()
   } catch (err) {
     return new Promise((resolve, reject) => {
-      let cmd = `curl -s ${url} -u ${sk}:`
-      if (method === 'POST') {
-        cmd += ' -X POST'
+      let cmd = `curl -s "${url}" -u ${sk}:`
+      if (method !== 'GET') {
+        cmd += ` -X ${method}`
         if (body) cmd += ` -d "${body}"`
       }
       exec(cmd, (error, stdout, stderr) => {
@@ -62,13 +62,15 @@ export async function listCharges(limit: number = 1) {
 export async function createPaymentIntent(
   amount: number,
   currency: string,
-  customerId?: string
+  params: Record<string, string> = {}
 ) {
   const body = new URLSearchParams({
     amount: amount.toString(),
     currency,
   })
-  if (customerId) body.append('customer', customerId)
+  for (const [key, value] of Object.entries(params)) {
+    body.append(key, value)
+  }
   body.append('payment_method_types[]', 'card')
   return fetchWithFallback('/payment_intents', { method: 'POST', body })
 }
@@ -83,4 +85,69 @@ export async function retrieveCustomer(id: string) {
 
 export async function listCustomers(limit: number = 3) {
   return fetchWithFallback(`/customers?limit=${limit}`)
+}
+
+export async function createPaymentMethod(token: string) {
+  const body = new URLSearchParams({
+    type: 'card',
+    'card[token]': token,
+  })
+  return fetchWithFallback('/payment_methods', { method: 'POST', body })
+}
+
+export async function attachPaymentMethod(
+  paymentMethodId: string,
+  customerId: string
+) {
+  const body = new URLSearchParams({ customer: customerId })
+  return fetchWithFallback(`/payment_methods/${paymentMethodId}/attach`, {
+    method: 'POST',
+    body,
+  })
+}
+
+export async function listPaymentMethods(
+  customerId: string,
+  type: string = 'card'
+) {
+  const params = new URLSearchParams({ customer: customerId, type })
+  return fetchWithFallback(`/payment_methods?${params.toString()}`)
+}
+
+export async function updateCustomer(
+  customerId: string,
+  params: Record<string, string>
+) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/customers/${customerId}`, { method: 'POST', body })
+}
+
+export async function deleteCustomer(customerId: string) {
+  return fetchWithFallback(`/customers/${customerId}`, { method: 'DELETE' })
+}
+
+export async function listPaymentIntents(limit: number = 5) {
+  return fetchWithFallback(`/payment_intents?limit=${limit}`)
+}
+
+export async function retrieveSetupIntent(id: string) {
+  return fetchWithFallback(`/setup_intents/${id}`)
+}
+
+export async function updatePaymentIntent(
+  id: string,
+  params: Record<string, string>
+) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/payment_intents/${id}`, { method: 'POST', body })
+}
+
+export async function capturePaymentIntent(id: string) {
+  return fetchWithFallback(`/payment_intents/${id}/capture`, { method: 'POST' })
+}
+
+export async function detachPaymentMethod(paymentMethodId: string) {
+  return fetchWithFallback(`/payment_methods/${paymentMethodId}/detach`, {
+    method: 'POST',
+  })
 }
