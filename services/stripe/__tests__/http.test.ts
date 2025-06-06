@@ -10,7 +10,9 @@ import {
   attachPaymentMethod,
   listPaymentMethods,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
+  createEphemeralKey,
+  listPrices
 } from '../http'
 
 describe('stripe http api', () => {
@@ -56,4 +58,11 @@ describe('stripe http api', () => {
     const deleted = await deleteCustomer(customer.id)
     expect(deleted.deleted).toBe(true)
   }, 30000)
+
+  it('creates an ephemeral key', async () => {
+    const customer = await createCustomer()
+    const key = await createEphemeralKey(customer.id)
+    expect(key.secret).toBeDefined()
+  }, 30000)
+
 })
