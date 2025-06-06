@@ -140,6 +140,32 @@ export async function listPrices(limit: number = 1) {
   return fetchWithFallback(`/prices?limit=${limit}`)
 }
 
+export async function createProduct(name: string) {
+  const body = new URLSearchParams({ name })
+  return fetchWithFallback('/products', { method: 'POST', body })
+}
+
+export async function createPrice(
+  unitAmount: number,
+  currency: string,
+  productId: string
+) {
+  const body = new URLSearchParams({
+    unit_amount: unitAmount.toString(),
+    currency,
+    product: productId,
+  })
+  return fetchWithFallback('/prices', { method: 'POST', body })
+}
+
+export async function retrieveProduct(productId: string) {
+  return fetchWithFallback(`/products/${productId}`)
+}
+
+export async function retrievePrice(priceId: string) {
+  return fetchWithFallback(`/prices/${priceId}`)
+}
+
 export async function createEphemeralKey(
   customerId: string,
   stripeVersion: string = '2023-10-16'
