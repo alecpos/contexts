@@ -50,3 +50,16 @@ export default function Example() {
     return <button onClick={loadProfile}>Load Profile</button>;
 }
 ```
+
+## Testing
+
+Unit tests use **Jest** with **ts-jest** so TypeScript sources compile during the
+test run. Install dependencies and execute the test suite with npm:
+
+```bash
+npm install
+npm test
+```
+
+The provided configuration uses a lightweight `tsconfig.json` along with a
+`jest` preset defined in `package.json`.
