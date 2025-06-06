@@ -1,80 +1,59 @@
 # Stripe Integration Guide
 
-This guide explains how to integrate new Stripe features across the codebase and how to test order flows using the existing provider pattern.
+This guide explains how to integrate new Stripe features using the `StripeProvider` and plain HTTP requests.
 
 ## Environment Setup
 
-Create a `.env` file based on `.env.example` and provide the following keys:
+Create a `.env` file based on `.env.example` and set the following keys:
 
-```
-// NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_TEST=<test publishable key>
-STRIPE_PK=<sandbox key>
-// NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE=<live key>
-STRIPE_SK=<secret key for server requests>
-// NEXT_PUBLIC_SUPABASE_URL=<your Supabase URL>
-// NEXT_PUBLIC_SUPABASE_ANON_KEY=<your Supabase anon key>
-// RUDDERSTACK_WRITE_KEY=<analytics key>
+```env
+STRIPE_PK=<publishable key>
+STRIPE_SK=<secret key>
 ```
 
-Use test mode keys during development. Sandbox mode can be selected by setting `STRIPE_ENVIRONMENT=sandbox`.
+Use test mode keys during development.
 
 ## Provider Workflow
 
-All Stripe logic is isolated in `StripeProvider`. Wrap your application with this provider and access functions through `useStripeContext()`:
+All Stripe logic is isolated in `StripeProvider`. Wrap your application with this provider and access values through `useStripe()`:
 
 ```tsx
-import { StripeProvider, useStripeContext } from './providers/StripeProvider';
+import { StripeProvider, useStripe } from './providers/StripeProvider'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <StripeProvider>{children}</StripeProvider>;
+  return <StripeProvider>{children}</StripeProvider>
 }
 ```
 
-The context exposes helper functions for creating setup intents, updating payment methods and starting checkout sessions. When `NODE_ENV` is not `production` the context also provides `simulateWebhookEvent` for local testing.
+The provider creates a customer and setup intent on mount using `fetch`/`curl` to Stripe's API. The resulting `customerId` and `clientSecret` are exposed via the context.
 
-## Order Flow Example
-
-To begin a payment flow from a component:
+## Example Usage
 
 ```tsx
-'use client';
-import { useStripeContext } from '@/app/providers/StripeProvider';
+'use client'
+import { useStripe } from '@/app/providers/StripeProvider'
 
 export default function CheckoutButton() {
-  const { startCheckoutSession } = useStripeContext();
+  const { clientSecret, customerId } = useStripe()
 
-  const handleClick = async () => {
-    await startCheckoutSession({
-      priceId: 'price_basic',
-      quantity: 1,
-      successUrl: 'https://example.com/success',
-      cancelUrl: 'https://example.com/cancel'
-    });
-  };
+  useEffect(() => {
+    if (!clientSecret) return
+    fetch('/api/charge', {
+      method: 'POST',
+      body: JSON.stringify({ customerId, clientSecret }),
+    })
+  }, [clientSecret])
 
-  return <button onClick={handleClick}>Pay</button>;
+  return <button>Pay</button>
 }
 ```
-
-On the server, `createCheckoutSessionServer` in `services/stripe/checkoutSession.ts` uses `stripe.checkout.sessions.create` to generate the session. The provider then redirects the customer using `stripe.redirectToCheckout`.
-
-### Simulating Webhooks
-
-When testing locally you can call `simulateWebhookEvent` to hit `/api/stripe/webhook/simulate` with custom event data:
-
-```ts
-await simulateWebhookEvent('invoice.paid', { id: 'in_123' });
-```
-
-This method is undefined in production builds to prevent accidental calls.
 
 ## Running Tests
 
-Use Jest to execute the suite:
+Execute Jest to validate that the provider creates real Stripe objects:
 
-```
+```bash
 npm test
 ```
 
-Tests reside under `providers/__tests__/` and mock external calls. They cover environment configuration, API failures and webhook simulation. Add new tests whenever you extend the provider so flows remain reliable.
-
+Tests live under `providers/__tests__/` and hit the Stripe API using curl.
