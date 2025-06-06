@@ -38,5 +38,6 @@ export default function PaymentButton({ customerId }: { customerId: string }) {
 - `createSetupIntentForCustomer(customerId)` – create a Setup Intent for a Stripe customer.
 - `updateCustomerDefaultPaymentMethod(customerId)` – update a customer's default payment method via `/api/stripe/payment-method/default`.
 - `updateSubscriptionPaymentMethod(customerId, subscriptionId)` – update a subscription's payment method via `/api/stripe/payment-method/subscription`.
+- `startCheckoutSession(options)` – create a Checkout Session on your server and redirect the customer using `stripe.redirectToCheckout`.
 
 Wrap your application with `StripeProvider` to ensure Stripe is loaded before any payment interactions.
