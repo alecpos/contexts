@@ -1,0 +1,14 @@
+{"time":"2025-06-06T12:26:30.982Z","method":"POST","url":"https://api.stripe.com/v1/payment_intents","status":"curl"}
+{"time":"2025-06-06T12:26:31.020Z","method":"POST","url":"https://api.stripe.com/v1/customers","status":"curl"}
+{"time":"2025-06-06T12:26:31.284Z","method":"GET","url":"https://api.stripe.com/v1/payment_intents/pi_3RWzLuD35SV3N8Kj1MWRQFyK","status":"curl"}
+{"time":"2025-06-06T12:26:31.289Z","method":"POST","url":"https://api.stripe.com/v1/setup_intents","status":"curl"}
+{"time":"2025-06-06T12:26:31.638Z","method":"POST","url":"https://api.stripe.com/v1/customers","status":"curl"}
+{"time":"2025-06-06T12:26:31.856Z","method":"GET","url":"https://api.stripe.com/v1/customers/cus_SRt8wLlO8i7Oyf","status":"curl"}
+{"time":"2025-06-06T12:26:32.069Z","method":"GET","url":"https://api.stripe.com/v1/customers?limit=1","status":"curl"}
+{"time":"2025-06-06T12:26:32.344Z","method":"GET","url":"https://api.stripe.com/v1/charges?limit=1","status":"curl"}
+{"time":"2025-06-06T12:26:32.744Z","method":"POST","url":"https://api.stripe.com/v1/customers","status":"curl"}
+{"time":"2025-06-06T12:26:33.015Z","method":"POST","url":"https://api.stripe.com/v1/payment_methods","status":"curl"}
+{"time":"2025-06-06T12:26:33.561Z","method":"POST","url":"https://api.stripe.com/v1/payment_methods/pm_1RWzLwD35SV3N8KjiEye3Y2t/attach","status":"curl"}
+{"time":"2025-06-06T12:26:33.892Z","method":"GET","url":"https://api.stripe.com/v1/payment_methods?customer=cus_SRt8OihA6qgrVQ&type=card","status":"curl"}
+{"time":"2025-06-06T12:26:34.325Z","method":"POST","url":"https://api.stripe.com/v1/customers","status":"curl"}
+{"time":"2025-06-06T12:26:34.703Z","method":"POST","url":"https://api.stripe.com/v1/customers/cus_SRt8Uj80oKsayr","status":"curl"}
