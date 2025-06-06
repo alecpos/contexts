@@ -54,13 +54,25 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
       }
       console.info('curl command', cmd)
       exec(cmd, (error, stdout, stderr) => {
-        if (error) return reject(error)
-        if (stderr) console.error(stderr)
+        if (error) {
+          console.error('curl error:', error)
+          return reject(error)
+        }
+        if (stderr) {
+          console.error('curl stderr:', stderr)
+        }
+        if (!stdout) {
+          console.error('curl returned empty response')
+          return reject(new Error('Empty response from curl'))
+        }
         try {
+          console.info('curl response:', stdout)
           const parsed = JSON.parse(stdout)
-          logEntry({ time: new Date().toISOString(), method, url, status: 'curl' })
+          logEntry({ time: new Date().toISOString(), method, url, status: 'curl', response: parsed })
           resolve(parsed)
         } catch (e) {
+          console.error('Failed to parse curl response:', e)
+          console.error('Raw response:', stdout)
           reject(e)
         }
       })
@@ -174,8 +186,6 @@ export async function createPrice(
   return fetchWithFallback('/prices', { method: 'POST', body })
 }
 
-
-
 export async function retrieveProduct(productId: string) {
   return fetchWithFallback(`/products/${productId}`)
 }
@@ -183,7 +193,6 @@ export async function retrieveProduct(productId: string) {
 export async function retrievePrice(priceId: string) {
   return fetchWithFallback(`/prices/${priceId}`)
 }
-
 
 export async function createEphemeralKey(
   customerId: string,
