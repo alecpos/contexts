@@ -51,6 +51,27 @@ export default function Example() {
 }
 ```
 
+## SetupIntent Example
+
+Use the `stripe` library with your secret key stored in `STRIPE_SK` to create a
+SetupIntent for an existing customer. The publishable key can be accessed via
+`STRIPE_PK` on the client if needed.
+
+```ts
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SK as string, {
+    apiVersion: '2022-11-15',
+});
+
+export async function createSetupIntent(customerId: string) {
+    return stripe.setupIntents.create({
+        usage: 'off_session',
+        customer: customerId,
+    });
+}
+```
+
 ## Testing
 
 Unit tests use **Jest** with **ts-jest** so TypeScript sources compile during the
