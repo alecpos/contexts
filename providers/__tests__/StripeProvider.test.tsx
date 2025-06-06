@@ -363,3 +363,35 @@ it('throws when updating subscription payment method fails', async () => {
         result.current.updateSubscriptionPaymentMethod('cus_1', 'sub_1'),
     ).rejects.toThrow('sub api fail');
 });
+
+it('does not expose webhook simulation in production', async () => {
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'production';
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <StripeProvider>{children}</StripeProvider>
+    );
+    const { result } = renderHook(() => useStripeContext(), { wrapper });
+
+    await act(async () => {
+        await Promise.resolve();
+    });
+
+    expect(result.current.simulateWebhookEvent).toBeUndefined();
+    process.env.NODE_ENV = originalEnv;
+});
+
+it('throws if checkout is triggered before Stripe initializes', async () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <StripeProvider>{children}</StripeProvider>
+    );
+    const { result } = renderHook(() => useStripeContext(), { wrapper });
+
+    await expect(
+        result.current.startCheckoutSession({
+            priceId: 'price_1',
+            quantity: 1,
+            successUrl: 's',
+            cancelUrl: 'c',
+        }),
+    ).rejects.toThrow('Stripe has not been initialized');
+});
