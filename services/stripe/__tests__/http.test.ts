@@ -6,6 +6,7 @@ import {
   retrieveCustomer,
   listCustomers,
   listCharges,
+  listPaymentIntents,
   createPaymentMethod,
   attachPaymentMethod,
   listPaymentMethods,
@@ -42,6 +43,14 @@ describe('stripe http api', () => {
   it('lists charges', async () => {
     const charges = await listCharges(1)
     expect(Array.isArray(charges.data)).toBe(true)
+  }, 30000)
+
+  it('lists payment intents', async () => {
+    const pi = await createPaymentIntent(100, 'usd')
+    const list = await listPaymentIntents(3)
+    expect(Array.isArray(list.data)).toBe(true)
+    const found = list.data.find((p: any) => p.id === pi.id)
+    expect(found).toBeTruthy()
   }, 30000)
 
   it('creates and attaches a payment method', async () => {

@@ -109,6 +109,10 @@ export async function listCustomers(limit: number = 3) {
   return fetchWithFallback(`/customers?limit=${limit}`)
 }
 
+export async function listPaymentIntents(limit: number = 5) {
+  return fetchWithFallback(`/payment_intents?limit=${limit}`)
+}
+
 export async function createPaymentMethod(token: string) {
   const body = new URLSearchParams({
     type: 'card',
