@@ -158,6 +158,8 @@ export async function createPrice(
   return fetchWithFallback('/prices', { method: 'POST', body })
 }
 
+
+
 export async function retrieveProduct(productId: string) {
   return fetchWithFallback(`/products/${productId}`)
 }
@@ -165,6 +167,7 @@ export async function retrieveProduct(productId: string) {
 export async function retrievePrice(priceId: string) {
   return fetchWithFallback(`/prices/${priceId}`)
 }
+
 
 export async function createEphemeralKey(
   customerId: string,
