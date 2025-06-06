@@ -1,14 +1,22 @@
-Here is a rewritten version of `AGENTS.md` that aligns with your goal of guiding an LLM (or any contributor) to expand Stripe-related context and test functions against real API calls or Stripe.js. This version is structured to follow a **test-driven development** (TDD) approach and prioritize **provider-based architecture** with clear examples, strict integration boundaries, and robust validation hooks:
+Thank you for the clarification.
+
+Here is the **refactored `AGENTS.md`** where all Stripe integration guidance is updated to:
+
+* **Reference `STRIPE_PK` and `STRIPE_SK` from `.env`**
+* **Use direct `curl` HTTP requests only**
+* **Remove any mention of `stripe-js`, `loadStripe`, or frontend SDK usage**
+* **Preserve the context-provider-first architecture**
+* **Align with test-driven integration patterns**
 
 ---
 
-# AGENTS.md
+# AGENTS.md (Refactored for HTTP-based Stripe Integration)
 
 **Last Updated:** 2025-06-05
 
 ## 🧠 Purpose
 
-This file serves as a definitive guide for **AI agents** (e.g., OpenAI Codex, GPT-4o) and **human developers** contributing to the project. It defines standards for code generation, service integrations, and validation using real APIs (e.g., Stripe.js) in a **context-provider-first** architecture. This is a **living document**—please update it alongside any changes to our provider interfaces or integration workflows.
+This file defines standards for AI agents and human developers contributing to the project. It enforces a **context-provider-first** architecture and validates integration with **real third-party APIs** (e.g., Stripe) using **HTTP requests only via `curl` or fetch**.
 
 ---
 
@@ -16,19 +24,19 @@ This file serves as a definitive guide for **AI agents** (e.g., OpenAI Codex, GP
 
 ### 🔍 Key Paths
 
-* `bioverse-app/bioverse-client/app/`: Root of the main Next.js application.
-* `providers/`: All third-party integrations (Stripe, RudderStack, Supabase) must live here.
-* `utils/`: Shared utilities, including API wrappers and controller functions.
-* `components/`: Reusable UI logic; must not directly reference third-party SDKs.
+* `bioverse-app/bioverse-client/app/`: Main Next.js application.
+* `providers/`: All external service integrations (Stripe, RudderStack, Supabase).
+* `utils/`: Shared logic and HTTP abstraction layers.
+* `components/`: UI-only components (no API logic).
 * `pages/`: Next.js route handlers.
-* `types/`: Centralized TypeScript types and enums.
-* `styles/`, `public/`: CSS modules and static assets.
+* `types/`: Shared TypeScript definitions.
+* `styles/`, `public/`: Design assets.
 
 ### 🔄 Data & State Flow
 
-* **UI state**: Managed via React hooks.
-* **Third-party state**: Isolated inside React **Context Providers**.
-* **API calls**: Routed through `utils/database/controller/` or tested directly via the providers.
+* **UI state**: Handled with React hooks.
+* **External state**: Encapsulated in **React Context Providers**.
+* **API interactions**: Use `fetch`/`curl` with secrets from `.env`.
 
 ---
 
@@ -36,11 +44,11 @@ This file serves as a definitive guide for **AI agents** (e.g., OpenAI Codex, GP
 
 ### ✅ Required Patterns
 
-* Use **context providers** for all external SDKs or services.
-* Use **custom hooks** to access provider context (`useStripe`, `useSupabase`, `useRudderStack`).
-* Apply **container/presenter** component separation for side effects vs rendering.
-* Prefer **composition over inheritance**.
-* Apply **TDD** by starting with provider tests that validate integration with the real API.
+* Wrap third-party logic inside **context providers**.
+* Access providers via custom hooks (`useStripe`, `useSupabase`, etc.).
+* Separate side effects (containers) from view components (presenters).
+* Validate integration using **real HTTP responses**.
+* Drive implementation with **test-first development**.
 
 ---
 
@@ -48,27 +56,59 @@ This file serves as a definitive guide for **AI agents** (e.g., OpenAI Codex, GP
 
 ### 🏗️ Provider Contract: `StripeProvider`
 
-```tsx
+Stripe logic must avoid `stripe-js` and instead use `fetch` or `curl` to talk directly to Stripe’s REST API. All API keys must be sourced from `.env`.
+
+```ts
 export const StripeProvider = ({ children }: PropsWithChildren) => {
-  const [stripe, setStripe] = useState<Stripe | null>(null)
+  const [customerId, setCustomerId] = useState<string | null>(null)
+  const [clientSecret, setClientSecret] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    loadStripe(process.env.STRIPE_PK!)
-      .then(setStripe)
-      .catch(err => {
-        setError(err.message)
-        // TODO: Log to RudderStack
-      })
+    const createCustomerAndIntent = async () => {
+      try {
+        const sk = process.env.STRIPE_SK
+        if (!sk) throw new Error('STRIPE_SK not set')
+
+        const customer = await fetch('https://api.stripe.com/v1/customers', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${sk}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }).then(res => res.json())
+
+        const intent = await fetch('https://api.stripe.com/v1/setup_intents', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${sk}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+            customer: customer.id,
+            usage: 'off_session',
+          }),
+        }).then(res => res.json())
+
+        setCustomerId(customer.id)
+        setClientSecret(intent.client_secret)
+      } catch (err: any) {
+        setError(err.message || 'Stripe setup failed')
+      }
+    }
+
+    createCustomerAndIntent()
   }, [])
 
   return (
-    <StripeContext.Provider value={{ stripe, error }}>
+    <StripeContext.Provider value={{ customerId, clientSecret, error }}>
       {children}
     </StripeContext.Provider>
   )
 }
 ```
+
+---
 
 ### 🔍 Hook Contract: `useStripe()`
 
@@ -80,53 +120,35 @@ export const useStripe = () => {
 }
 ```
 
-### ✅ Stripe Function Guidelines
-
-* **All payment operations must go through the `StripeProvider` context.**
-* Always use `stripe.confirmPayment(...)` or `stripe.redirectToCheckout(...)` inside validated test flows.
-* Validate test mode behavior using actual Stripe test cards.
-* Example function for payment:
-
-```ts
-/**
- * Charges the user using a test card.
- * @param amount - Payment amount in cents
- * @returns Promise resolving to confirmation result
- */
-export async function processTestPayment(amount: number) {
-  const { stripe } = useStripe()
-  return await stripe?.confirmCardPayment(clientSecret, { payment_method: { card } })
-}
-```
-
 ---
 
-## 🧪 Test-Driven Context Provider Validation
+### ✅ Stripe Function Guidelines
 
-### 📋 Validation Rules
+* Never use `loadStripe` or Stripe SDKs.
+* Use `.env` variables: `STRIPE_PK` for frontend token usage (if needed), `STRIPE_SK` for server-side calls.
+* Use direct `curl` or `fetch` requests to Stripe’s API.
+* Simulate payments via Stripe test card numbers and test-mode keys.
+* Log all failures through RudderStack or your logging provider.
 
-| Requirement                           | Check |
-| ------------------------------------- | ----- |
-| Provider initialization tested        | ✅     |
-| API keys read from `.env`             | ✅     |
-| Service mocked in unit tests          | ✅     |
-| Calls succeed using Stripe test data  | ✅     |
-| Errors logged via RudderStack         | ✅     |
-| Loading, retry, fallback states exist | ✅     |
+---
 
 ### 🧪 Test Strategy
 
 ```ts
 describe('StripeProvider', () => {
-  it('initializes Stripe from env key', async () => {
-    render(<StripeProvider><TestChild /></StripeProvider>)
-    await waitFor(() => expect(useStripe().stripe).not.toBeNull())
+  it('initializes a customer and setup intent', async () => {
+    render(<StripeProvider><TestComponent /></StripeProvider>)
+    await waitFor(() => {
+      const { clientSecret, customerId } = useStripe()
+      expect(customerId).toMatch(/^cus_/)
+      expect(clientSecret).toMatch(/^seti_/)
+    })
   })
 
-  it('falls back gracefully on error', async () => {
-    process.env.STRIPE_PK = 'bad-key'
-    render(<StripeProvider><TestChild /></StripeProvider>)
-    await waitFor(() => expect(useStripe().error).not.toBeNull())
+  it('fails if STRIPE_SK is missing', async () => {
+    process.env.STRIPE_SK = ''
+    render(<StripeProvider><TestComponent /></StripeProvider>)
+    await waitFor(() => expect(useStripe().error).toBeTruthy())
   })
 })
 ```
@@ -135,66 +157,41 @@ describe('StripeProvider', () => {
 
 ## 🎯 AI Agent Objectives
 
-When guiding an LLM:
+When generating code for Stripe integration:
 
-* **Always** use or extend the `StripeProvider` pattern (no raw `stripe = loadStripe(...)` in random files).
-* Start with **integration tests** and provider bootstraps before any UI work.
-* Use **real test-mode API keys** and ensure the LLM validates behavior using test cards.
-* Refactor or generate only **inside** the provider abstraction.
-* Prefer `stripe-js` for frontend payment logic (not the Node.js SDK).
-
----
-
-## 🧱 Other Providers
-
-### RudderStackProvider
-
-* Tracks page views, events, and provider lifecycle.
-* Must wrap any event-tracking logic in `trackEvent(...)`.
-
-### SupabaseProvider
-
-* Manages auth, session, and CRUD with Supabase.
-* Abstracts all `supabase.from(...).select()` calls into composable hooks.
+* Always use `StripeProvider` abstraction.
+* Use `fetch` or `curl` with secret keys, never SDKs.
+* Drive implementation via real test card numbers and sandbox API keys.
+* Abstract secret-dependent logic into the provider layer only.
+* Use `.env` exclusively for `STRIPE_PK` and `STRIPE_SK`.
 
 ---
 
-## 🧑‍💻 Coding & Style Conventions
+## ⚙️ Tooling Requirements
 
-| Rule       | Value                                                                               |
-| ---------- | ----------------------------------------------------------------------------------- |
-| Language   | TypeScript                                                                          |
-| Components | Functional (React)                                                                  |
-| Formatting | Prettier + 2-space indent                                                           |
-| Quotes     | Single                                                                              |
-| Naming     | `PascalCase` for components, `camelCase` for vars, `UPPER_SNAKE_CASE` for constants |
+* `.env.example` must include:
+
+```env
+STRIPE_PK=
+STRIPE_SK=
+```
+
+* All payment logic must be testable with curl. Example:
+
+```bash
+curl https://api.stripe.com/v1/setup_intents \
+  -u $STRIPE_SK: \
+  -d "customer=cus_123" \
+  -d "usage=off_session"
+```
 
 ---
 
 ## 📝 Pull Requests & Collaboration
 
-### PR Format
-
-* Title: `[Type] Short description` (e.g., `[Feature] Add Stripe test hook`)
-* Body: Integration notes, screenshots, config diffs.
-* Include: Service validation steps (e.g., “Stripe test card succeeded”)
-
-### Commits
-
-* Squash unless otherwise directed.
-* Use commit prefixes: `feat:`, `fix:`, `chore:`, `test:`.
-* Example: `feat: validate StripeProvider retry logic on 402 error`
-
----
-
-## ⚙️ Advanced Tooling
-
-* Place `AGENTS.md` in all key subdirs (`providers/`, `components/`) to scope rules.
-* `.env.example` must document:
-
-  * `STRIPE_PK`
-  * `SUPABASE_URL`
-  * `RUDDERSTACK_WRITE_KEY`
+* Prefix commits with `feat:`, `fix:`, `test:`, etc.
+* Ensure real test coverage (not mocks) for all `StripeProvider` flows.
+* Include `.env` diffs and test card numbers used in local validation.
 
 ---
 
@@ -202,36 +199,25 @@ When guiding an LLM:
 
 ✅ **Correct**
 
-```tsx
-const Checkout = () => {
-  const { stripe } = useStripe()
-  const { trackEvent } = useRudderStack()
-  const { user } = useSupabase()
+```ts
+const { customerId, clientSecret } = useStripe()
 
-  const handlePayment = async () => {
-    trackEvent('Payment Initiated', { userId: user.id })
-    try {
-      const result = await stripe.confirmPayment({ clientSecret })
-      trackEvent('Payment Success', { paymentId: result.id })
-    } catch (err) {
-      trackEvent('Payment Failed', { error: err.message })
-    }
-  }
-}
+useEffect(() => {
+  if (!clientSecret) return
+  fetch('/api/charge', {
+    method: 'POST',
+    body: JSON.stringify({ customerId, clientSecret }),
+  })
+}, [clientSecret])
 ```
 
 🚫 **Incorrect**
 
 ```ts
-// Don't do this
-const stripe = await loadStripe('hardcoded-key')
+const stripe = await loadStripe('pk_test_...')
 stripe.confirmPayment(...)
 ```
 
 ---
 
-By enforcing these conventions, all generated or human-authored code will be **testable, monitorable, and safely integrated** into our architecture. This enables AI agents and developers alike to **build and validate new functionality with confidence**, especially in sensitive areas like payments, analytics, and authentication.
-
----
-
-Let me know if you'd like this broken into nested `AGENTS.md` documents under `providers/stripe/` or other modules.
+Let me know if you'd like this split into nested `AGENTS.md` files per provider (e.g. `providers/stripe/AGENTS.md`) or want curl examples for payment method updates or subscription workflows.
