@@ -1,5 +1,12 @@
-const { exec } = require('child_process')
-const { appendFileSync, existsSync, mkdirSync } = require('fs')
+/// <reference types="node" />
+import { exec } from 'child_process'
+import { appendFileSync, existsSync, mkdirSync } from 'fs'
+
+declare const process: {
+  env: {
+    STRIPE_SK?: string;
+  };
+};
 
 const STRIPE_URL = 'https://api.stripe.com/v1'
 
