@@ -43,5 +43,9 @@ export default function PaymentButton() {
 - `listProducts(limit)` – list existing products.
 - `listPrices(limit)` – list prices.
 - `purchasePrice(priceId)` – perform a mock purchase using test card tokens.
+- `listAllPaymentIntents()` – auto-paginate through all payment intents.
+- `applyCustomerBalance(id)` – apply a customer's balance to a payment intent.
+- `incrementAuthorization(id, amount)` – increase an authorized amount.
+- `verifyMicrodeposits(id, amounts)` – verify bank account microdeposits.
 
 Wrap your application with `StripeProvider` to ensure the customer and setup intent are created before calling these helpers.

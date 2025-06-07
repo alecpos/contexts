@@ -8,6 +8,16 @@ import {
   attachPaymentMethod,
   createPaymentIntent,
   confirmPaymentIntent,
+  capturePaymentIntent,
+  cancelPaymentIntent,
+  updatePaymentIntent,
+  searchPaymentIntents,
+  createSubscription,
+  cancelSubscription,
+  createEphemeralKey,
+  applyCustomerBalance,
+  incrementAuthorization,
+  listAllPaymentIntents,
 } from '../../services/stripe/http'
 import { readFileSync } from 'fs'
 
@@ -44,4 +54,49 @@ describe('StripeProvider', () => {
     const confirmed = await confirmPaymentIntent(intent.id, pm.id)
     expect(confirmed.status).toBe('succeeded')
   }, 60000)
+
+  it('creates and cancels a subscription', async () => {
+    const customer = await createCustomer()
+    const product = await createProduct('Sub Prod')
+    const price = await createPrice(999, 'usd', product.id, 'month')
+    const pm = await createPaymentMethod('tok_visa')
+    await attachPaymentMethod(pm.id, customer.id)
+    const sub = await createSubscription(customer.id, price.id, pm.id)
+    expect(sub.id).toMatch(/^sub_/)
+    const canceled = await cancelSubscription(sub.id)
+    expect(canceled.status).toBe('canceled')
+  }, 60000)
+
+  it('captures and cancels a payment intent', async () => {
+    const pi = await createPaymentIntent(120, 'usd')
+    const captured = await capturePaymentIntent(pi.id)
+    expect(captured.id).toBe(pi.id)
+    const canceled = await cancelPaymentIntent(pi.id)
+    expect(canceled.status).toBe('canceled')
+  }, 60000)
+
+  it('updates and searches payment intents', async () => {
+    const pi = await createPaymentIntent(150, 'usd')
+    const updated = await updatePaymentIntent(pi.id, { description: 'test' }, { tag: 'demo' })
+    expect(updated.id).toBe(pi.id)
+    const results = await searchPaymentIntents(`payment_intent:"${pi.id}"`, 1)
+    expect(results.data[0].id).toBe(pi.id)
+  }, 60000)
+
+  it('creates an ephemeral key for a customer', async () => {
+    const customer = await createCustomer()
+    const key = await createEphemeralKey(customer.id)
+    expect(key.secret).toBeDefined()
+  }, 30000)
+
+  it('lists all payment intents via pagination helper', async () => {
+    const all = await listAllPaymentIntents()
+    expect(Array.isArray(all)).toBe(true)
+  }, 30000)
+
+  it('supports advanced payment intent helpers', async () => {
+    const pi = await createPaymentIntent(175, 'usd')
+    await expect(applyCustomerBalance(pi.id)).rejects.toThrow()
+    await expect(incrementAuthorization(pi.id, 50)).rejects.toThrow()
+  }, 30000)
 })

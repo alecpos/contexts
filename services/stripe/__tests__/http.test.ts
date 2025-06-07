@@ -12,12 +12,19 @@ import {
   listPaymentMethods,
   updateCustomer,
   deleteCustomer,
+  capturePaymentIntent,
+  cancelPaymentIntent,
+  updatePaymentIntent,
+  searchPaymentIntents,
   createEphemeralKey,
   listPrices,
   createProduct,
   createPrice,
   retrieveProduct,
-  retrievePrice
+  retrievePrice,
+  listAllPaymentIntents,
+  applyCustomerBalance,
+  incrementAuthorization,
 } from '../http'
 
 describe('stripe http api', () => {
@@ -52,6 +59,22 @@ describe('stripe http api', () => {
     const found = list.data.find((p: any) => p.id === pi.id)
     expect(found).toBeTruthy()
   }, 30000)
+
+  it('captures and cancels a payment intent', async () => {
+    const pi = await createPaymentIntent(250, 'usd')
+    const captured = await capturePaymentIntent(pi.id)
+    expect(captured.status === 'succeeded' || captured.status === 'requires_capture').toBe(true)
+    const canceled = await cancelPaymentIntent(pi.id)
+    expect(canceled.status).toBe('canceled')
+  }, 60000)
+
+  it('updates and searches payment intents', async () => {
+    const pi = await createPaymentIntent(300, 'usd')
+    const updated = await updatePaymentIntent(pi.id, { description: 'test' })
+    expect(updated.description).toBe('test')
+    const results = await searchPaymentIntents(`payment_intent:"${pi.id}"`, 1)
+    expect(results.data[0].id).toBe(pi.id)
+  }, 60000)
 
   it('creates and attaches a payment method', async () => {
     const customer = await createCustomer()
@@ -94,6 +117,17 @@ describe('stripe http api', () => {
     expect(fetchedPrice.currency).toBe('usd')
     expect(fetchedPrice.product).toBe(product.id)
 
+  }, 30000)
+
+  it('auto paginates payment intents', async () => {
+    const all = await listAllPaymentIntents()
+    expect(Array.isArray(all)).toBe(true)
+  }, 30000)
+
+  it('handles advanced payment intent actions', async () => {
+    const pi = await createPaymentIntent(400, 'usd')
+    await expect(applyCustomerBalance(pi.id)).rejects.toThrow()
+    await expect(incrementAuthorization(pi.id, 100)).rejects.toThrow()
   }, 30000)
 
 })

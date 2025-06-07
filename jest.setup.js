@@ -16,4 +16,8 @@ const envConfig = fs.readFileSync(envPath, 'utf8')
 // Set environment variables
 Object.entries(envConfig).forEach(([key, value]) => {
   process.env[key] = value;
-}); 
+});
+
+if (typeof fetch === 'undefined') {
+  global.fetch = require('node-fetch');
+}
