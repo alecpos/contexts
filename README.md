@@ -88,3 +88,22 @@ npm test
 
 The provided configuration uses a lightweight `tsconfig.json` along with a
 `jest` preset defined in `package.json`.
+
+## Docker
+
+Build and run the container using Docker Compose:
+
+```bash
+docker compose build
+docker compose run --rm app
+```
+
+Set environment variables for your credentials in a `.env` file or export them before running:
+
+```bash
+STRIPE_SK=sk_test_...
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your-service-key
+```
+
+The container installs dependencies and executes `npm test` by default.
