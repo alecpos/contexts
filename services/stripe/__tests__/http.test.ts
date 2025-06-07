@@ -29,16 +29,24 @@ import {
 
 describe('stripe http api', () => {
   it('creates and retrieves a payment intent', async () => {
-    const pi = await createPaymentIntent(200, 'usd')
+    const customer = await createCustomer({ test: 'pi' })
+    const pi = await createPaymentIntent(200, 'usd', customer.id, { order: '123' }, ['customer'])
     expect(pi.id).toMatch(/^pi_/)
-    const fetched = await retrievePaymentIntent(pi.id)
+    expect(pi.metadata.order).toBe('123')
+    expect(typeof pi.customer).toBe('object')
+    const fetched = await retrievePaymentIntent(pi.id, ['customer'])
     expect(fetched.id).toBe(pi.id)
+    expect(fetched.metadata.order).toBe('123')
+    expect(fetched.customer.id).toBe(customer.id)
   }, 30000)
 
   it('creates and retrieves a customer', async () => {
-    const customer = await createCustomer()
-    const retrieved = await retrieveCustomer(customer.id)
+    const customer = await createCustomer({ tier: 'gold' })
+    expect(customer.metadata.tier).toBe('gold')
+    const retrieved = await retrieveCustomer(customer.id, ['tax_ids'])
     expect(retrieved.id).toBe(customer.id)
+    expect(retrieved.metadata.tier).toBe('gold')
+    expect(retrieved.tax_ids).toBeDefined()
   }, 30000)
 
   it('lists customers', async () => {
