@@ -18,6 +18,7 @@ import {
   applyCustomerBalance,
   incrementAuthorization,
   listAllPaymentIntents,
+  listAllCharges,
 } from '../../services/stripe/http'
 import { readFileSync } from 'fs'
 
@@ -106,4 +107,19 @@ describe('StripeProvider', () => {
     await expect(applyCustomerBalance(pi.id)).rejects.toThrow()
     await expect(incrementAuthorization(pi.id, 50)).rejects.toThrow()
   }, 30000)
+
+  it('auto-paginates charges', async () => {
+    const all = await listAllCharges(5)
+    expect(Array.isArray(all)).toBe(true)
+  }, 60000)
+
+  it('throws when using test key in production', async () => {
+    const origEnv = process.env.NODE_ENV
+    const origKey = process.env.STRIPE_SK
+    process.env.NODE_ENV = 'production'
+    process.env.STRIPE_SK = 'sk_test_bad'
+    await expect(createCustomer()).rejects.toThrow('STRIPE_SK must be a live key in production')
+    process.env.NODE_ENV = origEnv
+    process.env.STRIPE_SK = origKey
+  })
 })
