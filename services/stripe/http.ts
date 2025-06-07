@@ -371,3 +371,281 @@ export async function verifyMicrodeposits(
 export async function listAllPaymentIntents() {
   return autoPaginate('/payment_intents')
 }
+
+export async function retrieveSetupIntent(id: string) {
+  return fetchWithFallback(`/setup_intents/${id}`)
+}
+
+export async function confirmSetupIntent(id: string, params: Record<string, string> = {}) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/setup_intents/${id}/confirm`, { method: 'POST', body })
+}
+
+export async function cancelSetupIntent(id: string) {
+  return fetchWithFallback(`/setup_intents/${id}/cancel`, { method: 'POST' })
+}
+
+export async function listSetupIntents(limit: number = 10) {
+  return fetchWithFallback(`/setup_intents?limit=${limit}`)
+}
+
+export async function retrieveSubscription(id: string) {
+  return fetchWithFallback(`/subscriptions/${id}`)
+}
+
+export async function updateSubscription(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/subscriptions/${id}`, { method: 'POST', body })
+}
+
+export async function listSubscriptions(limit: number = 10) {
+  return fetchWithFallback(`/subscriptions?limit=${limit}`)
+}
+
+export async function createInvoice(params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback('/invoices', { method: 'POST', body })
+}
+
+export async function retrieveInvoice(id: string) {
+  return fetchWithFallback(`/invoices/${id}`)
+}
+
+export async function updateInvoice(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/invoices/${id}`, { method: 'POST', body })
+}
+
+export async function listInvoices(limit: number = 10) {
+  return fetchWithFallback(`/invoices?limit=${limit}`)
+}
+
+export async function deleteInvoice(id: string) {
+  return fetchWithFallback(`/invoices/${id}`, { method: 'DELETE' })
+}
+
+export async function retrievePaymentMethod(id: string) {
+  return fetchWithFallback(`/payment_methods/${id}`)
+}
+
+export async function detachPaymentMethod(id: string) {
+  return fetchWithFallback(`/payment_methods/${id}/detach`, { method: 'POST' })
+}
+
+export async function updateProduct(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/products/${id}`, { method: 'POST', body })
+}
+
+export async function deleteProduct(id: string) {
+  return fetchWithFallback(`/products/${id}`, { method: 'DELETE' })
+}
+
+export async function updatePrice(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/prices/${id}`, { method: 'POST', body })
+}
+
+export async function createCoupon(params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback('/coupons', { method: 'POST', body })
+}
+
+export async function retrieveCoupon(id: string) {
+  return fetchWithFallback(`/coupons/${id}`)
+}
+
+export async function updateCoupon(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/coupons/${id}`, { method: 'POST', body })
+}
+
+export async function listCoupons(limit: number = 10) {
+  return fetchWithFallback(`/coupons?limit=${limit}`)
+}
+
+export async function deleteCoupon(id: string) {
+  return fetchWithFallback(`/coupons/${id}`, { method: 'DELETE' })
+}
+
+export async function createPromotionCode(params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback('/promotion_codes', { method: 'POST', body })
+}
+
+export async function retrievePromotionCode(id: string) {
+  return fetchWithFallback(`/promotion_codes/${id}`)
+}
+
+export async function updatePromotionCode(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/promotion_codes/${id}`, { method: 'POST', body })
+}
+
+export async function listPromotionCodes(limit: number = 10) {
+  return fetchWithFallback(`/promotion_codes?limit=${limit}`)
+}
+
+export async function createTaxRate(params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback('/tax_rates', { method: 'POST', body })
+}
+
+export async function retrieveTaxRate(id: string) {
+  return fetchWithFallback(`/tax_rates/${id}`)
+}
+
+export async function updateTaxRate(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/tax_rates/${id}`, { method: 'POST', body })
+}
+
+export async function listTaxRates(limit: number = 10) {
+  return fetchWithFallback(`/tax_rates?limit=${limit}`)
+}
+
+export async function createWebhookEndpoint(url: string, events: string[]) {
+  const body = new URLSearchParams({ url })
+  events.forEach((e) => body.append('enabled_events[]', e))
+  return fetchWithFallback('/webhook_endpoints', { method: 'POST', body })
+}
+
+export async function retrieveWebhookEndpoint(id: string) {
+  return fetchWithFallback(`/webhook_endpoints/${id}`)
+}
+
+export async function updateWebhookEndpoint(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/webhook_endpoints/${id}`, { method: 'POST', body })
+}
+
+export async function listWebhookEndpoints(limit: number = 10) {
+  return fetchWithFallback(`/webhook_endpoints?limit=${limit}`)
+}
+
+export async function deleteWebhookEndpoint(id: string) {
+  return fetchWithFallback(`/webhook_endpoints/${id}`, { method: 'DELETE' })
+}
+
+export async function retrieveEvent(id: string) {
+  return fetchWithFallback(`/events/${id}`)
+}
+
+export async function listEvents(limit: number = 10) {
+  return fetchWithFallback(`/events?limit=${limit}`)
+}
+
+export async function createCharge(amount: number, currency: string, source: string) {
+  const body = new URLSearchParams({ amount: amount.toString(), currency, source })
+  return fetchWithFallback('/charges', { method: 'POST', body })
+}
+
+export async function retrieveCharge(id: string) {
+  return fetchWithFallback(`/charges/${id}`)
+}
+
+export async function updateCharge(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/charges/${id}`, { method: 'POST', body })
+}
+
+export async function createRefund(params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback('/refunds', { method: 'POST', body })
+}
+
+export async function retrieveRefund(id: string) {
+  return fetchWithFallback(`/refunds/${id}`)
+}
+
+export async function updateRefund(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/refunds/${id}`, { method: 'POST', body })
+}
+
+export async function listRefunds(limit: number = 10) {
+  return fetchWithFallback(`/refunds?limit=${limit}`)
+}
+
+export async function retrieveDispute(id: string) {
+  return fetchWithFallback(`/disputes/${id}`)
+}
+
+export async function updateDispute(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/disputes/${id}`, { method: 'POST', body })
+}
+
+export async function listDisputes(limit: number = 10) {
+  return fetchWithFallback(`/disputes?limit=${limit}`)
+}
+
+export async function createAccount(params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback('/accounts', { method: 'POST', body })
+}
+
+export async function retrieveAccount(id?: string) {
+  const path = id ? `/accounts/${id}` : '/account'
+  return fetchWithFallback(path)
+}
+
+export async function updateAccount(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/accounts/${id}`, { method: 'POST', body })
+}
+
+export async function listAccounts(limit: number = 10) {
+  return fetchWithFallback(`/accounts?limit=${limit}`)
+}
+
+export async function deleteAccount(id: string) {
+  return fetchWithFallback(`/accounts/${id}`, { method: 'DELETE' })
+}
+
+export async function retrieveApplicationFee(id: string) {
+  return fetchWithFallback(`/application_fees/${id}`)
+}
+
+export async function listApplicationFees(limit: number = 10) {
+  return fetchWithFallback(`/application_fees?limit=${limit}`)
+}
+
+export async function retrieveBalance() {
+  return fetchWithFallback('/balance')
+}
+
+export async function createPayout(params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback('/payouts', { method: 'POST', body })
+}
+
+export async function retrievePayout(id: string) {
+  return fetchWithFallback(`/payouts/${id}`)
+}
+
+export async function updatePayout(id: string, params: Record<string, string>) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/payouts/${id}`, { method: 'POST', body })
+}
+
+export async function listPayouts(limit: number = 10) {
+  return fetchWithFallback(`/payouts?limit=${limit}`)
+}
+
+export async function cancelPayout(id: string) {
+  return fetchWithFallback(`/payouts/${id}/cancel`, { method: 'POST' })
+}
+
+export async function retrieveReview(id: string) {
+  return fetchWithFallback(`/reviews/${id}`)
+}
+
+export async function approveReview(id: string) {
+  return fetchWithFallback(`/reviews/${id}/approve`, { method: 'POST' })
+}
+
+export async function listReviews(limit: number = 10) {
+  return fetchWithFallback(`/reviews?limit=${limit}`)
+}
+
