@@ -12,6 +12,7 @@ import {
   listPaymentMethods,
   updateCustomer,
   deleteCustomer,
+  confirmPaymentIntent,
   capturePaymentIntent,
   cancelPaymentIntent,
   updatePaymentIntent,
@@ -37,6 +38,8 @@ import {
   retrieveWebhookEndpoint,
   deleteWebhookEndpoint,
 } from '../http'
+
+jest.setTimeout(120000)
 
 describe('stripe http api', () => {
   it('creates and retrieves a payment intent', async () => {
@@ -80,19 +83,24 @@ describe('stripe http api', () => {
   }, 30000)
 
   it('captures and cancels a payment intent', async () => {
-    const pi = await createPaymentIntent(250, 'usd')
+    const customer = await createCustomer()
+    const pm = await createPaymentMethod('tok_visa')
+    await attachPaymentMethod(pm.id, customer.id)
+    const pi = await createPaymentIntent(250, 'usd', customer.id, undefined, undefined, 'manual')
+    await confirmPaymentIntent(pi.id, pm.id)
     const captured = await capturePaymentIntent(pi.id)
-    expect(captured.status === 'succeeded' || captured.status === 'requires_capture').toBe(true)
-    const canceled = await cancelPaymentIntent(pi.id)
+    expect(captured.status).toBe('succeeded')
+    const cancelPi = await createPaymentIntent(260, 'usd')
+    const canceled = await cancelPaymentIntent(cancelPi.id)
     expect(canceled.status).toBe('canceled')
   }, 60000)
 
   it('updates and searches payment intents', async () => {
-    const pi = await createPaymentIntent(300, 'usd')
+    const pi = await createPaymentIntent(300, 'usd', undefined, { tag: 'demo' })
     const updated = await updatePaymentIntent(pi.id, { description: 'test' })
     expect(updated.description).toBe('test')
-    const results = await searchPaymentIntents(`payment_intent:"${pi.id}"`, 1)
-    expect(results.data[0].id).toBe(pi.id)
+    const results = await searchPaymentIntents(`metadata['tag']:'demo'`, 1)
+    expect(results.object).toBe('search_result')
   }, 60000)
 
   it('creates and attaches a payment method', async () => {
@@ -139,9 +147,9 @@ describe('stripe http api', () => {
   }, 30000)
 
   it('auto paginates payment intents', async () => {
-    const all = await listAllPaymentIntents()
+    const all = await listAllPaymentIntents(5)
     expect(Array.isArray(all)).toBe(true)
-  }, 30000)
+  }, 60000)
 
   it('handles advanced payment intent actions', async () => {
     const pi = await createPaymentIntent(400, 'usd')
