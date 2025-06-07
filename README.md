@@ -7,6 +7,7 @@
 - [Stripe Integration Guide](docs/stripe-integration-guide.md)
 - [Dashboard Guide](docs/dashboard-guide.md)
 - [Stripe API Reference](docs/stripe)
+- [Stripe Request Examples](docs/stripe/examples.md)
 
 ## SupabaseProvider
 
