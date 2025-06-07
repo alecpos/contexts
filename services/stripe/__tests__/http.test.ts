@@ -25,6 +25,17 @@ import {
   listAllPaymentIntents,
   applyCustomerBalance,
   incrementAuthorization,
+  createCoupon,
+  retrieveCoupon,
+  deleteCoupon,
+  retrieveBalance,
+  listEvents,
+  createCharge,
+  createRefund,
+  retrieveRefund,
+  createWebhookEndpoint,
+  retrieveWebhookEndpoint,
+  deleteWebhookEndpoint,
 } from '../http'
 
 describe('stripe http api', () => {
@@ -136,6 +147,39 @@ describe('stripe http api', () => {
     const pi = await createPaymentIntent(400, 'usd')
     await expect(applyCustomerBalance(pi.id)).rejects.toThrow()
     await expect(incrementAuthorization(pi.id, 100)).rejects.toThrow()
+  }, 30000)
+
+  it('creates and retrieves a coupon', async () => {
+    const coupon = await createCoupon({ percent_off: '10', duration: 'once' })
+    expect(coupon.id).toBeDefined()
+    const fetched = await retrieveCoupon(coupon.id)
+    expect(fetched.id).toBe(coupon.id)
+    await deleteCoupon(coupon.id)
+  }, 30000)
+
+  it('retrieves balance and lists events', async () => {
+    const balance = await retrieveBalance()
+    expect(balance.object).toBe('balance')
+    const events = await listEvents(1)
+    expect(Array.isArray(events.data)).toBe(true)
+  }, 30000)
+
+  it('creates a charge and refund', async () => {
+    const charge = await createCharge(250, 'usd', 'tok_visa')
+    expect(charge.id).toMatch(/^ch_/)
+    const refund = await createRefund({ charge: charge.id })
+    expect(refund.charge).toBe(charge.id)
+    const fetched = await retrieveRefund(refund.id)
+    expect(fetched.id).toBe(refund.id)
+  }, 60000)
+
+  it('manages webhook endpoints', async () => {
+    const webhook = await createWebhookEndpoint('https://example.com', ['charge.succeeded'])
+    expect(webhook.id).toMatch(/^we_/)
+    const fetched = await retrieveWebhookEndpoint(webhook.id)
+    expect(fetched.id).toBe(webhook.id)
+    const del = await deleteWebhookEndpoint(webhook.id)
+    expect(del.deleted).toBe(true)
   }, 30000)
 
 })
