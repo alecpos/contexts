@@ -124,6 +124,7 @@ describe('StripeProvider', () => {
     process.env.STRIPE_SK = origKey
   })
 
+
   it('fails when StripeProvider runs on the client', async () => {
     const { StripeProvider } = await import('../StripeProvider')
     ;(global as any).window = {}
@@ -132,4 +133,5 @@ describe('StripeProvider', () => {
     ).rejects.toThrow('StripeProvider can only be used on the server')
     delete (global as any).window
   })
+
 })

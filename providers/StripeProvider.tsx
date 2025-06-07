@@ -88,6 +88,7 @@ interface StripeContextType {
 const StripeContext = createContext<StripeContextType | null>(null)
 
 export async function StripeProvider({ children }: PropsWithChildren) {
+
   if (typeof window !== 'undefined') {
     throw new Error('StripeProvider can only be used on the server')
   }
@@ -97,9 +98,12 @@ export async function StripeProvider({ children }: PropsWithChildren) {
   let error: string | null = null
 
   try {
+
     const setup = await ensureSetup()
     customerId = setup.customerId
     clientSecret = setup.clientSecret
+
+ 
   } catch (err: any) {
     error = err.message || 'Stripe setup failed'
   }
