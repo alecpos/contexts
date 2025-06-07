@@ -1,0 +1,3 @@
+[submodule "Bioverse-app"]
+	path = Bioverse-app
+	url = https://github.com/GoBioverse/Bioverse-app
