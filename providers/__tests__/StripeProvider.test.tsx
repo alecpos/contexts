@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   createCustomer,
   createSetupIntent,
@@ -122,4 +123,15 @@ describe('StripeProvider', () => {
     process.env.NODE_ENV = origEnv
     process.env.STRIPE_SK = origKey
   })
+
+
+  it('fails when StripeProvider runs on the client', async () => {
+    const { StripeProvider } = await import('../StripeProvider')
+    ;(global as any).window = {}
+    await expect(
+      StripeProvider({ children: React.createElement('div') })
+    ).rejects.toThrow('StripeProvider can only be used on the server')
+    delete (global as any).window
+  })
+
 })

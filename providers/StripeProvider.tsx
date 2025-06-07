@@ -27,6 +27,30 @@ import {
   listAllPaymentIntents as apiListAllPaymentIntents,
 } from '../services/stripe/http'
 
+interface SetupResult {
+  customerId: string
+  clientSecret: string
+}
+
+let setupPromise: Promise<SetupResult> | null = null
+
+async function ensureSetup(): Promise<SetupResult> {
+  if (!setupPromise) {
+    setupPromise = (async () => {
+      const customer = await createCustomer()
+      const intent = await createSetupIntent(customer.id)
+      return { customerId: customer.id, clientSecret: intent.client_secret }
+    })()
+    try {
+      await setupPromise
+    } catch (err) {
+      setupPromise = null
+      throw err
+    }
+  }
+  return setupPromise
+}
+
 interface StripeContextType {
   customerId: string | null
   clientSecret: string | null
@@ -64,15 +88,22 @@ interface StripeContextType {
 const StripeContext = createContext<StripeContextType | null>(null)
 
 export async function StripeProvider({ children }: PropsWithChildren) {
+
+  if (typeof window !== 'undefined') {
+    throw new Error('StripeProvider can only be used on the server')
+  }
+
   let customerId: string | null = null
   let clientSecret: string | null = null
   let error: string | null = null
 
   try {
-    const customer = await createCustomer()
-    const intent = await createSetupIntent(customer.id)
-    customerId = customer.id
-    clientSecret = intent.client_secret
+
+    const setup = await ensureSetup()
+    customerId = setup.customerId
+    clientSecret = setup.clientSecret
+
+ 
   } catch (err: any) {
     error = err.message || 'Stripe setup failed'
   }
