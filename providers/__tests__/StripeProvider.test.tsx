@@ -15,6 +15,9 @@ import {
   createSubscription,
   cancelSubscription,
   createEphemeralKey,
+  applyCustomerBalance,
+  incrementAuthorization,
+  listAllPaymentIntents,
 } from '../../services/stripe/http'
 import { readFileSync } from 'fs'
 
@@ -74,7 +77,7 @@ describe('StripeProvider', () => {
 
   it('updates and searches payment intents', async () => {
     const pi = await createPaymentIntent(150, 'usd')
-    const updated = await updatePaymentIntent(pi.id, { metadata: 'test' })
+    const updated = await updatePaymentIntent(pi.id, { description: 'test' }, { tag: 'demo' })
     expect(updated.id).toBe(pi.id)
     const results = await searchPaymentIntents(`payment_intent:"${pi.id}"`, 1)
     expect(results.data[0].id).toBe(pi.id)
@@ -84,5 +87,16 @@ describe('StripeProvider', () => {
     const customer = await createCustomer()
     const key = await createEphemeralKey(customer.id)
     expect(key.secret).toBeDefined()
+  }, 30000)
+
+  it('lists all payment intents via pagination helper', async () => {
+    const all = await listAllPaymentIntents()
+    expect(Array.isArray(all)).toBe(true)
+  }, 30000)
+
+  it('supports advanced payment intent helpers', async () => {
+    const pi = await createPaymentIntent(175, 'usd')
+    await expect(applyCustomerBalance(pi.id)).rejects.toThrow()
+    await expect(incrementAuthorization(pi.id, 50)).rejects.toThrow()
   }, 30000)
 })
