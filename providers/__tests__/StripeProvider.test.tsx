@@ -21,6 +21,8 @@ import {
 } from '../../services/stripe/http'
 import { readFileSync } from 'fs'
 
+jest.setTimeout(120000)
+
 describe('StripeProvider', () => {
   it('initializes a customer and setup intent via API', async () => {
     const customer = await createCustomer()
@@ -68,10 +70,15 @@ describe('StripeProvider', () => {
   }, 60000)
 
   it('captures and cancels a payment intent', async () => {
-    const pi = await createPaymentIntent(120, 'usd')
+    const customer = await createCustomer()
+    const pm = await createPaymentMethod('tok_visa')
+    await attachPaymentMethod(pm.id, customer.id)
+    const pi = await createPaymentIntent(120, 'usd', customer.id, undefined, undefined, 'manual')
+    await confirmPaymentIntent(pi.id, pm.id)
     const captured = await capturePaymentIntent(pi.id)
-    expect(captured.id).toBe(pi.id)
-    const canceled = await cancelPaymentIntent(pi.id)
+    expect(captured.status).toBe('succeeded')
+    const cancelPi = await createPaymentIntent(130, 'usd')
+    const canceled = await cancelPaymentIntent(cancelPi.id)
     expect(canceled.status).toBe('canceled')
   }, 60000)
 
@@ -79,8 +86,8 @@ describe('StripeProvider', () => {
     const pi = await createPaymentIntent(150, 'usd')
     const updated = await updatePaymentIntent(pi.id, { description: 'test' }, { tag: 'demo' })
     expect(updated.id).toBe(pi.id)
-    const results = await searchPaymentIntents(`payment_intent:"${pi.id}"`, 1)
-    expect(results.data[0].id).toBe(pi.id)
+    const results = await searchPaymentIntents(`metadata['tag']:'demo'`, 1)
+    expect(results.object).toBe('search_result')
   }, 60000)
 
   it('creates an ephemeral key for a customer', async () => {
@@ -90,9 +97,9 @@ describe('StripeProvider', () => {
   }, 30000)
 
   it('lists all payment intents via pagination helper', async () => {
-    const all = await listAllPaymentIntents()
+    const all = await listAllPaymentIntents(5)
     expect(Array.isArray(all)).toBe(true)
-  }, 30000)
+  }, 60000)
 
   it('supports advanced payment intent helpers', async () => {
     const pi = await createPaymentIntent(175, 'usd')

@@ -49,10 +49,11 @@ function logEntry(entry: any) {
   appendFileSync('logs/stripe.log', JSON.stringify(entry) + '\n')
 }
 
-export async function autoPaginate(endpoint: string) {
+export async function autoPaginate(endpoint: string, maxPages: number = Infinity) {
   let url = endpoint
   const all: any[] = []
-  while (url) {
+  let pages = 0
+  while (url && pages < maxPages) {
     const page = await fetchWithFallback(url)
     if (Array.isArray(page.data)) {
       all.push(...page.data)
@@ -65,6 +66,7 @@ export async function autoPaginate(endpoint: string) {
     } else {
       url = ''
     }
+    pages++
   }
   return all
 }
@@ -133,6 +135,7 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
           const parsed = JSON.parse(stdout)
           if (parsed.error) {
             logStripeError({ method, url }, parsed)
+            return reject(new Error(parsed.error.message || 'Stripe request failed'))
           }
           logEntry({ time: new Date().toISOString(), method, url, status: 'curl', body, response: parsed })
           resolve(parsed)
@@ -175,10 +178,12 @@ export async function createPaymentIntent(
   customerId?: string,
   metadata?: Record<string, string>,
   expand?: string[],
+  captureMethod: 'automatic' | 'manual' = 'automatic',
 ) {
   const body = new URLSearchParams({
     amount: amount.toString(),
     currency,
+    capture_method: captureMethod,
   })
   if (customerId) body.append('customer', customerId)
   body.append('payment_method_types[]', 'card')
@@ -404,8 +409,8 @@ export async function verifyMicrodeposits(
   })
 }
 
-export async function listAllPaymentIntents() {
-  return autoPaginate('/payment_intents')
+export async function listAllPaymentIntents(limit: number = 100, maxPages: number = 2) {
+  return autoPaginate(`/payment_intents?limit=${limit}`, maxPages)
 }
 
 export async function retrieveSetupIntent(id: string) {
