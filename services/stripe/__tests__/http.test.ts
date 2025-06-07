@@ -37,6 +37,11 @@ import {
   createWebhookEndpoint,
   retrieveWebhookEndpoint,
   deleteWebhookEndpoint,
+  retrieveAccount,
+  listPayouts,
+  listDisputes,
+  listReviews,
+  listApplicationFees,
 } from '../http'
 
 jest.setTimeout(120000)
@@ -188,6 +193,32 @@ describe('stripe http api', () => {
     expect(fetched.id).toBe(webhook.id)
     const del = await deleteWebhookEndpoint(webhook.id)
     expect(del.deleted).toBe(true)
+  }, 30000)
+
+  it('retrieves account information', async () => {
+    const account = await retrieveAccount()
+    expect(account.id).toMatch(/^acct_/)
+    expect(account.object).toBe('account')
+  }, 30000)
+
+  it('lists payouts', async () => {
+    const payouts = await listPayouts(1)
+    expect(Array.isArray(payouts.data)).toBe(true)
+  }, 30000)
+
+  it('lists disputes', async () => {
+    const disputes = await listDisputes(1)
+    expect(Array.isArray(disputes.data)).toBe(true)
+  }, 30000)
+
+  it('lists reviews', async () => {
+    const reviews = await listReviews(1)
+    expect(Array.isArray(reviews.data)).toBe(true)
+  }, 30000)
+
+  it('lists application fees', async () => {
+    const fees = await listApplicationFees(1)
+    expect(Array.isArray(fees.data)).toBe(true)
   }, 30000)
 
 })

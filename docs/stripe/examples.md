@@ -240,3 +240,36 @@ curl https://api.stripe.com/v1/payment_intents/pi_123/verify_microdeposits \
 curl "https://api.stripe.com/v1/payment_intents?limit=100" \
   -u "$STRIPE_SK:"
 ```
+
+## Accounts and Payouts
+
+### Retrieve Account
+```bash
+curl https://api.stripe.com/v1/account \
+  -u "$STRIPE_SK:"
+```
+
+### List Payouts
+```bash
+curl "https://api.stripe.com/v1/payouts?limit=1" \
+  -u "$STRIPE_SK:"
+```
+
+### List Disputes
+```bash
+curl "https://api.stripe.com/v1/disputes?limit=1" \
+  -u "$STRIPE_SK:"
+```
+
+### List Reviews
+```bash
+curl "https://api.stripe.com/v1/reviews?limit=1" \
+  -u "$STRIPE_SK:"
+```
+
+### List Application Fees
+```bash
+curl "https://api.stripe.com/v1/application_fees?limit=1" \
+  -u "$STRIPE_SK:"
+```
+
