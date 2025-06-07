@@ -1,4 +1,14 @@
-import { createCustomer, createSetupIntent } from '../../services/stripe/http'
+import {
+  createCustomer,
+  createSetupIntent,
+  createProduct,
+  createPrice,
+  retrievePrice,
+  createPaymentMethod,
+  attachPaymentMethod,
+  createPaymentIntent,
+  confirmPaymentIntent,
+} from '../../services/stripe/http'
 import { readFileSync } from 'fs'
 
 describe('StripeProvider', () => {
@@ -17,4 +27,21 @@ describe('StripeProvider', () => {
     await expect(createCustomer()).rejects.toThrow('STRIPE_SK not set')
     process.env.STRIPE_SK = orig
   })
+
+  it('creates a product, price and completes a test payment', async () => {
+    const customer = await createCustomer()
+    const product = await createProduct('Test Prod')
+    expect(product.id).toMatch(/^prod_/)
+    const price = await createPrice(500, 'usd', product.id)
+    const priceInfo = await retrievePrice(price.id)
+    const pm = await createPaymentMethod('tok_visa')
+    await attachPaymentMethod(pm.id, customer.id)
+    const intent = await createPaymentIntent(
+      priceInfo.unit_amount,
+      priceInfo.currency,
+      customer.id,
+    )
+    const confirmed = await confirmPaymentIntent(intent.id, pm.id)
+    expect(confirmed.status).toBe('succeeded')
+  }, 60000)
 })

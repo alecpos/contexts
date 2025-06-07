@@ -5,6 +5,13 @@ import {
   createSetupIntent,
   createProduct as apiCreateProduct,
   createPrice as apiCreatePrice,
+  listProducts as apiListProducts,
+  listPrices as apiListPrices,
+  createPaymentMethod,
+  attachPaymentMethod,
+  createPaymentIntent,
+  confirmPaymentIntent,
+  retrievePrice,
 } from '../services/stripe/http'
 
 interface StripeContextType {
@@ -17,6 +24,9 @@ interface StripeContextType {
     currency: string,
     productId: string,
   ) => Promise<any>
+  listProducts: (limit?: number) => Promise<any>
+  listPrices: (limit?: number) => Promise<any>
+  purchasePrice: (priceId: string) => Promise<any>
 }
 
 const StripeContext = createContext<StripeContextType | null>(null)
@@ -36,6 +46,27 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
     productId: string,
   ) => {
     return apiCreatePrice(amount, currency, productId)
+  }
+
+  const listProducts = async (limit?: number) => {
+    return apiListProducts(limit)
+  }
+
+  const listPrices = async (limit?: number) => {
+    return apiListPrices(limit)
+  }
+
+  const purchasePrice = async (priceId: string) => {
+    if (!customerId) throw new Error('customer not ready')
+    const price = await retrievePrice(priceId)
+    const pm = await createPaymentMethod('tok_visa')
+    await attachPaymentMethod(pm.id, customerId)
+    const intent = await createPaymentIntent(
+      price.unit_amount,
+      price.currency,
+      customerId,
+    )
+    return confirmPaymentIntent(intent.id, pm.id)
   }
 
   useEffect(() => {
@@ -61,6 +92,9 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
         error,
         createProduct,
         createPrice,
+        listProducts,
+        listPrices,
+        purchasePrice,
       }}
     >
       {children}
