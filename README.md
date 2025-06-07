@@ -5,6 +5,7 @@
 
 - [Stripe Testing Best Practices](docs/stripe-testing-best-practices.md)
 - [Stripe Integration Guide](docs/stripe-integration-guide.md)
+- [Dashboard Guide](docs/dashboard-guide.md)
 
 ## SupabaseProvider
 

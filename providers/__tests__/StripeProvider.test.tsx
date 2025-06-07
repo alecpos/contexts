@@ -8,6 +8,9 @@ import {
   attachPaymentMethod,
   createPaymentIntent,
   confirmPaymentIntent,
+  createSubscription,
+  cancelSubscription,
+  createEphemeralKey,
 } from '../../services/stripe/http'
 import { readFileSync } from 'fs'
 
@@ -44,4 +47,22 @@ describe('StripeProvider', () => {
     const confirmed = await confirmPaymentIntent(intent.id, pm.id)
     expect(confirmed.status).toBe('succeeded')
   }, 60000)
+
+  it('creates and cancels a subscription', async () => {
+    const customer = await createCustomer()
+    const product = await createProduct('Sub Prod')
+    const price = await createPrice(999, 'usd', product.id, 'month')
+    const pm = await createPaymentMethod('tok_visa')
+    await attachPaymentMethod(pm.id, customer.id)
+    const sub = await createSubscription(customer.id, price.id, pm.id)
+    expect(sub.id).toMatch(/^sub_/)
+    const canceled = await cancelSubscription(sub.id)
+    expect(canceled.status).toBe('canceled')
+  }, 60000)
+
+  it('creates an ephemeral key for a customer', async () => {
+    const customer = await createCustomer()
+    const key = await createEphemeralKey(customer.id)
+    expect(key.secret).toBeDefined()
+  }, 30000)
 })

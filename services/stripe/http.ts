@@ -183,13 +183,17 @@ export async function createProduct(name: string) {
 export async function createPrice(
   unitAmount: number,
   currency: string,
-  productId: string
+  productId: string,
+  interval?: 'day' | 'week' | 'month' | 'year'
 ) {
   const body = new URLSearchParams({
     unit_amount: unitAmount.toString(),
     currency,
     product: productId,
   })
+  if (interval) {
+    body.append('recurring[interval]', interval)
+  }
   return fetchWithFallback('/prices', { method: 'POST', body })
 }
 
@@ -215,9 +219,13 @@ export async function createEphemeralKey(
 
 export async function createSubscription(
   customerId: string,
-  priceId: string
+  priceId: string,
+  paymentMethodId?: string
 ) {
   const body = new URLSearchParams({ customer: customerId, 'items[0][price]': priceId })
+  if (paymentMethodId) {
+    body.append('default_payment_method', paymentMethodId)
+  }
   return fetchWithFallback('/subscriptions', { method: 'POST', body })
 }
 
