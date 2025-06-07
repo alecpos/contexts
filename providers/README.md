@@ -1,11 +1,11 @@
 # StripeProvider
 
-This provider initializes Stripe on the client and exposes helper functions for common payment tasks. Use the `useStripeContext` hook to access these utilities.
+`StripeProvider` talks directly to the Stripe REST API using the secret key from `.env`. The accompanying hook `useStripe` exposes helper functions for creating customers, products, and mock payments while in test mode.
 
 
 ## Usage
 
-Wrap your root layout in `StripeProvider` and access the context with the `useStripeContext` hook.
+Wrap your root layout in `StripeProvider` and access the helper functions with the `useStripe` hook.
 
 ```tsx
 // app/layout.tsx
@@ -19,26 +19,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```tsx
 // Example component
 'use client';
-import { useStripeContext } from '@/app/providers/StripeProvider';
+import { useStripe } from '../providers/StripeProvider';
 
-export default function PaymentButton({ customerId }: { customerId: string }) {
-    const { createSetupIntentForCustomer } = useStripeContext();
+export default function PaymentButton() {
+    const { listPrices, purchasePrice } = useStripe();
 
     const handleClick = async () => {
-        await createSetupIntentForCustomer(customerId);
+        const prices = await listPrices(3);
+        await purchasePrice(prices.data[0].id);
     };
 
-    return <button onClick={handleClick}>Create Setup Intent</button>;
+    return <button onClick={handleClick}>Purchase First Price</button>;
 }
 ```
 
 
 ## Provided Functions
 
-- `createSetupIntentForCustomer(customerId)` – create a Setup Intent for a Stripe customer.
-- `updateCustomerDefaultPaymentMethod(customerId)` – update a customer's default payment method via `/api/stripe/payment-method/default`.
-- `updateSubscriptionPaymentMethod(customerId, subscriptionId)` – update a subscription's payment method via `/api/stripe/payment-method/subscription`.
-- `startCheckoutSession(options)` – create a Checkout Session via HTTP and redirect the customer to `session.url` from the response.
-- `listPaymentIntents(limit)` – fetch recent PaymentIntents for debugging.
+`useStripe()` exposes several helpers:
 
-Wrap your application with `StripeProvider` to ensure Stripe is loaded before any payment interactions.
+- `createProduct(name)` – create a Product object in Stripe.
+- `createPrice(amount, currency, productId)` – create a Price for a product.
+- `listProducts(limit)` – list existing products.
+- `listPrices(limit)` – list prices.
+- `purchasePrice(priceId)` – perform a mock purchase using test card tokens.
+
+Wrap your application with `StripeProvider` to ensure the customer and setup intent are created before calling these helpers.

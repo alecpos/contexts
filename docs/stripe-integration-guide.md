@@ -87,3 +87,18 @@ curl https://api.stripe.com/v1/payment_intents?limit=3 \
 ```
 
 This helper lists your most recent PaymentIntents for debugging purposes.
+
+### Products and Prices
+
+`StripeProvider` also exposes helpers for creating products, listing prices and performing test purchases. The simplest flow is:
+
+```ts
+const { createProduct, createPrice, listPrices, purchasePrice } = useStripe();
+
+const product = await createProduct('Example');
+const price = await createPrice(500, 'usd', product.id);
+const prices = await listPrices(1);
+await purchasePrice(prices.data[0].id);
+```
+
+All purchases use test card tokens like `tok_visa` behind the scenes so no real charges occur.
