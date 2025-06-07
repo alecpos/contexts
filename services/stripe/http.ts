@@ -224,3 +224,18 @@ export async function createSubscription(
 export async function cancelSubscription(id: string) {
   return fetchWithFallback(`/subscriptions/${id}`, { method: 'DELETE' })
 }
+
+export async function listProducts(limit: number = 3) {
+  return fetchWithFallback(`/products?limit=${limit}`)
+}
+
+export async function confirmPaymentIntent(
+  id: string,
+  paymentMethodId: string,
+) {
+  const body = new URLSearchParams({ payment_method: paymentMethodId })
+  return fetchWithFallback(`/payment_intents/${id}/confirm`, {
+    method: 'POST',
+    body,
+  })
+}
