@@ -11,23 +11,23 @@
 
 ## SupabaseProvider
 
-`SupabaseProvider` creates a client instance using your project's Supabase
-credentials and exposes it through the `useSupabaseContext` hook. To configure
-the provider you must set the following environment variables in a `.env` file
-or in your deployment settings:
+`SupabaseProvider` performs direct REST requests to your Supabase project using
+the service role key and exposes helpers through the `useSupabase` hook. It is a
+**server component** so your secret key never reaches the browser. Configure it
+with the following environment variables:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=<your project url>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<your anon key>
+SUPABASE_URL=<your project url>
+SUPABASE_SERVICE_KEY=<your service role key>
 ```
 
-For more information on obtaining these values see the [Supabase getting
-started docs](https://supabase.com/docs/guides/getting-started/quickstarts/nextjs).
+For more information on obtaining these values see the [Supabase API
+documentation](https://supabase.com/docs/guides/api).
 
 ### Usage
 
-Wrap your application's root layout in `SupabaseProvider` and access the client
-and the active session via `useSupabaseContext`.
+Wrap your application's root layout in `SupabaseProvider` and access the helper
+functions via `useSupabase`.
 
 ```tsx
 // app/layout.tsx
@@ -39,19 +39,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 ```tsx
-// Example component
-'use client';
-import { useSupabaseContext } from '@/app/providers/SupabaseProvider';
+// Example server component
+import { useSupabase } from '@/app/providers/SupabaseProvider';
 
-export default function Example() {
-    const { client, session } = useSupabaseContext();
-
-    const loadProfile = async () => {
-        const { data } = await client.from('profiles').select('*');
-        console.log(session?.user, data);
-    };
-
-    return <button onClick={loadProfile}>Load Profile</button>;
+export default async function Example() {
+    const { select } = useSupabase();
+    const profiles = await select('profiles', 5);
+    return <pre>{JSON.stringify(profiles, null, 2)}</pre>;
 }
 ```
 
