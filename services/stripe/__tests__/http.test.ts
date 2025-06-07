@@ -221,4 +221,23 @@ describe('stripe http api', () => {
     expect(Array.isArray(fees.data)).toBe(true)
   }, 30000)
 
+  it('creates a setup intent', async () => {
+    const customer = await createCustomer()
+    const intent = await createSetupIntent(customer.id)
+    expect(intent.id).toMatch(/^seti_/)
+    expect(intent.customer).toBe(customer.id)
+    expect(intent.usage).toBe('off_session')
+  }, 30000)
+
+  it('lists prices', async () => {
+    const product = await createProduct('Price List Test')
+    await createPrice(2000, 'usd', product.id)
+    const prices = await listPrices(5)
+    expect(Array.isArray(prices.data)).toBe(true)
+    expect(prices.data.length).toBeGreaterThan(0)
+    const found = prices.data.find((p: any) => p.product === product.id)
+    expect(found).toBeTruthy()
+    expect(found.unit_amount).toBe(2000)
+  }, 30000)
+
 })
