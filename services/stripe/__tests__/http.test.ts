@@ -12,6 +12,10 @@ import {
   listPaymentMethods,
   updateCustomer,
   deleteCustomer,
+  capturePaymentIntent,
+  cancelPaymentIntent,
+  updatePaymentIntent,
+  searchPaymentIntents,
   createEphemeralKey,
   listPrices,
   createProduct,
@@ -52,6 +56,22 @@ describe('stripe http api', () => {
     const found = list.data.find((p: any) => p.id === pi.id)
     expect(found).toBeTruthy()
   }, 30000)
+
+  it('captures and cancels a payment intent', async () => {
+    const pi = await createPaymentIntent(250, 'usd')
+    const captured = await capturePaymentIntent(pi.id)
+    expect(captured.status === 'succeeded' || captured.status === 'requires_capture').toBe(true)
+    const canceled = await cancelPaymentIntent(pi.id)
+    expect(canceled.status).toBe('canceled')
+  }, 60000)
+
+  it('updates and searches payment intents', async () => {
+    const pi = await createPaymentIntent(300, 'usd')
+    const updated = await updatePaymentIntent(pi.id, { description: 'test' })
+    expect(updated.description).toBe('test')
+    const results = await searchPaymentIntents(`payment_intent:"${pi.id}"`, 1)
+    expect(results.data[0].id).toBe(pi.id)
+  }, 60000)
 
   it('creates and attaches a payment method', async () => {
     const customer = await createCustomer()
