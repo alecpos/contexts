@@ -93,6 +93,18 @@ export async function StripeProvider({ children }: PropsWithChildren) {
     throw new Error('StripeProvider can only be used on the server')
   }
 
+  if ((globalThis as any).EdgeRuntime) {
+    throw new Error('StripeProvider cannot run in the edge runtime')
+  }
+
+  const sk = process.env.STRIPE_SK
+  if (!sk) {
+    throw new Error('STRIPE_SK not set')
+  }
+  if (process.env.NODE_ENV === 'production' && sk.startsWith('sk_test')) {
+    throw new Error('STRIPE_SK must be a live key in production')
+  }
+
   let customerId: string | null = null
   let clientSecret: string | null = null
   let error: string | null = null

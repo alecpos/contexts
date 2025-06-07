@@ -1,7 +1,7 @@
 # StripeProvider
 
 
-`StripeProvider` talks directly to the Stripe REST API using the secret key from `.env`. **It is a server component** so the secret key never reaches the browser. The provider verifies it is executed server-side and caches the initial customer/setup intent so repeated renders do not create duplicates. The accompanying hook `useStripe` can be consumed from other server components to access helper functions for creating customers, products and mock payments while in test mode.
+`StripeProvider` talks directly to the Stripe REST API using the secret key from `.env`. **It is a server component** so the secret key never reaches the browser. When invoked it ensures the code is running in a Node.js environment (and not the Edge runtime) and that `STRIPE_SK` is present. In production, `STRIPE_SK` must be a live key. The provider caches the initial customer/setup intent so repeated renders do not create duplicates. The accompanying hook `useStripe` can be consumed from other server components to access helper functions for creating customers, products and mock payments while in test mode.
 
 
 
