@@ -21,6 +21,10 @@ import {
   createEphemeralKey as apiCreateEphemeralKey,
   listPaymentIntents as apiListPaymentIntents,
   listCharges as apiListCharges,
+  applyCustomerBalance as apiApplyCustomerBalance,
+  incrementAuthorization as apiIncrementAuthorization,
+  verifyMicrodeposits as apiVerifyMicrodeposits,
+  listAllPaymentIntents as apiListAllPaymentIntents,
 } from '../services/stripe/http'
 
 interface StripeContextType {
@@ -47,8 +51,13 @@ interface StripeContextType {
   updatePaymentIntent: (
     id: string,
     params: Record<string, string>,
+    metadata?: Record<string, string>,
   ) => Promise<any>
   searchPaymentIntents: (query: string, limit?: number) => Promise<any>
+  applyCustomerBalance: (id: string) => Promise<any>
+  incrementAuthorization: (id: string, amount: number) => Promise<any>
+  verifyMicrodeposits: (id: string, amounts: [number, number]) => Promise<any>
+  listAllPaymentIntents: () => Promise<any[]>
 }
 
 const StripeContext = createContext<StripeContextType | null>(null)
@@ -112,6 +121,10 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
     return apiListPaymentIntents(limit)
   }
 
+  const listAllPaymentIntents = async () => {
+    return apiListAllPaymentIntents()
+  }
+
   const listCharges = async (limit?: number) => {
     return apiListCharges(limit)
   }
@@ -127,12 +140,28 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
   const updatePaymentIntent = async (
     id: string,
     params: Record<string, string>,
+    metadata?: Record<string, string>,
   ) => {
-    return apiUpdatePaymentIntent(id, params)
+    return apiUpdatePaymentIntent(id, params, metadata)
   }
 
   const searchPaymentIntents = async (query: string, limit?: number) => {
     return apiSearchPaymentIntents(query, limit)
+  }
+
+  const applyCustomerBalance = async (id: string) => {
+    return apiApplyCustomerBalance(id)
+  }
+
+  const incrementAuthorization = async (id: string, amount: number) => {
+    return apiIncrementAuthorization(id, amount)
+  }
+
+  const verifyMicrodeposits = async (
+    id: string,
+    amounts: [number, number],
+  ) => {
+    return apiVerifyMicrodeposits(id, amounts)
   }
 
   useEffect(() => {
@@ -165,11 +194,15 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
         cancelSubscription,
         createEphemeralKey,
         listPaymentIntents,
+        listAllPaymentIntents,
         listCharges,
         capturePaymentIntent,
         cancelPaymentIntent,
         updatePaymentIntent,
         searchPaymentIntents,
+        applyCustomerBalance,
+        incrementAuthorization,
+        verifyMicrodeposits,
       }}
     >
       {children}

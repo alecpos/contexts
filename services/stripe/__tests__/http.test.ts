@@ -21,7 +21,10 @@ import {
   createProduct,
   createPrice,
   retrieveProduct,
-  retrievePrice
+  retrievePrice,
+  listAllPaymentIntents,
+  applyCustomerBalance,
+  incrementAuthorization,
 } from '../http'
 
 describe('stripe http api', () => {
@@ -114,6 +117,17 @@ describe('stripe http api', () => {
     expect(fetchedPrice.currency).toBe('usd')
     expect(fetchedPrice.product).toBe(product.id)
 
+  }, 30000)
+
+  it('auto paginates payment intents', async () => {
+    const all = await listAllPaymentIntents()
+    expect(Array.isArray(all)).toBe(true)
+  }, 30000)
+
+  it('handles advanced payment intent actions', async () => {
+    const pi = await createPaymentIntent(400, 'usd')
+    await expect(applyCustomerBalance(pi.id)).rejects.toThrow()
+    await expect(incrementAuthorization(pi.id, 100)).rejects.toThrow()
   }, 30000)
 
 })

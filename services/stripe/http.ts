@@ -15,6 +15,7 @@ interface RequestOptions {
   body?: URLSearchParams
   headers?: Record<string, string>
   retry?: number
+  query?: Record<string, string>
 }
 
 interface StripeError {
@@ -71,7 +72,10 @@ export async function autoPaginate(endpoint: string) {
 async function fetchWithFallback(endpoint: string, options: RequestOptions = {}) {
   const sk = process.env.STRIPE_SK
   if (!sk) throw new Error('STRIPE_SK not set')
-  const url = `${STRIPE_URL}${endpoint}`
+  const qs = options.query
+    ? `?${new URLSearchParams(options.query).toString()}`
+    : ''
+  const url = `${STRIPE_URL}${endpoint}${qs}`
   const method = options.method || 'GET'
   const body = options.body ? options.body.toString() : undefined
 
@@ -160,7 +164,8 @@ export async function listCharges(limit: number = 1) {
 export async function createPaymentIntent(
   amount: number,
   currency: string,
-  customerId?: string
+  customerId?: string,
+  metadata?: Record<string, string>,
 ) {
   const body = new URLSearchParams({
     amount: amount.toString(),
@@ -168,11 +173,18 @@ export async function createPaymentIntent(
   })
   if (customerId) body.append('customer', customerId)
   body.append('payment_method_types[]', 'card')
+  if (metadata) {
+    Object.entries(metadata).forEach(([k, v]) => body.append(`metadata[${k}]`, v))
+  }
   return fetchWithFallback('/payment_intents', { method: 'POST', body })
 }
 
-export async function retrievePaymentIntent(id: string) {
-  return fetchWithFallback(`/payment_intents/${id}`)
+export async function retrievePaymentIntent(id: string, expand?: string[]) {
+  const params = new URLSearchParams()
+  expand?.forEach((e) => params.append('expand[]', e))
+  const query = params.toString()
+  const path = `/payment_intents/${id}${query ? '?' + query : ''}`
+  return fetchWithFallback(path)
 }
 
 export async function retrieveCustomer(id: string) {
@@ -314,12 +326,48 @@ export async function cancelPaymentIntent(id: string) {
 export async function updatePaymentIntent(
   id: string,
   params: Record<string, string>,
+  metadata?: Record<string, string>,
 ) {
   const body = new URLSearchParams(params)
+  if (metadata) {
+    Object.entries(metadata).forEach(([k, v]) => body.append(`metadata[${k}]`, v))
+  }
   return fetchWithFallback(`/payment_intents/${id}`, { method: 'POST', body })
 }
 
 export async function searchPaymentIntents(query: string, limit: number = 10) {
   const params = new URLSearchParams({ query, limit: String(limit) })
   return fetchWithFallback(`/payment_intents/search?${params.toString()}`)
+}
+
+export async function applyCustomerBalance(id: string) {
+  return fetchWithFallback(`/payment_intents/${id}/apply_customer_balance`, {
+    method: 'POST',
+  })
+}
+
+export async function incrementAuthorization(id: string, amount: number) {
+  const body = new URLSearchParams({ amount: amount.toString() })
+  return fetchWithFallback(`/payment_intents/${id}/increment_authorization`, {
+    method: 'POST',
+    body,
+  })
+}
+
+export async function verifyMicrodeposits(
+  id: string,
+  amounts: [number, number],
+) {
+  const body = new URLSearchParams({
+    'amounts[0]': amounts[0].toString(),
+    'amounts[1]': amounts[1].toString(),
+  })
+  return fetchWithFallback(`/payment_intents/${id}/verify_microdeposits`, {
+    method: 'POST',
+    body,
+  })
+}
+
+export async function listAllPaymentIntents() {
+  return autoPaginate('/payment_intents')
 }
