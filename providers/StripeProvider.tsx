@@ -11,6 +11,10 @@ import {
   attachPaymentMethod,
   createPaymentIntent,
   confirmPaymentIntent,
+  capturePaymentIntent as apiCapturePaymentIntent,
+  cancelPaymentIntent as apiCancelPaymentIntent,
+  updatePaymentIntent as apiUpdatePaymentIntent,
+  searchPaymentIntents as apiSearchPaymentIntents,
   retrievePrice,
   createSubscription as apiCreateSubscription,
   cancelSubscription as apiCancelSubscription,
@@ -38,6 +42,13 @@ interface StripeContextType {
   createEphemeralKey: (version?: string) => Promise<any>
   listPaymentIntents: (limit?: number) => Promise<any>
   listCharges: (limit?: number) => Promise<any>
+  capturePaymentIntent: (id: string) => Promise<any>
+  cancelPaymentIntent: (id: string) => Promise<any>
+  updatePaymentIntent: (
+    id: string,
+    params: Record<string, string>,
+  ) => Promise<any>
+  searchPaymentIntents: (query: string, limit?: number) => Promise<any>
 }
 
 const StripeContext = createContext<StripeContextType | null>(null)
@@ -105,6 +116,25 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
     return apiListCharges(limit)
   }
 
+  const capturePaymentIntent = async (id: string) => {
+    return apiCapturePaymentIntent(id)
+  }
+
+  const cancelPaymentIntent = async (id: string) => {
+    return apiCancelPaymentIntent(id)
+  }
+
+  const updatePaymentIntent = async (
+    id: string,
+    params: Record<string, string>,
+  ) => {
+    return apiUpdatePaymentIntent(id, params)
+  }
+
+  const searchPaymentIntents = async (query: string, limit?: number) => {
+    return apiSearchPaymentIntents(query, limit)
+  }
+
   useEffect(() => {
     const createCustomerAndIntent = async () => {
       try {
@@ -136,6 +166,10 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
         createEphemeralKey,
         listPaymentIntents,
         listCharges,
+        capturePaymentIntent,
+        cancelPaymentIntent,
+        updatePaymentIntent,
+        searchPaymentIntents,
       }}
     >
       {children}

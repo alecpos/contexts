@@ -14,6 +14,31 @@ interface RequestOptions {
   method?: string
   body?: URLSearchParams
   headers?: Record<string, string>
+  retry?: number
+}
+
+interface StripeError {
+  error: { type: string; code?: string; message?: string }
+}
+
+function logStripeError(context: any, err: any) {
+  logEntry({
+    time: new Date().toISOString(),
+    error: err,
+    context,
+  })
+}
+
+async function handleRateLimitRetry(
+  endpoint: string,
+  options: RequestOptions,
+  res: Response,
+): Promise<any> {
+  const retryAfter = Number(res.headers.get('Retry-After') || '1') * 1000
+  console.warn('rate limited, retrying after', retryAfter)
+  await new Promise((resolve) => setTimeout(resolve, retryAfter))
+  const attempts = (options.retry || 0) + 1
+  return fetchWithFallback(endpoint, { ...options, retry: attempts })
 }
 
 function logEntry(entry: any) {
@@ -21,6 +46,26 @@ function logEntry(entry: any) {
     mkdirSync('logs')
   }
   appendFileSync('logs/stripe.log', JSON.stringify(entry) + '\n')
+}
+
+export async function autoPaginate(endpoint: string) {
+  let url = endpoint
+  const all: any[] = []
+  while (url) {
+    const page = await fetchWithFallback(url)
+    if (Array.isArray(page.data)) {
+      all.push(...page.data)
+      if (page.has_more && page.data.length > 0) {
+        const last = page.data[page.data.length - 1].id
+        url = `${endpoint}${endpoint.includes('?') ? '&' : '?'}starting_after=${last}`
+      } else {
+        url = ''
+      }
+    } else {
+      url = ''
+    }
+  }
+  return all
 }
 
 async function fetchWithFallback(endpoint: string, options: RequestOptions = {}) {
@@ -43,7 +88,14 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
       body,
     })
     console.info('stripe response', { status: res.status })
+    if (res.status === 429) {
+      return handleRateLimitRetry(endpoint, options, res)
+    }
     const json = await res.json()
+    if (!res.ok) {
+      logStripeError({ method, url }, json)
+      throw new Error(json.error?.message || 'Stripe request failed')
+    }
     logEntry({ time: new Date().toISOString(), method, url, status: res.status })
     return json
   } catch (err) {
@@ -75,6 +127,9 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
         try {
           console.info('curl response:', stdout)
           const parsed = JSON.parse(stdout)
+          if (parsed.error) {
+            logStripeError({ method, url }, parsed)
+          }
           logEntry({ time: new Date().toISOString(), method, url, status: 'curl', response: parsed })
           resolve(parsed)
         } catch (e) {
@@ -246,4 +301,25 @@ export async function confirmPaymentIntent(
     method: 'POST',
     body,
   })
+}
+
+export async function capturePaymentIntent(id: string) {
+  return fetchWithFallback(`/payment_intents/${id}/capture`, { method: 'POST' })
+}
+
+export async function cancelPaymentIntent(id: string) {
+  return fetchWithFallback(`/payment_intents/${id}/cancel`, { method: 'POST' })
+}
+
+export async function updatePaymentIntent(
+  id: string,
+  params: Record<string, string>,
+) {
+  const body = new URLSearchParams(params)
+  return fetchWithFallback(`/payment_intents/${id}`, { method: 'POST', body })
+}
+
+export async function searchPaymentIntents(query: string, limit: number = 10) {
+  const params = new URLSearchParams({ query, limit: String(limit) })
+  return fetchWithFallback(`/payment_intents/search?${params.toString()}`)
 }

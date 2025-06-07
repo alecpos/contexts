@@ -8,6 +8,10 @@ import {
   attachPaymentMethod,
   createPaymentIntent,
   confirmPaymentIntent,
+  capturePaymentIntent,
+  cancelPaymentIntent,
+  updatePaymentIntent,
+  searchPaymentIntents,
   createSubscription,
   cancelSubscription,
   createEphemeralKey,
@@ -58,6 +62,22 @@ describe('StripeProvider', () => {
     expect(sub.id).toMatch(/^sub_/)
     const canceled = await cancelSubscription(sub.id)
     expect(canceled.status).toBe('canceled')
+  }, 60000)
+
+  it('captures and cancels a payment intent', async () => {
+    const pi = await createPaymentIntent(120, 'usd')
+    const captured = await capturePaymentIntent(pi.id)
+    expect(captured.id).toBe(pi.id)
+    const canceled = await cancelPaymentIntent(pi.id)
+    expect(canceled.status).toBe('canceled')
+  }, 60000)
+
+  it('updates and searches payment intents', async () => {
+    const pi = await createPaymentIntent(150, 'usd')
+    const updated = await updatePaymentIntent(pi.id, { metadata: 'test' })
+    expect(updated.id).toBe(pi.id)
+    const results = await searchPaymentIntents(`payment_intent:"${pi.id}"`, 1)
+    expect(results.data[0].id).toBe(pi.id)
   }, 60000)
 
   it('creates an ephemeral key for a customer', async () => {
