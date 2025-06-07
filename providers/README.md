@@ -1,11 +1,11 @@
 # StripeProvider
 
-`StripeProvider` talks directly to the Stripe REST API using the secret key from `.env`. The accompanying hook `useStripe` exposes helper functions for creating customers, products, and mock payments while in test mode.
+`StripeProvider` talks directly to the Stripe REST API using the secret key from `.env`. **It is a server component** so the secret key never reaches the browser. The provider verifies it is executed server-side and caches the initial customer/setup intent so repeated renders do not create duplicates. The accompanying hook `useStripe` can be consumed from other server components to access helper functions for creating customers, products and mock payments while in test mode.
 
 
 ## Usage
 
-Wrap your root layout in `StripeProvider` and access the helper functions with the `useStripe` hook.
+Wrap your root layout in `StripeProvider` (server component) and access the helper functions with the `useStripe` hook from other server components. Client components should call API routes instead of using the context directly. If `StripeProvider` is executed in the browser it throws immediately.
 
 ```tsx
 // app/layout.tsx
@@ -44,6 +44,7 @@ export default function PaymentButton() {
 - `listPrices(limit)` – list prices.
 - `purchasePrice(priceId)` – perform a mock purchase using test card tokens.
 - `listAllPaymentIntents()` – auto-paginate through all payment intents.
+- `listAllCharges()` – auto-paginate through all charges.
 - `applyCustomerBalance(id)` – apply a customer's balance to a payment intent.
 - `incrementAuthorization(id, amount)` – increase an authorized amount.
 - `verifyMicrodeposits(id, amounts)` – verify bank account microdeposits.

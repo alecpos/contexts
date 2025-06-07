@@ -5,6 +5,7 @@ import { appendFileSync, existsSync, mkdirSync } from 'fs'
 declare const process: {
   env: {
     STRIPE_SK?: string;
+    NODE_ENV?: string;
   };
 };
 
@@ -74,6 +75,9 @@ export async function autoPaginate(endpoint: string, maxPages: number = Infinity
 async function fetchWithFallback(endpoint: string, options: RequestOptions = {}) {
   const sk = process.env.STRIPE_SK
   if (!sk) throw new Error('STRIPE_SK not set')
+  if (process.env.NODE_ENV === 'production' && sk.startsWith('sk_test')) {
+    throw new Error('STRIPE_SK must be a live key in production')
+  }
   const qs = options.query
     ? `?${new URLSearchParams(options.query).toString()}`
     : ''
@@ -170,6 +174,10 @@ export async function createSetupIntent(customerId: string) {
 
 export async function listCharges(limit: number = 1) {
   return fetchWithFallback(`/charges?limit=${limit}`)
+}
+
+export async function listAllCharges(limit: number = 100, maxPages: number = 2) {
+  return autoPaginate(`/charges?limit=${limit}`, maxPages)
 }
 
 export async function createPaymentIntent(

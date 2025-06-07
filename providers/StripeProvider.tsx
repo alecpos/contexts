@@ -1,5 +1,4 @@
-'use client'
-import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
+import React, { createContext, useContext, PropsWithChildren } from 'react'
 import {
   createCustomer,
   createSetupIntent,
@@ -21,11 +20,36 @@ import {
   createEphemeralKey as apiCreateEphemeralKey,
   listPaymentIntents as apiListPaymentIntents,
   listCharges as apiListCharges,
+  listAllCharges as apiListAllCharges,
   applyCustomerBalance as apiApplyCustomerBalance,
   incrementAuthorization as apiIncrementAuthorization,
   verifyMicrodeposits as apiVerifyMicrodeposits,
   listAllPaymentIntents as apiListAllPaymentIntents,
 } from '../services/stripe/http'
+
+interface SetupResult {
+  customerId: string
+  clientSecret: string
+}
+
+let setupPromise: Promise<SetupResult> | null = null
+
+async function ensureSetup(): Promise<SetupResult> {
+  if (!setupPromise) {
+    setupPromise = (async () => {
+      const customer = await createCustomer()
+      const intent = await createSetupIntent(customer.id)
+      return { customerId: customer.id, clientSecret: intent.client_secret }
+    })()
+    try {
+      await setupPromise
+    } catch (err) {
+      setupPromise = null
+      throw err
+    }
+  }
+  return setupPromise
+}
 
 interface StripeContextType {
   customerId: string | null
@@ -58,14 +82,27 @@ interface StripeContextType {
   incrementAuthorization: (id: string, amount: number) => Promise<any>
   verifyMicrodeposits: (id: string, amounts: [number, number]) => Promise<any>
   listAllPaymentIntents: () => Promise<any[]>
+  listAllCharges: () => Promise<any[]>
 }
 
 const StripeContext = createContext<StripeContextType | null>(null)
 
-export const StripeProvider = ({ children }: PropsWithChildren) => {
-  const [customerId, setCustomerId] = useState<string | null>(null)
-  const [clientSecret, setClientSecret] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+export async function StripeProvider({ children }: PropsWithChildren) {
+  if (typeof window !== 'undefined') {
+    throw new Error('StripeProvider can only be used on the server')
+  }
+
+  let customerId: string | null = null
+  let clientSecret: string | null = null
+  let error: string | null = null
+
+  try {
+    const setup = await ensureSetup()
+    customerId = setup.customerId
+    clientSecret = setup.clientSecret
+  } catch (err: any) {
+    error = err.message || 'Stripe setup failed'
+  }
 
   const createProduct = async (name: string) => {
     return apiCreateProduct(name)
@@ -129,6 +166,10 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
     return apiListCharges(limit)
   }
 
+  const listAllCharges = async () => {
+    return apiListAllCharges()
+  }
+
   const capturePaymentIntent = async (id: string) => {
     return apiCapturePaymentIntent(id)
   }
@@ -164,20 +205,7 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
     return apiVerifyMicrodeposits(id, amounts)
   }
 
-  useEffect(() => {
-    const createCustomerAndIntent = async () => {
-      try {
-        const customer = await createCustomer()
-        const intent = await createSetupIntent(customer.id)
-        setCustomerId(customer.id)
-        setClientSecret(intent.client_secret)
-      } catch (err: any) {
-        setError(err.message || 'Stripe setup failed')
-      }
-    }
 
-    createCustomerAndIntent()
-  }, [])
 
   return (
     <StripeContext.Provider
@@ -196,6 +224,7 @@ export const StripeProvider = ({ children }: PropsWithChildren) => {
         listPaymentIntents,
         listAllPaymentIntents,
         listCharges,
+        listAllCharges,
         capturePaymentIntent,
         cancelPaymentIntent,
         updatePaymentIntent,
