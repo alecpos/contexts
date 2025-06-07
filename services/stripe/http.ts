@@ -100,7 +100,7 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
       logStripeError({ method, url }, json)
       throw new Error(json.error?.message || 'Stripe request failed')
     }
-    logEntry({ time: new Date().toISOString(), method, url, status: res.status })
+    logEntry({ time: new Date().toISOString(), method, url, status: res.status, body })
     return json
   } catch (err) {
     console.warn('fetch failed, using curl fallback', err)
@@ -134,7 +134,7 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
           if (parsed.error) {
             logStripeError({ method, url }, parsed)
           }
-          logEntry({ time: new Date().toISOString(), method, url, status: 'curl', response: parsed })
+          logEntry({ time: new Date().toISOString(), method, url, status: 'curl', body, response: parsed })
           resolve(parsed)
         } catch (e) {
           console.error('Failed to parse curl response:', e)
@@ -146,8 +146,16 @@ async function fetchWithFallback(endpoint: string, options: RequestOptions = {})
   }
 }
 
-export async function createCustomer() {
-  return fetchWithFallback('/customers', { method: 'POST' })
+export async function createCustomer(
+  metadata?: Record<string, string>,
+  expand?: string[],
+) {
+  const body = new URLSearchParams()
+  if (metadata) {
+    Object.entries(metadata).forEach(([k, v]) => body.append(`metadata[${k}]`, v))
+  }
+  expand?.forEach((e) => body.append('expand[]', e))
+  return fetchWithFallback('/customers', { method: 'POST', body })
 }
 
 export async function createSetupIntent(customerId: string) {
@@ -166,6 +174,7 @@ export async function createPaymentIntent(
   currency: string,
   customerId?: string,
   metadata?: Record<string, string>,
+  expand?: string[],
 ) {
   const body = new URLSearchParams({
     amount: amount.toString(),
@@ -176,6 +185,7 @@ export async function createPaymentIntent(
   if (metadata) {
     Object.entries(metadata).forEach(([k, v]) => body.append(`metadata[${k}]`, v))
   }
+  expand?.forEach((e) => body.append('expand[]', e))
   return fetchWithFallback('/payment_intents', { method: 'POST', body })
 }
 
@@ -187,8 +197,12 @@ export async function retrievePaymentIntent(id: string, expand?: string[]) {
   return fetchWithFallback(path)
 }
 
-export async function retrieveCustomer(id: string) {
-  return fetchWithFallback(`/customers/${id}`)
+export async function retrieveCustomer(id: string, expand?: string[]) {
+  const params = new URLSearchParams()
+  expand?.forEach((e) => params.append('expand[]', e))
+  const query = params.toString()
+  const path = `/customers/${id}${query ? '?' + query : ''}`
+  return fetchWithFallback(path)
 }
 
 export async function listCustomers(limit: number = 3) {
@@ -242,8 +256,16 @@ export async function listPrices(limit: number = 1) {
   return fetchWithFallback(`/prices?limit=${limit}`)
 }
 
-export async function createProduct(name: string) {
+export async function createProduct(
+  name: string,
+  metadata?: Record<string, string>,
+  expand?: string[],
+) {
   const body = new URLSearchParams({ name })
+  if (metadata) {
+    Object.entries(metadata).forEach(([k, v]) => body.append(`metadata[${k}]`, v))
+  }
+  expand?.forEach((e) => body.append('expand[]', e))
   return fetchWithFallback('/products', { method: 'POST', body })
 }
 
@@ -251,7 +273,9 @@ export async function createPrice(
   unitAmount: number,
   currency: string,
   productId: string,
-  interval?: 'day' | 'week' | 'month' | 'year'
+  interval?: 'day' | 'week' | 'month' | 'year',
+  metadata?: Record<string, string>,
+  expand?: string[],
 ) {
   const body = new URLSearchParams({
     unit_amount: unitAmount.toString(),
@@ -261,15 +285,27 @@ export async function createPrice(
   if (interval) {
     body.append('recurring[interval]', interval)
   }
+  if (metadata) {
+    Object.entries(metadata).forEach(([k, v]) => body.append(`metadata[${k}]`, v))
+  }
+  expand?.forEach((e) => body.append('expand[]', e))
   return fetchWithFallback('/prices', { method: 'POST', body })
 }
 
-export async function retrieveProduct(productId: string) {
-  return fetchWithFallback(`/products/${productId}`)
+export async function retrieveProduct(productId: string, expand?: string[]) {
+  const params = new URLSearchParams()
+  expand?.forEach((e) => params.append('expand[]', e))
+  const query = params.toString()
+  const path = `/products/${productId}${query ? '?' + query : ''}`
+  return fetchWithFallback(path)
 }
 
-export async function retrievePrice(priceId: string) {
-  return fetchWithFallback(`/prices/${priceId}`)
+export async function retrievePrice(priceId: string, expand?: string[]) {
+  const params = new URLSearchParams()
+  expand?.forEach((e) => params.append('expand[]', e))
+  const query = params.toString()
+  const path = `/prices/${priceId}${query ? '?' + query : ''}`
+  return fetchWithFallback(path)
 }
 
 export async function createEphemeralKey(
