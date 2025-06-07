@@ -45,3 +45,22 @@ export default function PaymentButton() {
 - `purchasePrice(priceId)` – perform a mock purchase using test card tokens.
 
 Wrap your application with `StripeProvider` to ensure the customer and setup intent are created before calling these helpers.
+
+### Demo Dashboard
+
+The `dashboard/Dashboard.tsx` component demonstrates these helpers in a simple UI. Embed it inside `StripeProvider` to list test prices and perform mock purchases:
+
+```tsx
+import { StripeProvider } from '../providers/StripeProvider'
+import Dashboard from '../dashboard/Dashboard'
+
+export default function Page() {
+  return (
+    <StripeProvider>
+      <Dashboard />
+    </StripeProvider>
+  )
+}
+```
+
+Running this page in your React or Next.js app displays a list of prices and a **Buy** button for each entry. Transactions use test card tokens so no real charges occur.
