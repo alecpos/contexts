@@ -42,6 +42,19 @@ describe('StripeProvider', () => {
     process.env.STRIPE_SK = orig
   })
 
+  it('fails to initialize StripeProvider without STRIPE_SK', async () => {
+    const { StripeProvider } = await import('../StripeProvider')
+    const orig = process.env.STRIPE_SK
+    const origWindow = (global as any).window
+    delete (global as any).window
+    delete process.env.STRIPE_SK
+    await expect(
+      StripeProvider({ children: React.createElement('div') })
+    ).rejects.toThrow('STRIPE_SK not set')
+    process.env.STRIPE_SK = orig
+    if (origWindow !== undefined) (global as any).window = origWindow
+  })
+
   it('creates a product, price and completes a test payment', async () => {
     const customer = await createCustomer()
     const product = await createProduct('Test Prod')
@@ -122,6 +135,22 @@ describe('StripeProvider', () => {
     await expect(createCustomer()).rejects.toThrow('STRIPE_SK must be a live key in production')
     process.env.NODE_ENV = origEnv
     process.env.STRIPE_SK = origKey
+  })
+
+  it('throws when initializing StripeProvider with a test key in production', async () => {
+    const { StripeProvider } = await import('../StripeProvider')
+    const origEnv = process.env.NODE_ENV
+    const origKey = process.env.STRIPE_SK
+    const origWindow = (global as any).window
+    delete (global as any).window
+    process.env.NODE_ENV = 'production'
+    process.env.STRIPE_SK = 'sk_test_bad'
+    await expect(
+      StripeProvider({ children: React.createElement('div') })
+    ).rejects.toThrow('STRIPE_SK must be a live key in production')
+    process.env.NODE_ENV = origEnv
+    process.env.STRIPE_SK = origKey
+    if (origWindow !== undefined) (global as any).window = origWindow
   })
 
 
