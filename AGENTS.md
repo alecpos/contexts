@@ -1,417 +1,168 @@
-# AGENTS.md (Comprehensive Stripe Integration & Documentation Analysis)
 
-**Last Updated:** 2025-06-07
-
-## 🧠 Purpose
-
-This file defines standards for AI agents and human developers contributing to the project. It enforces a **comprehensive documentation-first** architecture with **robust Stripe integration analysis**, **verbose logging**, and **metadata enhancement** patterns.
-
----
-
-## 📁 Project Structure & Conventions
-
-### 🔍 Key Paths
-
-* `src/`: Main application source code
-* `docs/`: All `.md` files and documentation
-* `providers/`: External service integrations (Stripe, payments)
-* `utils/`: Logging utilities and HTTP abstraction layers
-* `types/`: TypeScript definitions and Stripe object schemas
-* `tests/`: Test files with verbose logging examples
-* `scripts/`: Documentation analysis and link validation tools
-
-### 🔄 Data & Analysis Flow
-
-* **Documentation state**: Tracked via `.md` file analysis and link validation
-* **Stripe objects**: Full metadata documentation with data shape analysis
-* **API interactions**: HTTP-only with comprehensive logging
-* **Verbose mode**: Built-in debugging without environment dependencies
-
----
-
-## 🧩 Design Patterns & Principles
-
-### ✅ Required Patterns
-
-* **Documentation-first**: All `.md` files must be analyzed and cross-referenced
-* **Verbose logging**: Every Stripe operation logs full request/response data
-* **Metadata enhancement**: All Stripe objects include comprehensive metadata
-* **HTTP-only integration**: No Stripe SDKs, only `fetch`/`curl` requests
-* **Real data validation**: Test with actual Stripe API responses
-* **Link validation**: All external references must be verified and updated
-
----
-
-## 📚 Documentation Analysis Requirements
-
-### 🔍 Markdown File Analysis
-
-All AI agents must perform comprehensive `.md` file analysis:
-
-```javascript
-// Required documentation analysis pattern
-const analyzeProjectDocumentation = async () => {
-  // Phase 1: Discovery
-  const mdFiles = await findAllMarkdownFiles('.');
-  console.log(`📋 Found ${mdFiles.length} .md files`);
-  
-  // Phase 2: Link extraction and validation
-  for (const file of mdFiles) {
-    const links = extractAllLinks(file);
-    const brokenLinks = await validateLinks(links);
-    
-    if (brokenLinks.length > 0) {
-      console.log(`⚠️  Broken links in ${file}:`, brokenLinks);
-    }
-  }
-  
-  // Phase 3: Stripe documentation cross-reference
-  const stripeLinks = filterStripeLinks(allLinks);
-  await crossReferenceWithLiveStripeDocs(stripeLinks);
-};
-```
-
-### 📖 Required Documentation Updates
-
-* **Link validation**: All external links verified and updated
-* **Stripe reference accuracy**: Cross-referenced with live Stripe docs
-* **Metadata schemas**: Documented for every Stripe object type
-* **API examples**: Include verbose logging output
-* **Error handling**: Document all Stripe error types and responses
-
----
-
-## 🧪 Stripe Integration & Comprehensive Logging
-
-### 🏗️ Enhanced Provider Contract: `StripeProvider`
-
-All Stripe logic must include verbose logging and comprehensive metadata:
-
-```typescript
-export const StripeProvider = ({ children }: PropsWithChildren) => {
-  // Simple verbose control - no env required
-  const VERBOSE_LOGGING = true;
-  const LOG_FULL_RESPONSES = true;
-  
-  const [stripeData, setStripeData] = useState({
-    customerId: null,
-    clientSecret: null,
-    error: null,
-    metadata: {}
-  });
-
-  const logStripeOperation = (operation: string, input: any, output: any) => {
-    if (VERBOSE_LOGGING) {
-      console.log(`
-      ═══════════════════════════════════════════════════════════
-      🔷 STRIPE ${operation.toUpperCase()} OPERATION
-      ═══════════════════════════════════════════════════════════
-      ⏰ Timestamp: ${new Date().toISOString()}
-      📝 Operation: ${operation}
-      📥 Input Data: ${JSON.stringify(input, null, 2)}
-      📤 Output Data: ${JSON.stringify(output, null, 2)}
-      🔗 Request ID: ${output?.id || 'N/A'}
-      💾 Data Shape Analysis:
-      ${analyzeObjectShape(output)}
-      ═══════════════════════════════════════════════════════════
-      `);
-    }
-  };
-
-  const createCustomerWithMetadata = async (customerData: any) => {
-    console.log('🚀 Creating customer with enhanced metadata...');
-    
-    const enhancedData = {
-      ...customerData,
-      metadata: {
-        ...customerData.metadata,
-        created_by: 'system',
-        environment: 'test',
-        version: '1.0',
-        project_context: 'comprehensive_analysis'
-      }
-    };
-
-    try {
-      const response = await fetch('https://api.stripe.com/v1/customers', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.STRIPE_SK}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(enhancedData)
-      });
-
-      const customer = await response.json();
-      
-      logStripeOperation('CREATE_CUSTOMER', enhancedData, customer);
-      
-      if (LOG_FULL_RESPONSES) {
-        console.log('📊 Full customer object analysis:');
-        analyzeStripeCustomerObject(customer);
-      }
-      
-      return customer;
-    } catch (error) {
-      console.error('❌ Customer creation failed:', error);
-      logStripeOperation('CREATE_CUSTOMER_ERROR', enhancedData, error);
-      throw error;
-    }
-  };
-
-  return (
-    <StripeContext.Provider value={{ stripeData, createCustomerWithMetadata }}>
-      {children}
-    </StripeContext.Provider>
-  );
-};
-```
-
----
-
-### 🔍 Data Shape Analysis Functions
-
-Required utility functions for all Stripe objects:
-
-```typescript
-const analyzeStripeCustomerObject = (customer: any) => {
-  console.log(`\n🔍 CUSTOMER OBJECT ANALYSIS`);
-  console.log(`📋 Available fields: ${Object.keys(customer).join(', ')}`);
-  console.log(`🏷️  Metadata fields: ${Object.keys(customer.metadata || {}).join(', ')}`);
-  
-  // Check for missing common fields
-  const commonCustomerFields = ['name', 'email', 'phone', 'address', 'description'];
-  const missingFields = commonCustomerFields.filter(field => !customer[field]);
-  
-  if (missingFields.length > 0) {
-    console.log(`⚠️  Missing recommended fields: ${missingFields.join(', ')}`);
-    console.log(`💡 Consider adding these for enhanced customer data`);
-  }
-  
-  console.log(`📊 Full object structure:`);
-  console.log(JSON.stringify(customer, null, 2));
-};
-
-const analyzeStripeProductObject = (product: any) => {
-  console.log(`\n🔍 PRODUCT OBJECT ANALYSIS`);
-  console.log(`📋 Available fields: ${Object.keys(product).join(', ')}`);
-  console.log(`🏷️  Metadata fields: ${Object.keys(product.metadata || {}).join(', ')}`);
-  
-  // Check for missing product fields
-  const commonProductFields = ['description', 'images', 'url', 'statement_descriptor'];
-  const missingFields = commonProductFields.filter(field => !product[field]);
-  
-  if (missingFields.length > 0) {
-    console.log(`⚠️  Missing recommended fields: ${missingFields.join(', ')}`);
-  }
-  
-  console.log(`📊 Full object structure:`);
-  console.log(JSON.stringify(product, null, 2));
-};
-```
-
----
-
-### ✅ Enhanced Stripe Function Guidelines
-
-* **Verbose logging required**: Every function logs full request/response
-* **Metadata enhancement**: Add comprehensive metadata to all objects
-* **HTTP-only**: Never use `stripe-js` or SDKs, only `fetch`/`curl`
-* **Data shape analysis**: Document and analyze every object returned
-* **Environment variables**: Use `STRIPE_PK` and `STRIPE_SK` from `.env`
-* **Error documentation**: Log and categorize all error types
-* **Link validation**: Verify all Stripe documentation references
-
----
-
-### 🧪 Comprehensive Test Strategy
-
-```typescript
-describe('Enhanced StripeProvider', () => {
-  it('creates customer with comprehensive metadata and logging', async () => {
-    const customerData = {
-      name: 'Test Customer',
-      email: 'test@example.com'
-    };
-    
-    render(<StripeProvider><TestComponent /></StripeProvider>);
-    
-    await waitFor(() => {
-      const { createCustomerWithMetadata } = useStripe();
-      expect(createCustomerWithMetadata).toBeDefined();
-    });
-    
-    // Verify verbose logging output
-    expect(console.log).toHaveBeenCalledWith(
-      expect.stringContaining('STRIPE CREATE_CUSTOMER OPERATION')
-    );
-  });
-
-  it('analyzes and documents data shapes', async () => {
-    // Test should verify that data shape analysis is performed
-    // and missing fields are identified and logged
-  });
-
-  it('validates all external documentation links', async () => {
-    const links = await extractLinksFromMarkdown('./docs/');
-    const brokenLinks = await validateLinks(links);
-    expect(brokenLinks).toHaveLength(0);
-  });
-});
-```
-
----
-
-## 🎯 AI Agent Objectives
-
-When working on this project, AI agents must:
-
-### 📋 Documentation Analysis
-* Scan all `.md` files for broken links
-* Cross-reference Stripe documentation with current API
-* Update outdated references and examples
-* Document data shapes for all Stripe objects
-
-### 🔍 Verbose Implementation
-* Add comprehensive logging to every Stripe function
-* Implement data shape analysis for all objects
-* Create metadata enhancement recommendations
-* Generate detailed error documentation
-
-### 🧪 Testing Requirements
-* Use real Stripe test API keys and sandbox
-* Test with actual Stripe test card numbers (4242 4242 4242 4242)
-* Validate webhook handling with real payloads
-* Document all test scenarios and responses
-
----
-
-## ⚙️ Required Tooling & Environment
-
-### 📝 Environment Variables
-
-`.env.example` must include:
-
-```env
-# Stripe API Keys
-STRIPE_PK=pk_test_...
-STRIPE_SK=sk_test_...
-
-# Logging Configuration (optional)
-DEBUG_STRIPE=true
-VERBOSE_LOGGING=true
-```
-
-### 🛠️ Documentation Tools
-
-Required scripts for documentation maintenance:
-
-```bash
-# Validate all markdown links
-curl -X GET "https://api.stripe.com/v1/products" \
-  -H "Authorization: Bearer $STRIPE_SK" \
-  -v  # Always use verbose mode for debugging
-
-# Test customer creation with metadata
-curl -X POST "https://api.stripe.com/v1/customers" \
-  -H "Authorization: Bearer $STRIPE_SK" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "name=Test Customer" \
-  -d "email=test@example.com" \
-  -d "metadata[created_by]=documentation_test" \
-  -v
-```
-
----
-
-## 📝 Pull Request Requirements
-
-* **Documentation updates**: Include `.md` file analysis results
-* **Link validation**: Verify all external references work
-* **Verbose logging**: Include sample log output from testing
-* **Metadata enhancement**: Document metadata additions made
-* **Real API testing**: Include test results with actual Stripe responses
-* **Error handling**: Document error scenarios tested
-
----
-
-## 📖 Integration Examples
-
-### ✅ **Correct Implementation**
-
-```typescript
-// Comprehensive Stripe product creation
-const createProductWithAnalysis = async (productData: any) => {
-  console.log('🛍️ Creating product with comprehensive analysis...');
-  
-  const enhancedData = {
-    ...productData,
-    metadata: {
-      ...productData.metadata,
-      created_at: new Date().toISOString(),
-      version: '1.0',
-      category: productData.category || 'general',
-      analysis_complete: 'true'
-    }
-  };
-  
-  try {
-    const response = await fetch('https://api.stripe.com/v1/products', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.STRIPE_SK}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams(enhancedData)
-    });
-    
-    const product = await response.json();
-    
-    // Required: Analyze and log data shape
-    analyzeStripeProductObject(product);
-    
-    // Required: Log full operation
-    logStripeOperation('CREATE_PRODUCT', enhancedData, product);
-    
-    return product;
-  } catch (error) {
-    console.error('❌ Product creation failed:', error);
-    logStripeOperation('CREATE_PRODUCT_ERROR', enhancedData, error);
-    throw error;
-  }
-};
-```
-
-### 🚫 **Incorrect Implementation**
-
-```typescript
-// Missing logging, analysis, and metadata
-const stripe = await loadStripe('pk_test_...');  // SDK usage forbidden
-const product = await stripe.products.create(data);  // No logging or analysis
-```
-
----
-
-## 🔗 Documentation Maintenance
-
-### 📋 Required Weekly Tasks
-
-* Validate all external links in `.md` files
-* Cross-reference Stripe documentation with latest API
-* Update any broken or outdated references
-* Analyze new Stripe object fields and update schemas
-* Review verbose logging output for optimization opportunities
-
-### 📊 Metadata Enhancement Checklist
-
-For each Stripe object type, ensure metadata includes:
-- `created_by`: System or user identifier
-- `environment`: test/production indicator  
-- `version`: Schema or API version
-- `category`: Business classification
-- `last_updated`: Timestamp of last modification
-- Business-specific tracking fields
-
----
-
-This `AGENTS.md` enforces comprehensive documentation analysis, verbose Stripe integration with full metadata, and robust testing patterns without requiring complex environment setup.
+## COMPREHENSIVE CHAIN OF REASONING COMMAND FOR STRIPE PROJECT ANALYSIS & OPTIMIZATION
+
+
+ensure you run npm install. And ensure we reach the endpoints. If you get an error, lets diagnose and fix,. It SHOULD be reaching the endpoints
+
+### PHASE 1: PROJECT DOCUMENTATION DISCOVERY
+1. Search the entire project directory for ALL .md files recursively
+2. List each .md file found with its full path
+3. Extract all external links/references from each .md file
+4. Categorize links by domain (stripe.com, github.com, other external sites, etc.)
+5. Create an inventory of all documentation files and their reference counts
+
+### PHASE 2: LINK VALIDATION & REFERENCE VERIFICATION
+1. Test each external link to verify if it's still active and accessible
+2. For broken/dead links:
+   - Document the broken URL
+   - Note which .md file(s) contain the broken reference
+   - Suggest potential replacement URLs if obvious alternatives exist
+3. For Stripe-specific links (stripe.com domain):
+   - Verify the link works and content is current
+   - Extract key information from the live Stripe documentation
+   - Cross-reference with your project's implementation
+   - Note any discrepancies between your docs and current Stripe docs
+
+### PHASE 3: STRIPE OBJECT ANALYSIS & METADATA EXTRACTION
+1. **Identify all Stripe objects used in the codebase:**
+   - Products, Prices, Customers, Subscriptions, Payment Intents, etc.
+   - Sessions, Invoices, Coupons, Discounts, Tax Rates
+   - Webhooks, Events, Charges, Refunds
+
+2. **For EACH Stripe object type, create comprehensive analysis:**
+   - Map current usage in codebase
+   - Document actual data shapes being returned
+   - Identify missing metadata fields
+   - Compare with full Stripe API object specification
+   - Note which optional fields could provide value
+
+3. **Data Shape Documentation:**
+   - Create detailed schemas for each object type used
+   - Document nested object relationships
+   - Map field types, nullability, and constraints
+   - Identify expand parameters that could provide richer data
+
+### PHASE 4: ROBUST LOGGING IMPLEMENTATION
+1. **Create comprehensive logging functions for each Stripe operation:**
+   ```javascript
+   // Simple verbose flag - no env needed
+   const VERBOSE = true; // Set to false to disable detailed logging
+   
+   const logStripeOperation = (operation, input, output, metadata = {}) => {
+     if (VERBOSE) {
+       console.log(`
+       ═══════════════════════════════════════════════════════════
+       🔷 STRIPE ${operation.toUpperCase()} OPERATION
+       ═══════════════════════════════════════════════════════════
+       ⏰ Timestamp: ${new Date().toISOString()}
+       📝 Operation: ${operation}
+       📥 Input Data: ${JSON.stringify(input, null, 2)}
+       📤 Output Data: ${JSON.stringify(output, null, 2)}
+       🏷️  Metadata: ${JSON.stringify(metadata, null, 2)}
+       🔗 Request ID: ${output?.id || 'N/A'}
+       💾 Data Shape: ${JSON.stringify(getObjectShape(output), null, 2)}
+       ═══════════════════════════════════════════════════════════
+       `);
+     }
+   };
+2. Add detailed logging to every Stripe function: // Example for any Stripe functionconst createCustomer = async (customerData) => {  console.log('🚀 Creating customer with data:', customerData);    try {    const customer = await stripe.customers.create(customerData);        // Log the full response shape    console.log('✅ Customer created successfully');    console.log('📊 Full customer object shape:');    console.log(JSON.stringify(customer, null, 2));        logStripeOperation('CREATE_CUSTOMER', customerData, customer);    return customer;  } catch (error) {    console.error('❌ Customer creation failed:', error);    console.error('🔍 Error details:', {      type: error.type,      code: error.code,      message: error.message,      param: error.param    });    throw error;  }};
+3. 
+PHASE 5: VERBOSE MODE IMPLEMENTATION (NO ENV REQUIRED)
+1. Create simple verbose logging with toggles:// At the top of each file - easy to toggle
+2. const DEBUG_MODE = true;
+3. const SHOW_FULL_RESPONSES = true;
+4. const LOG_REQUEST_DETAILS = true;
+5. 
+6. const debugLog = (message, data = null) => {
+7.   if (DEBUG_MODE) {
+8.     console.log(`🐛 [DEBUG] ${message}`);
+9.     if (data && SHOW_FULL_RESPONSES) {
+10.       console.log(JSON.stringify(data, null, 2));
+11.     }
+12.   }
+13. };
+14. 
+15. const requestLog = (endpoint, params) => {
+16.   if (LOG_REQUEST_DETAILS) {
+17.     console.log(`📡 API Request to: ${endpoint}`);
+18.     console.log(`📋 Parameters:`, params);
+19.   }
+20. };
+21. 
+22. Add verbose output directly in functions:const getAllProducts = async () => {
+23.   console.log('🛍️ Fetching all products...');
+24.   
+25.   const products = await stripe.products.list({ limit: 100 });
+26.   
+27.   console.log(`✅ Found ${products.data.length} products`);
+28.   console.log('📊 Products data shape:');
+29.   products.data.forEach((product, index) => {
+30.     console.log(`\n--- Product ${index + 1} ---`);
+31.     console.log(`ID: ${product.id}`);
+32.     console.log(`Name: ${product.name}`);
+33.     console.log(`Description: ${product.description}`);
+34.     console.log(`Metadata keys: ${Object.keys(product.metadata)}`);
+35.     console.log(`Full object:`, JSON.stringify(product, null, 2));
+36.   });
+37.   
+38.   return products;
+39. };
+40. 
+PHASE 6: FUNCTION OPTIMIZATION & PERFECTION
+1. For each Stripe operation, create perfect functions with built-in logging:Products:const createProductWithFullMetadata = async (productData) => {
+2.   console.log('🏭 Creating product with enhanced metadata...');
+3.   
+4.   const enhancedData = {
+5.     ...productData,
+6.     metadata: {
+7.       ...productData.metadata,
+8.       created_by: 'system',
+9.       version: '1.0',
+10.       category: productData.category || 'general',
+11.       // Add any other business metadata
+12.     }
+13.   };
+14.   
+15.   console.log('📝 Enhanced product data:', enhancedData);
+16.   
+17.   try {
+18.     const product = await stripe.products.create(enhancedData);
+19.     console.log('✅ Product created with ID:', product.id);
+20.     console.log('📊 Full product object:', JSON.stringify(product, null, 2));
+21.     return product;
+22.   } catch (error) {
+23.     console.error('❌ Product creation failed:', error);
+24.     throw error;
+25.   }
+26. };
+27. 
+PHASE 7: ANALYSIS OF USER-PROVIDED CONTEXT
+[SPACE FOR YOUR PROMPT/ISSUES - INSERT BELOW THIS LINE]
+
+CONTEXT/ISSUES TO ANALYZE: [INSERT YOUR SPECIFIC PROMPTS, ERROR MESSAGES, OR ISSUES HERE]
+Example format:
+* Specific error you're encountering
+* Code snippets that aren't working
+* Questions about implementation
+* Stripe notifications or warnings you've received
+
+PHASE 8: DATA SHAPE ANALYSIS & METADATA ENHANCEMENT
+1. Create utility functions to analyze object shapes: const analyzeStripeObject = (obj, objectType) => {  console.log(`\n🔍 Analyzing ${objectType} object shape:`);  console.log(`📋 Available fields: ${Object.keys(obj).join(', ')}`);  console.log(`🏷️  Metadata fields: ${Object.keys(obj.metadata || {}).join(', ')}`);  console.log(`📊 Full object structure:`);  console.log(JSON.stringify(obj, null, 2));    // Check for commonly missing fields  const commonFields = {    product: ['description', 'images', 'metadata', 'url'],    customer: ['name', 'email', 'phone', 'address', 'metadata'],    subscription: ['metadata', 'description', 'trial_end']  };    if (commonFields[objectType]) {    console.log(`⚠️  Missing common fields:`);    commonFields[objectType].forEach(field => {      if (!obj[field]) {        console.log(`   - ${field}`);      }    });  }};
+2. 
+PHASE 9: IMPLEMENTATION GUIDE
+1. Step-by-step implementation:
+    * Add logging functions to each file
+    * Set DEBUG_MODE = true at the top of files
+    * Run each function and examine the logged output
+    * Identify missing metadata and enhance objects
+    * Perfect each function based on logged data shapes
+2. No environment setup required:
+    * Just toggle boolean flags in code
+    * Use console.log statements liberally
+    * Copy/paste the verbose output for analysis
+    * Gradually reduce logging as functions are perfected
+OUTPUT FORMAT:
+* Provide complete, ready-to-use logging functions
+* Include copy-paste code examples with built-in verbose output
+* Show before/after examples of function enhancement
+* Create step-by-step implementation without any env dependencies
