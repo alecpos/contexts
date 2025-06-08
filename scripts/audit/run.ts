@@ -3,6 +3,7 @@ import path from 'path';
 
 const SCRIPTS = [
   'call-graph.ts',
+  'endpoint-trace.ts',
   'audit-utils.ts',
   'check-links.ts',
   'audit-dashboard.ts'
