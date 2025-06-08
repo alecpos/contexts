@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "start": "ts-node server/index.ts",
-    "check:links": "ts-node scripts/check-links.ts"
+    "check:links": "ts-node scripts/check-links.ts",
+    "audit:utils": "ts-node scripts/audit-utils.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.3",
