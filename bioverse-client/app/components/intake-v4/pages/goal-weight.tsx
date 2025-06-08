@@ -13,7 +13,11 @@ import { getNextIntakeRoute } from '@/app/utils/functions/intake-route-controlle
 import { useState } from 'react';
 
 /** Collects the patient's target weight. */
-export default function GoalWeight() {
+interface Props {
+  userId: string;
+}
+
+export default function GoalWeight({ userId }: Props) {
     const router = useRouter();
     const url = useParams();
     const searchParams = useSearchParams();
@@ -21,8 +25,19 @@ export default function GoalWeight() {
     const fullPath = usePathname();
     const { product_href } = getIntakeURLParams(url, searchParams);
     const [weight, setWeight] = useState(180);
+    const [loading, setLoading] = useState(false);
 
-    const pushToNextRoute = () => {
+    const pushToNextRoute = async () => {
+        setLoading(true);
+        try {
+            await fetch('/api/patient/goal-weight', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, weight }),
+            });
+        } catch (e) {
+            console.error('Failed to save goal weight', e);
+        }
         const nextRoute = getNextIntakeRoute(fullPath, product_href, search);
         router.push(`/intake/prescriptions/${product_href}/${nextRoute}?${search}`);
     };

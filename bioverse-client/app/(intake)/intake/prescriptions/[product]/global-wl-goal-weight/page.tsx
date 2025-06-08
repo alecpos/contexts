@@ -11,8 +11,6 @@ interface Props {
 export default async function GlobalWLGoalWeight({ params, searchParams }: Props) {
   const user_id = (await readUserSession()).data.session?.user.id!;
   return (
-    <>
-      <GoalWeight />
-    </>
+    <GoalWeight userId={user_id} />
   );
 }
