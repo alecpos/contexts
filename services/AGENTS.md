@@ -1,3 +1,8 @@
+
+# AGENTS – Services
+
+Reusable modules for interacting with external APIs. Each service lives in its own subdirectory. Service functions should wrap network requests and include basic error handling. Provide unit tests for every service.
+
 # 🛠️ Services Directory Agents
 
 **Last Updated:** 2024-03-19
@@ -84,3 +89,4 @@ Each service should:
 - Document API requirements
 - Provide clear error messages
 - Include logging and monitoring 
+

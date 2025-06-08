@@ -54,3 +54,76 @@ export default function PaymentButton() {
 - `verifyMicrodeposits(id, amounts)` – verify bank account microdeposits.
 
 Wrap your application with `StripeProvider` to ensure the customer and setup intent are created before calling these helpers.
+
+---
+
+## RudderStackProvider
+
+`RudderStackProvider` sends analytics events using the RudderStack Node SDK. It is a server component so API keys never reach the browser. The provider validates the following environment variables:
+
+```bash
+RUDDERSTACK_API_KEY=<write key>
+RUDDERSTACK_DATA_PLANE_URL=<data plane url>
+```
+
+### Usage
+
+Wrap your application's root layout in `RudderStackProvider` and call the helper hook `useRudderStack` from server components to track analytics events.
+
+```tsx
+import { RudderStackProvider } from './providers/RudderStackProvider'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <RudderStackProvider>{children}</RudderStackProvider>
+}
+```
+
+```tsx
+import { useRudderStack } from '../providers/RudderStackProvider'
+
+export default async function Example() {
+  const { track } = useRudderStack()
+  await track('my-event', { foo: 'bar' })
+  return null
+}
+```
+
+The context provides three functions:
+
+- `track(event, properties)` – send a tracking event
+- `identify(userId, traits)` – identify a user
+- `alias(newUserId, anonymousId)` – alias an anonymous user to a new id
+
+Wrap your application with `RudderStackProvider` to ensure events are sent securely from the server.
+
+---
+
+## OpenAIProvider
+
+`OpenAIProvider` wraps the OpenAI chat completion API. It is a server component and requires `OPENAI_API_KEY`.
+
+```bash
+OPENAI_API_KEY=<your api key>
+```
+
+### Usage
+
+Wrap your application's root layout with `OpenAIProvider` and call the helper hook `useOpenAI` from other server components.
+
+```tsx
+import { OpenAIProvider } from './providers/OpenAIProvider'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <OpenAIProvider>{children}</OpenAIProvider>
+}
+```
+
+```tsx
+import { useOpenAI } from '../providers/OpenAIProvider'
+
+export default async function Example() {
+  const { generateChat } = useOpenAI()
+  const res = await generateChat([{ role: 'user', content: 'hello' }])
+  return <pre>{JSON.stringify(res, null, 2)}</pre>
+}
+```
