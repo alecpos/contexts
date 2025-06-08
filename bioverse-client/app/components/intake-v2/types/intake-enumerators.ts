@@ -217,4 +217,7 @@ export enum INTAKE_ROUTE_V3 {
     ORDER_SUMMARY_V3_AP = 'order-summary-v3-ap',
     ONE_MOMENT = 'one-moment',
     NEW_NON_WL_CHECKOUT = 'checkout-v3',
+    GLOBAL_WL_GOAL_WEIGHT = 'global-wl-goal-weight',
+    GLOBAL_WL_INTERACTIVE = 'global-wl-interactive',
+    GLOBAL_WL_MEDICATIONS = 'global-wl-medications',
 }
