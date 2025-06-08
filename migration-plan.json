@@ -1,0 +1,3526 @@
+[
+  {
+    "source": "utils/unvalidatedUtils/actions/admin/dashboard-scripts.ts",
+    "exports": [
+      "AdminOrderDashboardFetch"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/admin/parsers.ts",
+      "utils/unvalidatedUtils/database/controller/providers/providers-api.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/admin/parsers.ts",
+    "exports": [
+      "prescriptionRequestToAdminDashboard",
+      "renewalOrderToProviderDashboard"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/dates.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/admin/dashboard-scripts.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/alternatives/weight-loss/alternative-weight-loss-actions.ts",
+    "exports": [
+      "verifyAlternativeRequiredOrderData",
+      "collectInformationToCreateAlternativeOrder",
+      "confirmAlternativeOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/auth/session-reader.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/auth-actions.ts",
+    "exports": [
+      "getUserIdFromSession"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/authorization.ts",
+    "exports": [
+      "verifyUserPermission"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/employees/employees-api.ts",
+      "utils/unvalidatedUtils/functions/auth/authorization/authorizaiton-helper.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/change-email.ts",
+    "exports": [
+      "changeEmail",
+      "checkIfEmailExists",
+      "changePassword"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/oauth.ts",
+    "exports": [
+      "googleOAuthSignIn",
+      "facebookOAuthSignIn",
+      "appleOauthSignIn"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseBrowserClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/server-signIn-signOut.ts",
+    "exports": [
+      "signUpWithEmailAndPassword",
+      "signInUser",
+      "signOutUser"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/session-reader.ts",
+    "exports": [
+      "readUserSession",
+      "readActiveUser",
+      "readUserSessionCheckForMFARequirement",
+      "getCurrentUserId",
+      "getAuthLevel"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/employees/employees-api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/alternatives/weight-loss/alternative-weight-loss-actions.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/sign-out.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+    "exports": [
+      "getNextOrderStatusQuarterly",
+      "handleCheckupCompletionV2",
+      "isWithinLastThreeMonths",
+      "getLastCheckInFormSubmission",
+      "auditCheckupForm",
+      "getNextStatusTag"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/functions/renewal-orders/renewal-orders.ts",
+      "utils/unvalidatedUtils/actions/check-up/check-up-constants.ts",
+      "utils/unvalidatedUtils/functions/pricing.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscription_enums.ts",
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/check-up/check-up-constants.ts",
+    "exports": [
+      "INVALID_RENEWAL_ORDER_STATSUES_FOR_CHECKUP_COMPLETE"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/coordinator/dashboard-scripts.ts",
+    "exports": [
+      "CoordinatorDashboardFetch",
+      "LeadCoordinatorDashboardFetch"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/coordinator/parsers.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/coordinator/parsers.ts",
+    "exports": [
+      "prescriptionRequestToCoordinatorDashboard",
+      "prescriptionRequestToCoordinatorDashboardv2",
+      "renewalOrderToCoordinatorDashboard"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/coordinator/dashboard-scripts.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/engineer/dashboard-scripts.ts",
+    "exports": [
+      "EngineerDashboardFetch"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/hhq-questionnaire.ts",
+    "exports": [
+      "getHHQQuestionsForProduct",
+      "getHHQAnswersForProduct",
+      "writeHHQAnswer"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/hooks/useLocalStorage.ts",
+    "exports": [
+      "useLocalStorage"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/order-control.ts",
+    "exports": [
+      "createNewOrder",
+      "getUserIDForOrder",
+      "updateExistingOrderStatus",
+      "setOrderProvider",
+      "checkForExistingOrder",
+      "getAllOrderDataById"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/order-util.ts",
+    "exports": [
+      "parseStateToNumeric",
+      "getOrderType",
+      "getOrderPillStatus",
+      "isOrderIncomplete",
+      "shouldOrderNeedReview",
+      "processDosageSelectionFirstTimeRequest",
+      "processEmpowerOrder",
+      "processHallandaleOrder",
+      "processReviveOrder",
+      "processBoothwynOrder",
+      "sendAutoMacro"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/hallandale-approval-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/threads/threads.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/revive-script-generator.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/product-data.ts",
+    "exports": [
+      "fetchProductImageAndPriceData"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/wl-supply.ts",
+    "exports": [
+      "getRecommendedDosage",
+      "getRecommendedPrices",
+      "fetchData",
+      "constructQuestionObject"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/intake.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/membership/membership-portal-actions.ts",
+    "exports": [
+      "getLicenseOrSelfieURL",
+      "getSideProfileURL",
+      "changeUserPassword"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/membership/order-history-actions.ts",
+    "exports": [
+      "getPatientSinglePurchaseOrderHistory",
+      "getPatientSubscriptionOrderHistory",
+      "getSubscriptionHistory",
+      "cancelSubscription",
+      "resumeSubscription"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseBrowserClient.ts",
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/functions/patient-portal/patient-portal-utils.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-actions.ts",
+    "exports": [
+      "getThreadIdBetweenUsers",
+      "getAllThreadsForUser",
+      "getThreadsData",
+      "getThreadConversation",
+      "dispatchMessage",
+      "getUsersToMessage",
+      "dispatchNewMessage",
+      "createOrGetThread",
+      "getOtherUserInThread",
+      "addThreadMembers",
+      "createNewThread",
+      "viewedMessage",
+      "getNumberUnreadMessages",
+      "getNumberUnreadProviderMessages"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-user.ts",
+    "exports": [
+      "getAccountProfileDataforMessage",
+      "getAllAccountProfiles",
+      "getUserAuthorization"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-util.ts",
+    "exports": [
+      "formatThreadSidebarTimestamp",
+      "formatToMonthDay",
+      "getMessageSecondsDifference",
+      "formatChatTimestamp",
+      "updateInitialThreadData",
+      "updateLastViewedThread",
+      "truncateMessageContent",
+      "hasMessageBeenRead"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-v2-actions.ts",
+    "exports": [
+      "loadPatientThreadData"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/threads/threads.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/messageTest.ts",
+    "exports": [
+      "getMessages",
+      "sendMessage"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/pdp-api/pdp-api.ts",
+    "exports": [
+      "fetchProducts",
+      "fetchProduct",
+      "deleteProduct",
+      "updateProduct",
+      "updateProductPrice",
+      "createProduct",
+      "createProductPrice"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/prescription-subscriptions/prescription-subscriptions-actions.ts",
+    "exports": [
+      "updateRenewalCount",
+      "getAllGLP1SubscriptionsForProduct",
+      "getAllActiveGLP1SubscriptionsForProduct"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/active-subscriptions.ts",
+    "exports": [
+      "getActiveSubscriptionInfobyPatientId"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/announcements.ts",
+    "exports": [
+      "getDefaultAnnouncementRoles",
+      "uploadAnnouncementImage",
+      "createAnnouncement",
+      "getAnnouncementHistory",
+      "getAnnouncementsForProvider",
+      "updateAnnouncementReceipt",
+      "addImageUrlsToAnnouncements"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/auth.ts",
+    "exports": [
+      "completeProviderSignup"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/check-for-renewal-order.ts",
+    "exports": [
+      "checkForRenewalOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts",
+    "exports": [
+      "getProviderDashboardTasks",
+      "ProviderDashboardFetchV1",
+      "getLeadProviderOrderStatusTags"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/provider/parsers.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/providers/providers-api.ts",
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/get-suggested-dosages.ts",
+    "exports": [
+      "getSuggestedDosages"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/parsers.ts",
+    "exports": [
+      "prescriptionRequestToProviderDashboard",
+      "prescriptionRequestToProviderDashboardv2",
+      "renewalOrderToProviderDashboard",
+      "generalIntakeToProviderDisplay"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/patient-intake.ts",
+    "exports": [
+      "getGeneralPatientIntakeData",
+      "getGeneralPatientIntakeDataOld",
+      "updatePatientDoseSpotPatientId",
+      "updatePatientUpdateStatus"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+    "exports": [
+      "getPatientInformationById"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/alternatives/weight-loss/alternative-weight-loss-actions.ts",
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/classes/Pharmacy.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/hallandale-approval-script-generator.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/prescription-requests.ts",
+    "exports": [
+      "getAllReviewableOrdersFromOrdersTable",
+      "getAllPrescribableOrdersFromOrdersTable",
+      "getOrderByPatientId"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/provider-dosespot.ts",
+    "exports": [
+      "getProviderNotificationCount"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/providers/providers-api.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/update-renewal-order-metadata.ts",
+    "exports": [
+      "updateRenewalOrderMetadata"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/questionnaire-actions.ts",
+    "exports": [
+      "getNextQuestionForHersPersonalHistory",
+      "getNextQuestionForHersPersonalHistoryMaster",
+      "getNextQuestionForHersLogic",
+      "getNextQuestionForHersLogicMaster",
+      "getQuestionnaireVersion",
+      "shouldCreateCheckupQuestionnaire"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts",
+      "utils/unvalidatedUtils/functions/client-utils.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants.ts",
+    "exports": [
+      "constructWeightlossCheckupQuestions",
+      "constructNonWeightlossCheckupQuestions",
+      "constructCheckupJunction"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v3.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-actions.ts",
+      "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v1.ts",
+      "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v2.ts",
+      "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v3.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v1.ts",
+    "exports": [
+      "WEIGHTLOSS_CHECKUP_QUESTIONS_VERSION_ONE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v2.ts",
+    "exports": [
+      "WEIGHTLOSS_CHECKUP_QUESTIONS_VERSION_TWO"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v3.ts",
+    "exports": [
+      "WEIGHTLOSS_CHECKUP_QUESTIONS_VERSION_THREE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/stripe/stripe-webhook-actions.ts",
+    "exports": [
+      "sendCheckInCustomerIOEvent"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+    "exports": [
+      "createSubscriptionWithOrderDataDeprecated",
+      "getScriptDetails",
+      "getSubscriptionDetails",
+      "updatePrescriptionSubscription",
+      "getPrescriptionSubscription",
+      "getLastVariantIndexForSubscription"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/MonthlyCheckInComms.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/ThreeMonthCheckInComms.ts",
+      "utils/unvalidatedUtils/classes/Dashboard.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts",
+      "utils/unvalidatedUtils/functions/jobs/jobs.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/AnnuallyCheckInComms.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/BaseCommJobHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/BiannuallyCheckInComms.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts",
+    "exports": [
+      "MONTHLY_COMMS_FINAL_STEP_ID",
+      "QUARTERLY_COMMS_FINAL_STEP_ID",
+      "BIANNUALLY_COMMS_FINAL_STEP_ID",
+      "ANNUALLY_COMMS_FINAL_STEP_ID"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/CommsScheduler/AnnuallyCheckInComms.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/BiannuallyCheckInComms.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/MonthlyCheckInComms.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/ThreeMonthCheckInComms.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/MonthlyCheckInComms.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/ThreeMonthCheckInComms.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Dashboard.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/formatting.ts",
+      "utils/unvalidatedUtils/functions/pricing.ts",
+      "utils/unvalidatedUtils/functions/dates.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeConstantIndex.ts",
+    "exports": [
+      "DOSING_SWAP_EQUIVALENCE_CONSTANTS",
+      "getDosingOptionByDosageChangeEquivalenceCode",
+      "dosageChangeMacroReplacementTextMap"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeController.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantController.ts",
+      "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeEquivalenceMap.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeEquivalenceMap.ts",
+    "exports": [
+      "DOSAGE_EQUIVALENCE_MAP",
+      "getDosageEquivalenceCodeFromVariantIndex"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeController.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeModel.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Pharmacy.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/prescription-scripts-utils.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_script_audit/prescription_script_audit.tsx",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/BestPharmacyMatrix.ts",
+    "exports": [
+      "findVariantPharmacyByState",
+      "BEST_PHARMACY_MATRIX_MAP"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/ProductVariant/ProductVarianceMap.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantController.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/ProductVarianceMap.ts",
+    "exports": [
+      "PRODUCT_VARIANCE_EQUIVALENCE_MAP"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/ProductVariant/BestPharmacyMatrix.ts",
+      "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantController.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantController.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/ProductVariant/ProductVarianceMap.ts",
+      "utils/unvalidatedUtils/classes/ProductVariant/BestPharmacyMatrix.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeController.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantModel.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/constants/ProductEquivalencyConstants.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/constants/VariantPharmacyMap.ts",
+    "exports": [
+      "VARIANT_PHARMACY_MAP"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/SigVisualizer/SigVisualizer.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_script_audit/prescription_script_audit.tsx",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts",
+      "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantController.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/revive-script-generator.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/SigVisualizer/SigVisualizer.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/classes/ProductVariant/constants/VariantPharmacyMap.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/SigVisualizer/sig-visualizer.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/clients/supabaseBrowserClient.ts",
+    "exports": [
+      "createSupabaseBrowserClient"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/auth/oauth.ts",
+      "utils/unvalidatedUtils/actions/membership/order-history-actions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/clients/supabaseReqResClient.ts",
+    "exports": [
+      "createSupabaseReqResClient"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+    "exports": [
+      "createSupabaseServerClient",
+      "createSupabaseServerComponentClient",
+      "createSupabaseServiceClient"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/auth/auth-actions.ts",
+      "utils/unvalidatedUtils/actions/auth/change-email.ts",
+      "utils/unvalidatedUtils/actions/auth/server-signIn-signOut.ts",
+      "utils/unvalidatedUtils/actions/auth/session-reader.ts",
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/actions/intake/hhq-questionnaire.ts",
+      "utils/unvalidatedUtils/actions/intake/order-control.ts",
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/intake/product-data.ts",
+      "utils/unvalidatedUtils/actions/membership/membership-portal-actions.ts",
+      "utils/unvalidatedUtils/actions/membership/order-history-actions.ts",
+      "utils/unvalidatedUtils/actions/message/message-actions.ts",
+      "utils/unvalidatedUtils/actions/message/message-user.ts",
+      "utils/unvalidatedUtils/actions/message/messageTest.ts",
+      "utils/unvalidatedUtils/actions/pdp-api/pdp-api.ts",
+      "utils/unvalidatedUtils/actions/prescription-subscriptions/prescription-subscriptions-actions.ts",
+      "utils/unvalidatedUtils/actions/provider/active-subscriptions.ts",
+      "utils/unvalidatedUtils/actions/provider/announcements.ts",
+      "utils/unvalidatedUtils/actions/provider/auth.ts",
+      "utils/unvalidatedUtils/actions/provider/check-for-renewal-order.ts",
+      "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/provider/get-suggested-dosages.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-intake.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+      "utils/unvalidatedUtils/actions/provider/prescription-requests.ts",
+      "utils/unvalidatedUtils/actions/provider/update-renewal-order-metadata.ts",
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-actions.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions.ts",
+      "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-controller.ts",
+      "utils/unvalidatedUtils/functions/clean-stale-orders/clean-stale-orders.ts",
+      "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-glp1-controller.ts",
+      "utils/unvalidatedUtils/functions/utils.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/VWO/vwo_test_mappings.ts",
+    "exports": [
+      "VWO_ACTIVE_TEST_ROUTE_MAPPING",
+      "VWO_REVERSION_MAPPING"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/intake-route-controller.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts",
+    "exports": [
+      "PRODUCT_TEMPLATE_LATEST_VERSION_MAP"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts",
+      "utils/unvalidatedUtils/constants/templates/acarbose-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/atorvastatin-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/b12-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/cgm-sensor-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/ed-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/glp-1-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/glutathione-injection-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/metformin-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/minoxidil-finasteride-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/nad-product-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/skin-care-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/telmisartan-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/wl-capsule-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/zofran-templates.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts",
+    "exports": [
+      "TEMPLATIZED_PRODUCT_LIST",
+      "PRODUCT_TEMPLATE_MAPPING"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/templates/glp-1-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/metformin-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/b12-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/ed-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/glutathione-injection-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/nad-product-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/wl-capsule-templates.ts",
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts",
+      "utils/unvalidatedUtils/constants/templates/skin-care-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/minoxidil-finasteride-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/telmisartan-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/acarbose-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/cgm-sensor-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/atorvastatin-templates.ts",
+      "utils/unvalidatedUtils/constants/templates/zofran-templates.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/intake.ts",
+    "exports": [
+      "MEDICATION_DICTIONARY",
+      "MEDICATION_DICTIONARY_V3",
+      "MEDICATION_DICTIONARY_V3_CROSS_MAP"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/wl-supply.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/provider-portal/ProviderTasks.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/acarbose-templates.ts",
+    "exports": [
+      "ACARBOSE_TEMPLATE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/atorvastatin-templates.ts",
+    "exports": [
+      "ATORVASTATIN_TEMPLATE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/b12-templates.ts",
+    "exports": [
+      "B12_TEMPLATE",
+      "B12_TEMPLATE_V2"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/cgm-sensor-templates.ts",
+    "exports": [
+      "CGM_SENSOR_TEMPLATE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/ed-templates.ts",
+    "exports": [
+      "ED_TEMPLATE",
+      "ED_TEMPLATE_V2"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/glp-1-templates.ts",
+    "exports": [
+      "GLP1_INTAKE_TEMPLATE",
+      "GLP1_RENEWAL_TEMPLATE",
+      "GLP1_RENEWAL_TEMPLATE_V2",
+      "GLP1_INTAKE_TEMPLATE_V2",
+      "GLP1_RENEWAL_TEMPLATE_V3"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/glutathione-injection-templates.ts",
+    "exports": [
+      "GLUTATHIONE_INJECTION_TEMPLATE",
+      "GLUTATHIONE_INJECTION_TEMPLATE_V2"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/metformin-templates.ts",
+    "exports": [
+      "METFORMIN_TEMPLATE",
+      "METFORMIN_TEMPLATE_V2"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/minoxidil-finasteride-templates.ts",
+    "exports": [
+      "MINOXIDIL_FINASTERIDE_TEMPLATE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/nad-product-templates.ts",
+    "exports": [
+      "NAD_INJECTION_TEMPLATE",
+      "NAD_PATCHES_TEMPLATE",
+      "NAD_NASAL_SPRAY_TEMPLATE",
+      "NAD_COMBINED_TEMPLATE_V2"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/skin-care-templates.ts",
+    "exports": [
+      "SKIN_CARE_TEMPLATE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/telmisartan-templates.ts",
+    "exports": [
+      "TELMISARTAN_TEMPLATE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/wl-capsule-templates.ts",
+    "exports": [
+      "WL_CAPSULE_TEMPLATE",
+      "WL_CAPSULE_TEMPLATE_V2"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/zofran-templates.ts",
+    "exports": [
+      "ZOFRAN_TEMPLATE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/discounts/database-discounts-api.ts",
+    "exports": [
+      "getNonGLPDiscountForProduct"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/order_management/admin-order-management.ts",
+    "exports": [
+      "getAdminOrderManagementData"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/product_prices/product-prices.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/products/products.ts",
+    "exports": [
+      "getProductData"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/action-items/action-items-actions.ts",
+    "exports": [
+      "createActionItem",
+      "createDosageSelectionActionItem",
+      "doesUserHaveActiveActionItemForDosageSelectionProduct",
+      "clearDosageSelectionActionItems",
+      "getActionItems",
+      "getAllActionItems",
+      "getAllActionsItemsForPatientWithSession",
+      "getActionItem",
+      "isUserEligible",
+      "doesUserHaveSubscription",
+      "updateActionItem",
+      "getActionItemByName",
+      "getLastestActionItemForProduct",
+      "doesUserHaveActiveActionItemForProduct",
+      "createActionItemForProduct",
+      "deactivateAllActionItemsForProduct"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/admin_controlled_items/admin-controlled-items.ts",
+    "exports": [
+      "getAllControlledStates",
+      "getAdminControlState",
+      "changeAdminControlState"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/admin_order_cancel_audit/admin-order-cancel-audit.ts",
+    "exports": [
+      "insertAuditIntoAdministrativeCancelTable"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/ai_generation_audit/ai_generation_audit_api.ts",
+    "exports": [
+      "createAIGenerationAudit"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes.ts",
+    "exports": [
+      "updateClinicalNotes",
+      "fetchClinicalNotesWithPatientId",
+      "getPatientAllergyData",
+      "getPatientMedicationData",
+      "getPatientAllergyAndMedicationData",
+      "getAllPatientClinicalNoteData"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/actions/auth/session-reader.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_enums.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts",
+    "exports": [
+      "getAllClinicalNotesForPatient",
+      "getClinicalNoteById",
+      "postNewClinicalNote",
+      "updateClinicalNote",
+      "updateClinicalNoteTemplateData",
+      "retrieveAllergyAndMedicationData",
+      "addOrRetreivePatientAllergyAndMedicationData",
+      "addOrRetrievePatientBMIData",
+      "getHeightForPatient",
+      "getQuestionAnswersForBMI",
+      "getQuestionAnswersForGoalBMI",
+      "getClinicalNoteTemplateDataForOrderId",
+      "findClinicalNoteTemplateRecordByOrderId",
+      "findAllClinicalNoteTemplatesForOrderId",
+      "findAllOtherClinicalNoteTemplatesForPatient",
+      "createTemplatizedClinicalNote",
+      "createManualBMINote",
+      "createNewCheckUpClinicalBmiNote"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_enums.ts",
+      "utils/unvalidatedUtils/database/controller/profiles/profiles.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/coordinator_activity_audit/coordinator_activity_audit-api.ts",
+    "exports": [
+      "createNewCoordinatorActivityAudit",
+      "getCoordinatorSessionRecord",
+      "getPendingCoordinatorTasksCount",
+      "getCompletedCoordinatorTasksCount",
+      "getCompletedForwardedTasksCount",
+      "getMessagesOverdueCount",
+      "getCoordinatorAutomaticSessionTimes",
+      "startNewSession",
+      "endSession",
+      "getAllAuditedCoordinators",
+      "getCoordinatorProcessedTagCountFromDateRange",
+      "getCoordinatorDashboardCount",
+      "getCoordinatorActivityAuditCountsBetweenDates"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/coordinator_activity_audit/coordinator_activity_audit.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/coordinator_tasks/coordinator-task-api.ts",
+    "exports": [
+      "getLastCoordinatorTask",
+      "createCoordinatorTaskFromStatusTagData",
+      "createTaskFromOrderOrRenewalData",
+      "updateTaskCompletionStatus",
+      "getTaskOrderIdFromTaskId",
+      "getTaskCompletionCount",
+      "getMessagingTaskCompletionCount",
+      "getTodaysTaskCompletionCount",
+      "reportTaskFailure"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/custom_orders/custom_orders_api.ts",
+    "exports": [
+      "insertNewCustomOrder",
+      "generateCustomOrderIdForReferenceOrder",
+      "isCustomOrder",
+      "getOrderType",
+      "shouldCreateEasypostTrackerForCustomOrder",
+      "updateCustomOrder",
+      "getCustomOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/customerio_audit/audit_customerio.ts",
+    "exports": [
+      "auditCustomerioFailure"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/dose_spot_webhook_audit/dose-spot-webhook-audit.ts",
+    "exports": [
+      "insertDoseSpotWebhookAudit"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/ds_match_failures/ds-match-failures.ts",
+    "exports": [
+      "insertNewOrderMatchFailure"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/employees/employees-api.ts",
+    "exports": [
+      "getEmployeeRecordById",
+      "getEmployeeAuthorization",
+      "getCurrentEmployeeRole"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/auth/authorization.ts",
+      "utils/unvalidatedUtils/actions/auth/session-reader.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/employees/employees-database-type.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/escalations/escalations-api.ts",
+    "exports": [
+      "createSupabaseEscalation",
+      "createSupabaseEscalationByPharmacy",
+      "getAllEscalations",
+      "getAllPatientEscalations",
+      "changeEscalationStatus",
+      "editEscalationNote"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/internal_notes/internal-notes-api.ts",
+    "exports": [
+      "createNewInternalNote",
+      "getInternalNotesForPatientId"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/job-scheduler/job-scheduler-actions.ts",
+    "exports": [
+      "handleJobSuccess",
+      "handleJobFailure",
+      "auditJobScheduler",
+      "processJob",
+      "createNewSendPrescriptionJob",
+      "createNewStripeInvoicePaidJob",
+      "createNewAutoRenewalJob",
+      "createNewIDAndSelfieCheckPostCheckoutJob",
+      "markIDAndSelfieCheckJobCompleted",
+      "createNewCommsJob",
+      "createNewSpecificCommsJob",
+      "createNewFirstTimeCommJob",
+      "getCommJobForSubscription",
+      "createNewRenewalValidationJob"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros-api.ts",
+    "exports": [
+      "getAllMacrosByResponder",
+      "getCategoriesByResponder",
+      "getMacrosByResponder",
+      "getMacrosByCategoryAndResponder",
+      "getMacroById",
+      "updateMacroTitle",
+      "updateMacroTags"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros-dbtype.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros-types.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/macros/macros.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros.ts",
+    "exports": [
+      "replaceParameters",
+      "replaceParametersAutomaticSend",
+      "replaceCoordinatorParameters"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/macros/macros-types.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts",
+    "exports": [
+      "postNewMessage",
+      "getMessagesForThread",
+      "getFirstMessageForThread",
+      "getAutomaticMacroContent"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/macros/macros.ts",
+      "utils/unvalidatedUtils/database/controller/macros/macros-api.ts",
+      "utils/unvalidatedUtils/database/controller/providers/providers-api.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/message/message-v2-actions.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/threads/threads.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/thread_escalations/thread_escalations.ts",
+    "exports": [
+      "getAllThreadEscalations",
+      "getCoordinatorThreadList",
+      "getProviderThreadList",
+      "getProviderThreadCount",
+      "getLeadCoordinatorThreadList",
+      "updateConsiderCompleteForThreadId",
+      "updateRequiresProviderForThreadId",
+      "updateReadProviderTimeForThreadId",
+      "updateRequiresLeadForThreadId",
+      "removeCurrentProviderfromProvidersListForThreadId"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/thread_members/thread_members.ts",
+    "exports": [
+      "addMemberToThread",
+      "updateThreadMemberLastReadAt",
+      "updateThreadMemberLastReadAtWithPatientAndProduct"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/threads/threads.ts",
+    "exports": [
+      "createNewThreadForPatientProduct",
+      "createNewThreadForPatientProductWithCheck",
+      "listAllThreadsForPatient",
+      "getPatientThreadData",
+      "getThreadIDByPatientIDAndProduct"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/message/message-v2-actions.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-manual-order.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/mixpanel/mixpanel.ts",
+    "exports": [
+      "checkMixpanelSignUpViewedFired",
+      "checkMixpanelAliasFired",
+      "checkMixpanelEventFired",
+      "createMixpanelEventAudit",
+      "createMixpanelSignUpAudit"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/order_data_audit/order_audit_descriptions.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api.ts",
+      "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api.ts",
+    "exports": [
+      "createOrderDataAudit",
+      "getLatestDosageSelectionForRenewalOrder",
+      "hasOrderPharmacyScriptBeenSent",
+      "getRenewalDosageSelectionAudit",
+      "getPrescriptionSentAudit",
+      "getResendCount"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_audit_descriptions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/hallandale-approval-script-generator.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_type.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/address-in-most-recent-order.ts",
+    "exports": [
+      "getAddressOfMostRecentOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/create-manual-order.ts",
+    "exports": [
+      "getPreloadManualCreateOrderInformation",
+      "isUserEligibleForManualOrderCreation",
+      "handleUserThreadsOnManualCreateOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-order.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/threads/threads.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/create-order-utils.ts",
+    "exports": [
+      "getNextRenewalOrderId",
+      "getRenewalOrderCountFromRenewalOrderId"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/orders/create-order.ts",
+      "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/create-order.ts",
+    "exports": [
+      "createNewManualOrder",
+      "getManualCreateOrderInformation",
+      "getPriceForStripePriceId",
+      "processOnCreateOrder",
+      "createNewBaseOrder",
+      "overwriteExistingBaseOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-order-utils.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/orders/create-manual-order.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/order-matching-dose-spot.ts",
+    "exports": [
+      "getBestOrderMatchesFromDatabase",
+      "matchBasedOnGenericDrugName",
+      "matchBasedOnDrugDisplayName",
+      "matchBasedOnDispensableDrugId",
+      "matchBasedOnNDCNumber",
+      "matchBasedOnCompoundNumber",
+      "matchBasedOnLexicompId"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+    "exports": [
+      "getQuestionSetVersionForLastCompleteOrder",
+      "getFirstCompletedOrderCreatedDate",
+      "getFirstCompletedOrder",
+      "deleteOrderById",
+      "assignProviderToOrderUsingOrderId",
+      "getBaseOrderById",
+      "getOrderForProduct",
+      "getOrderForIndividualWLProduct",
+      "getOrderForProductV2",
+      "checkAndCreateOrder",
+      "checkAndCreateIndividualWLOrder",
+      "checkAndCreateCombinedWeightLossOrder",
+      "createNewOrderV2",
+      "insertNewManualOrder",
+      "insertNewFirstTimeOrder",
+      "getBaseOrderByProduct",
+      "getAllOrdersByPatientId",
+      "getCombinedOrderForBanner",
+      "getCombinedOrder",
+      "getCombinedOrderV2",
+      "getPossibleDoseSpotMatchOrdersUsingPatientId",
+      "getOrdersForCustomer",
+      "getOrderIdByPatientIdAndProductHref",
+      "getCombinedWeightlossOrderForUser",
+      "getIncompleteGlobalWLOrderPostHrefSwap",
+      "getAllOrdersForProduct",
+      "getAllGLP1RenewalOrdersForProduct",
+      "getAllGLP1OrdersForProduct",
+      "getAllOrdersWithStatusArray",
+      "doesOrderExistWithTrackingNumber",
+      "doesOrderExistWithEasypostTrackingId",
+      "getOrderIdUsingHallandaleOrderId",
+      "getPriceForProduct",
+      "getProductFromOrderId",
+      "checkForExistingOrderV2",
+      "checkForExistingOrderWeightLoss",
+      "getPatientOrderTabData",
+      "getCustomerIDFromEasyPostTrackingID",
+      "getCustomerIDFromTrackingNumber",
+      "getAllOrdersForProviderOrderTableV2",
+      "fetchMostRecentBaseOrder",
+      "getAllOrdersForProviderOrderTable",
+      "getAllOrdersForProviderOrderTablev2",
+      "getLeadProviderOrders",
+      "getNextOrderForTaskQueue",
+      "getAllOrdersForTaskQueue",
+      "getAllTaskQueueTotaOrderCount",
+      "getCurrentAssignedDosageForOrder",
+      "getSafeGuardProviderId",
+      "getAssignedOrdersForProviderOrderTable",
+      "fetchOrderDataByTaskId",
+      "fetchOrderData",
+      "getOrdersWithAssignedProvider",
+      "getAllOrdersForPatient",
+      "getOrderById",
+      "getOrderDetailsById",
+      "checkIsRenewalOrder",
+      "updateOrder",
+      "updateOrderSubscriptionID",
+      "updateAssignedPharmacyWithOrderId",
+      "updateOrderAfterCardDown",
+      "addMetadataToRenewalOrder",
+      "addMetadataToOrder",
+      "updateOrderAssignedDosage",
+      "updateShippingStatusByEasyPostTrackingID",
+      "updateShippingStatusForOrder",
+      "updateOrderShippingStatusAndExternalMetadata",
+      "updateOrderExternalMetadata",
+      "updateOrderTrackingNumber",
+      "updateTMCOrderMetadata",
+      "updateGGMOrderMetadata",
+      "updateExistingOrderStatusAndPharmacyUsingId",
+      "updateExistingOrderPharmacyUsingId",
+      "updateExistingOrderPharmacyAndVariantIndexUsingId",
+      "getAllOrdersForCoordinatorOrderTable",
+      "getAllLeadCoordinatorOrders",
+      "removeAssignedProviderForProviderAssignedQueue",
+      "getAllOrdersForCoordinatorOrderTablev2",
+      "getAllOrdersForAdminTable",
+      "updateOrderDiscount",
+      "updateExistingOrderStatusUsingId",
+      "updateExistingOrderStatusUsingIdAfterPaymentFailure",
+      "updateExistingOrderStatusAndExternalMetadataUsingId",
+      "updateOrderShippingStatus",
+      "updateStripeMetadataForOrder",
+      "addEasyPostTrackingIDToOrder",
+      "updateOrderShippingInformation",
+      "updateOrderPharmacyScript",
+      "updateOrderPharmacyDisplayName",
+      "getOrderByCustomerIdAndProductHref",
+      "updateOrderMetadata"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/shipping_tracking_failed_audit/shipping-tracking-failed-audit.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/admin/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/coordinator/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/prescription-subscriptions/prescription-subscriptions-actions.ts",
+      "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/classes/Pharmacy.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/coordinator_activity_audit/coordinator_activity_audit-api.ts",
+      "utils/unvalidatedUtils/database/controller/job-scheduler/job-scheduler-actions.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-manual-order.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-order.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts",
+      "utils/unvalidatedUtils/database/controller/profiles/profiles.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-controller.ts",
+      "utils/unvalidatedUtils/functions/patient-portal/patient-portal-utils.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/hallandale-approval-script-generator.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/revive-script-generator.ts",
+      "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-glp1-controller.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/orders-dbtype.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts",
+    "exports": [
+      "processAndCreateManualOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/create-manual-order.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-order-utils.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api.ts",
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_audit_descriptions.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+    "exports": [
+      "createUserStatusTagWNote",
+      "createUserStatusTag",
+      "setStatusTagMetadata",
+      "updateStatusTagToReview",
+      "createUserStatusTagWAction",
+      "getUserStatusTags",
+      "getStatusTagForOrder",
+      "getUserStatusTag",
+      "getUserStatusTagsWithNotes",
+      "getUserStatusTagNotes",
+      "getEngineerStatusTagOrders",
+      "assignEngineerToStatusTag",
+      "getAllOrdersForStatusTags",
+      "getAllOrdersForStatusTagsDaily",
+      "getStatusTags",
+      "getStatusTagsInArray",
+      "getCoordinatorTaskByStatusTagArray",
+      "getRegisteredNurseStatusTags",
+      "getStatusTagTaskCount",
+      "getStatusTagArrayTaskCount",
+      "forwardOrderToEngineering",
+      "updateStatusTagToResolved",
+      "updateStatusTagAssignedProvider",
+      "updateUserOrderStatusTags",
+      "getStatusTagAssignmentCount",
+      "getStatusTagArrayAssignmentCount",
+      "getNewIntakeCountFromDateRange",
+      "getNewIntakeCountWithIDDocsFromDateRange",
+      "getNewRenewalCountFromDateRange",
+      "getNewMessageCountFromDateRange",
+      "getIDDocsTaggedNewIntakesCountFromDateRange",
+      "getAverageStatusTagRemovalTime",
+      "getIntakeWithIDCount",
+      "getNextCoordinatorOrderForTaskQueue"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/actions/engineer/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts",
+      "utils/unvalidatedUtils/classes/Pharmacy.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/job-scheduler/job-scheduler-actions.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-order.ts",
+      "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/functions/jobs/JobsFactory.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts",
+    "exports": [
+      "PatientHistoryTaskName"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/stripe/stripe-webhook-actions.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+      "utils/unvalidatedUtils/database/controller/payment_failure_audit/payment_failure_audit-api.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+    "exports": [
+      "logPatientAction",
+      "fetchHistoryLogsForPatient",
+      "fetchPaymentFailureLogsForOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/stripe/stripe-webhook-actions.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts",
+      "utils/unvalidatedUtils/database/controller/payment_failure_audit/payment_failure_audit-api.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_combined_wl_answers_temp/patient_combined_wl_answers_temp_api.ts",
+    "exports": [
+      "insertNewWlAnswer"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_document_uploads/patient_document_uploads.ts",
+    "exports": [
+      "uploadPatientDocumentDB",
+      "getDocumentUploads",
+      "getDocumentURL"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_providers/patient-providers.ts",
+    "exports": [
+      "addProviderToPatientRelationship",
+      "addCustomerSupportToPatientOnSignup"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_weight_audit/patient-weight-audit-api.ts",
+    "exports": [
+      "createPatientWeightAudit",
+      "createCurrentPatientWeightAudit",
+      "getWeightAuditsForPatient"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_weight_audit/patient-weight-audit-database-type.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_error_audit/payment_error_audit.ts",
+    "exports": [
+      "postPaymentError"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_audit/payment_failure_audit-api.ts",
+    "exports": [
+      "createPaymentFailureAudit",
+      "createPaymentFailureAuditForRenewalOrder",
+      "getFailureAuditById",
+      "getLatestFailureAuditByOrderId",
+      "getFailureAuditsByOrderId",
+      "getLatestFailureAuditByPatientId",
+      "getFailureAuditsByPatientId",
+      "getLatestFailureAuditByPaymentMethodId",
+      "getFailureAuditsByPaymentMethodId"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_audit/payment_failure_audit.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker-api.ts",
+    "exports": [
+      "createPaymentFailureTrackerForRenewals",
+      "shouldCreateTrackerForRenewals",
+      "getPaymentFailureTrackerForOrder",
+      "getPaymentFailureTrackerForRenewalOrder",
+      "updateTrackerStatus",
+      "updateTrackerStatusById",
+      "stopAllPaymentFailureRetriesForOriginalOrderId"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker_enums.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker_enums.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker_enums.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker-api.ts",
+      "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker.d.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failures/payment-failures.ts",
+    "exports": [
+      "createNewPaymentFailure",
+      "retryPaymentFailureOnOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/pharmacy-order-failures/pharmacy-order-failures.ts",
+    "exports": [
+      "SaveJsonUsedToFailureTable"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscription_enums.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts",
+    "exports": [
+      "isCustomersFirstSubscription",
+      "updateSubscription",
+      "shouldApplyDiscountToFirstTimeOrder",
+      "createSubscriptionWithOrderData",
+      "updateSubscriptionLastUsedJSON",
+      "getAllSubscriptionsForPatient",
+      "getSubscriptionWithStripeSubscriptionId",
+      "createPrescriptionSubscription",
+      "updateRenewalCount",
+      "updateLastRenewalDate",
+      "getCancelationDetails",
+      "setRefillCount",
+      "getPaymentFailedSubscriptionWithID",
+      "incrementSinceLastCheckup",
+      "getStripeSubscriptionIdFromSubscription",
+      "isActiveSubscription",
+      "getSubscriptionStatusFlagsFromOriginalOrderId",
+      "getSubscriptionByProduct",
+      "getSubscriptionById",
+      "updateRecentVariants",
+      "getLastUsedVariantForSubscription",
+      "handleCheckUpSubscriptionExtension",
+      "wipeStatusFlags",
+      "addOrRemoveStatusFlags"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscription_enums.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-manual-order.ts",
+      "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts",
+      "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-controller.ts",
+      "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-glp1-controller.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts",
+    "exports": [
+      "getProductVariantList",
+      "getPriceVariantTableData",
+      "getActiveVariantsForProduct",
+      "getMonthlyAndQuarterlyPriceVariantData",
+      "getPriceDataRecordWithVariant",
+      "getProductVariantStripePriceIDsWithCadence",
+      "getProductVariantStripePriceIDsWithVariantIndex",
+      "getGLP1PriceVariantTableData",
+      "getDosagesForProductVariant",
+      "getVialUnitsPerMgForMonth"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/actions/intake/wl-supply.ts",
+      "utils/unvalidatedUtils/classes/Dashboard.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/functions/pricing.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/products/products.ts",
+    "exports": [
+      "getActiveCollectionsData",
+      "getImageRefUsingProductHref",
+      "getCollectionsData",
+      "getProductName",
+      "getProductVariant",
+      "getQuestionnaireVersionsForProduct",
+      "getProductMetadata",
+      "getVariantIndexByPriceIdV2",
+      "getCheckupQuestionnaireIdForProduct",
+      "getPriceIdForProductVariant",
+      "getSingleProductVariantCadence"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/profiles/profiles-database-type.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/profiles/profiles.ts",
+    "exports": [
+      "getIntakeProfileData",
+      "getProfileIDFromEmail",
+      "getUserFromEmail",
+      "getFullIntakeProfileData",
+      "getProfileDataForProviderLookup",
+      "updateIntakeCompletedForPatient",
+      "getUserState",
+      "getCurrentUserState",
+      "getCurrentUserSexAtBirth",
+      "getUserName",
+      "updateUserState",
+      "updateCurrentUserSexAtBirth",
+      "getUserDateOfBirth",
+      "updateUserDateOfBirth",
+      "getUserIdFromDoseSpotId",
+      "getPatientHeightColumnValue",
+      "updateStripeCustomerId",
+      "getCustomerStripeId",
+      "getUserProfile",
+      "getCustomerIdWithStripeId",
+      "getCustomerDemographicInformationById",
+      "getCustomerFirstNameById",
+      "getAccountProfileData",
+      "updateProfileData",
+      "updateShippingInformation",
+      "updateUserProfileData",
+      "updateUserProfileWithPhotoURL",
+      "getProfilesCreatedAfterDate",
+      "getProfilesCreatedAfterDateWithFirstName",
+      "getSideProfileData",
+      "getIDVerificationData",
+      "getShippingInformationData",
+      "getAllProfiles",
+      "searchProfilesUsingValue",
+      "adminEditAccountInformation",
+      "adminEditOrderAddressInformation",
+      "updateCurrentProfileHeight"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/provider_activity_audit/provider_activity_audit-api.ts",
+    "exports": [
+      "createNewProviderActivityAudit",
+      "getProviderCompletionCount",
+      "getProviderIntakeRenewalCompletionCountBetweenDates",
+      "getProviderEstimatedPaymentBetweenDatesV2Verbose",
+      "getProviderActivityAuditCountsBetweenDates",
+      "getProviderHistoryAuditDetails",
+      "getRenewalCheckInCompletionCount",
+      "endSession",
+      "getProviderIntakeProcessedCount",
+      "getProviderRenewalProcessedCount",
+      "getProviderMessageProcessedCount",
+      "getAverageIntakeProcessingTime",
+      "getAverageRenewalProcessingTime",
+      "createEmployeeLogoutAudit",
+      "createEmployeeLoginAudit"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/provider_activity_audit/provider_activity_audit.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/providers/providers-api.ts",
+    "exports": [
+      "getProviderLicensedStates",
+      "getProviderLicensedStatesWithID",
+      "getProviderDoseSpotIdWithId",
+      "getCurrentProviderDoseSpotId",
+      "getProviderFromId",
+      "getProviderList",
+      "getProviderIntakeCounterAndStates",
+      "updateProviderIntakeCounter"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/admin/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/provider/provider-dosespot.ts",
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/providers/providers-type.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts",
+    "exports": [
+      "getQADataByQuestionIdAndSessionId",
+      "getQuestionnaireJunctionByQuestionnaireId",
+      "getQuestionsForProduct",
+      "getQuestionsForProduct_with_type",
+      "getQuestionsForProduct_with_Version",
+      "getQuestionInformation",
+      "getAllPreQuestions",
+      "getPreQuestionsForProduct_with_Version",
+      "getLatestAnswerForQuestion",
+      "getPreQuestionInformationWithVersion",
+      "getQuestionInformation_with_version",
+      "getQuestionInformation_with_type",
+      "writeQuestionnaireAnswer",
+      "getCheckupQuestionnaireResponse",
+      "writeQuestionnaireAnswerWithVersion",
+      "writeMultipleQuestionnaireAnswersWithVersion",
+      "getQuestionnaireResponseForProduct",
+      "getQuestionnaireResponseForProduct_with_version",
+      "handleWrongQuestionSetVersionInOrder",
+      "getRenewalQuestionAnswerForProductWithVersion",
+      "getQuestionAnswerWithQuestionID",
+      "getQuestionAnswerVersionWithQuestionID",
+      "getWLGoalAnswer",
+      "getCheckupResponses",
+      "getCheckupResponsesWithoutSession",
+      "getAllCheckupResponsesWithSession",
+      "getGLP1Statuses",
+      "filterCheckupResponses",
+      "categorizeCheckupResponse",
+      "getMultipleQuestionInformationWithVersion",
+      "getFirstQuestionAfterPreQuestions"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/actions/auth/session-reader.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/actions/prescription-subscriptions/prescription-subscriptions-actions.ts",
+      "utils/unvalidatedUtils/functions/pricing.ts",
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-actions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions.ts",
+    "exports": [
+      "createQuestionnaireSessionForOrder",
+      "createQuestionnaireSessionForCheckup",
+      "updateSessionCompletion"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/questionnaires/supabase_questionnaire_types.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/renewal_order_audit/renewal_order_audit.ts",
+    "exports": [
+      "auditRenewalOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+    "exports": [
+      "createNewRenewalOrder",
+      "createRenewalOrderWithPayload",
+      "getRenewalOrderBySubscriptionId",
+      "getRenewalOrdersForTab",
+      "createUpcomingRenewalOrderWithRenewalOrderId",
+      "createUpcomingRenewalOrder",
+      "createFirstTimeRenewalOrder",
+      "dateDiffInMonths",
+      "getRenewalOrdersForPatient",
+      "getLatestRenewalOrderByCustomerAndProduct",
+      "getLatestRenewalOrderForOriginalOrderId",
+      "getAllRenewalOrdersForOriginalOrderId",
+      "getLatestRenewalOrderWithVariant",
+      "getLatestRenewalOrderForSubscription",
+      "getLatestRenewalOrderForSubscriptionThatWasSent",
+      "getLatestProcessedOrderGeneral",
+      "getLatestProcessedRenewalOrder",
+      "getLatestOrderForSubscriptionThatWasSent",
+      "updateRenewalOrderStatus",
+      "updateRenewalOrderFromRenewalOrderId",
+      "updateRenewalOrder",
+      "updateRenewalOrderByRenewalOrderId",
+      "getAllRenewalOrdersForProviderOrderTable",
+      "getAllRenewalOrdersForProviderOrderTablev2",
+      "getNextRenewalOrderForTaskQueue",
+      "getAllRenewalOrdersForTaskQueue",
+      "getAllTaskQueueTotaRenewalOrderCount",
+      "getAssignedRenewalOrdersForProviderOrderTable",
+      "getAllRenewalOrdersForCoordinatorOrderTable",
+      "getLastCompleteOrderForOriginalOrderId",
+      "getAllRenewalOrdersForAdminOrderTable",
+      "getRenewalOrderForPatientIntake",
+      "getRenewalOrder",
+      "getRenewalSubmissionTimes",
+      "administrativeCancelRenewalOrder",
+      "isRenewalOrder",
+      "getRenewalListForIntakesTabAllPatients",
+      "getMonthsIntoRenewalOrderSubscription",
+      "getPriceForRenewalOrder",
+      "assignProviderToOrderUsingRenewalOrderId",
+      "updateRenewalOrderExternalTrackingMetadata",
+      "updateRenewalOrderMetadataSafely",
+      "addCheckInCompletionToRenewalOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/admin_order_cancel_audit/admin-order-cancel-audit.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/admin/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/actions/coordinator/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/prescription-subscriptions/prescription-subscriptions-actions.ts",
+      "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/MonthlyCheckInComms.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/ThreeMonthCheckInComms.ts",
+      "utils/unvalidatedUtils/classes/Dashboard.ts",
+      "utils/unvalidatedUtils/classes/Pharmacy.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts",
+      "utils/unvalidatedUtils/database/controller/coordinator_activity_audit/coordinator_activity_audit-api.ts",
+      "utils/unvalidatedUtils/database/controller/custom_orders/custom_orders_api.ts",
+      "utils/unvalidatedUtils/database/controller/orders/create-order.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/database/controller/profiles/profiles.ts",
+      "utils/unvalidatedUtils/functions/jobs/JobsFactory.ts",
+      "utils/unvalidatedUtils/functions/jobs/jobs.ts",
+      "utils/unvalidatedUtils/functions/patient-portal/patient-portal-utils.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts",
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/revive_pharmacy_patient_data/revive_pharamacy_patient_data_api.ts",
+    "exports": [
+      "getReviveIdByPatientId",
+      "createRevivePatientSupabaseEntry"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/revive_pharmacy_patient_data/revive_pharmacy_patient_data.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/shipping_status_audit/shipping_status_audit.ts",
+    "exports": [
+      "updateShippingStatusAudit"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/shipping_tracking_failed_audit/shipping-tracking-failed-audit.ts",
+    "exports": [
+      "auditShippingTrackingFailed"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/site-error-audit/site_error_audit.ts",
+    "exports": [
+      "auditErrorToSupabase"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/site-error-audit/site_error_identifiers.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/storage/face-pictures/face-picture-functions.ts",
+    "exports": [
+      "updateUserRightSidePhotoURL",
+      "updateUserLeftSidePhotoURL"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/storage/license-selfie/license-selfie-functions.ts",
+    "exports": [
+      "updateUserProfileLicensePhotoURL",
+      "updateUserProfileSelfiePhotoURL"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/stripe_audit/stripe_audit.ts",
+    "exports": [
+      "getRefundAuditForPaymentIntent",
+      "auditStripe"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/subscription_status_audit/subscription_stauts_audit.ts",
+    "exports": [
+      "addSubscriptionStatusAudit"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/tasks/task-api.ts",
+    "exports": [
+      "getIncompleteTaskList",
+      "getExistingIntakeRenewalTaskList",
+      "getLastProviderTask",
+      "getLastTwoProviderTasks",
+      "checkIfTaskAlreadyExists",
+      "createTaskFromStatusTagData",
+      "createTaskFromOrderOrRenewalData",
+      "updateTaskCompletionStatus",
+      "getTaskOrderIdFromTaskId",
+      "getTaskCompletionCount",
+      "getMessagingTaskCompletionCount",
+      "getTodaysTaskCompletionCount",
+      "reportTaskFailure"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/schema.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/storage/lab-work-documents/lab-work-documents.ts",
+    "exports": [
+      "getLabWorkDocumentNames",
+      "getLabWorkSignedURL",
+      "uploadLabDocument"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/storage/license-selfie/license-selfie.ts",
+    "exports": [
+      "getLicenseSelfieSignedURL",
+      "getLicenseOrSelfieSignedURL",
+      "getAllLicenseAndSelfiePhotos"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/storage/skin-care-face-pictures/skin-care-face-uploads.ts",
+    "exports": [
+      "getSkinCareFaceUploads",
+      "getFacePictureSignedURL"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/address-verification.ts",
+    "exports": [
+      "determineAddressValidationLevel",
+      "determineIsPoBox"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-controller.ts",
+    "exports": [
+      "createAnnualGLP1Record",
+      "updateAnnualGLP1RecordCheckIns",
+      "updateAnnualGLP1SecondShipmentSent",
+      "checkIfOrderIsAnnualVariant",
+      "cancelAnnualShipmentTracking",
+      "checkSubscriptionIsAnnual"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-mappings.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-mappings.ts",
+    "exports": [
+      "ANNUAL_GLP1_VARIANT_MAP",
+      "AnnualGLP1VariantIndexMap"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-controller.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/annual-glp1/annual_record.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/auth/authorization/authorizaiton-helper.ts",
+    "exports": [
+      "determineAccessByRoleName",
+      "BV_ROLE_VALUE_MAP"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/auth/authorization.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/auth/password-reset/password-reset.ts",
+    "exports": [
+      "resetPasswordForUser",
+      "loggerTester",
+      "logUserInWithCode"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/clean-stale-orders/clean-stale-orders.ts",
+    "exports": [
+      "cleanStaleOrders"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/client-utils.ts",
+    "exports": [
+      "getURL",
+      "convertStripePriceToDollars",
+      "formatDateToMMDDYYYY",
+      "formatDateToMMDDYYYYFacebook",
+      "formatPhoneNumberToNumericString",
+      "extractRenewalOrderId",
+      "getOrderTypeFromOrderId",
+      "getActiveVWOTestIDForQuestionnaire",
+      "getVersionForActiveVWOTestID",
+      "getCommonStringsSorted"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-actions.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/IDAndSelfieCheckJobHandler.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/SendPrescriptionJobHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/coordinator-portal/time-tracker/coordinator-time-tracker-functions.ts",
+    "exports": [
+      "checkCoordinatorSessionStatus",
+      "getCoordinatorArray",
+      "fetchCoordinatorAutomaticSessionLogData",
+      "fetchCoordinatorActivityAuditCountsData",
+      "fetchCoordinatorWeeklySummaryRowsData"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/coordinator-portal/time-tracker/coordinator-time-tracker-types.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/coordinator-portal/time-tracker/coordinator-time-tracker-types.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/coordinator-portal/time-tracker/coordinator-time-tracker-functions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/csv_convert_download.ts",
+    "exports": [
+      "convertToCSV",
+      "downloadCSV"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/customerio/utils.ts",
+    "exports": [
+      "formatE164"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/dates.ts",
+    "exports": [
+      "getDateHourDifference",
+      "getDateDayDifference",
+      "getDateMonthDifference",
+      "addDeltaToDate",
+      "convertEpochToDate",
+      "convertDateToEpoch"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/admin/parsers.ts",
+      "utils/unvalidatedUtils/classes/Dashboard.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/formatting.ts",
+    "exports": [
+      "getFormattedCadence",
+      "formatDateNonAsync",
+      "formatDateFullMonth",
+      "getProductName"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Dashboard.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/generateUUIDFromStringAndNumber.ts",
+    "exports": [
+      "generateUUIDFromStringAndNumber"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/intake-route-controller.ts",
+    "exports": [
+      "getNextIntakeRoute",
+      "getCurrentIntakeProgressBySection",
+      "getRouteArrayForTest"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/constants/VWO/vwo_test_mappings.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/isTransitionScreen.ts",
+    "exports": [
+      "isTransitionScreen"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts",
+    "exports": [
+      "DONT_RETRY_ERROR_MESSAGE"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/job-scheduler/job-scheduler-actions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/BaseCommJobHandler.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/IDAndSelfieCheckJobHandler.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/RenewalAutoshipJobHandler.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/RenewalValidationJobHandler.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/SendPrescriptionJobHandler.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/StripeInvoicePaidJobHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/JobSchedulerFactory.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/BaseCommJobHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts",
+      "utils/unvalidatedUtils/classes/CommsScheduler/AnnuallyCheckInComms.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/IDAndSelfieCheckJobHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/client-utils.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/RenewalAutoshipJobHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/RenewalValidationJobHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/SendPrescriptionJobHandler.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/client-utils.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/StripeInvoicePaidJobHandler.ts",
+    "exports": [
+      "usedAllRefills"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts",
+      "utils/unvalidatedUtils/functions/renewal-orders/renewal-orders.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping.ts",
+      "utils/unvalidatedUtils/functions/pricing.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/jobs/JobsFactory.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/functions/jobs/jobs.ts",
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+      "utils/unvalidatedUtils/functions/pricing.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/jobs/jobs.ts",
+    "exports": [
+      "getReviewStatusTagForRenewalOrder"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/jobs/JobsFactory.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/meta-events.ts",
+    "exports": [
+      "sendConvertEvent"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/patient-portal/patient-portal-utils.ts",
+    "exports": [
+      "categorizeSubscriptions",
+      "getAllProductHrefs",
+      "categorizeOrders",
+      "mergeOrders",
+      "formatSubscriptionType"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/membership/order-history-actions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts",
+    "exports": [
+      "convertBundleVariantToSingleVialScript",
+      "getScriptForVariantIndex",
+      "generateHallandaleScriptWithPDF"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Pharmacy.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping.ts",
+    "exports": [
+      "convertBundleVariantToSingleVariant",
+      "shouldConvertBundleSubscriptionToMonthly"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/RenewalValidationJobHandler.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/StripeInvoicePaidJobHandler.ts",
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts",
+    "exports": [
+      "generateBoothwynScriptAsync",
+      "generateBoothwynScriptWithData"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator.ts",
+    "exports": [
+      "generateEmpowerScript",
+      "generateEmpowerScriptAsync",
+      "generateCustomEmpowerScript"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts",
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/hallandale-approval-script-generator.ts",
+    "exports": [
+      "generateHallandaleScript",
+      "generateHallandaleScriptAsync",
+      "sendMoreNeedlesHallandale"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/prescription-scripts-utils.ts",
+    "exports": [
+      "updatePrescriptionScript",
+      "updatePrescriptionProvider"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/classes/Pharmacy.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/revive-script-generator.ts",
+    "exports": [
+      "generateReviveScript"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/intake/order-util.ts",
+      "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/tmc-approval-script-generator.ts",
+    "exports": [
+      "generateTMCScript"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/pricing.ts",
+    "exports": [
+      "constructPricingStructure",
+      "isVialProduct",
+      "isAdvertisedProduct",
+      "isWeightlossProduct",
+      "isGLP1Product",
+      "constructPricingStructureV2"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts"
+    ],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/classes/Dashboard.ts",
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/StripeInvoicePaidJobHandler.ts",
+      "utils/unvalidatedUtils/functions/jobs/JobsFactory.ts",
+      "utils/unvalidatedUtils/functions/provider-portal/intakes/provider-intake-utils.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/intakes/provider-intake-utils.ts",
+    "exports": [
+      "showButtonController"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/pricing.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/messages/admin-message-center.ts",
+    "exports": [
+      "getAccessLevel",
+      "getAvailableUsers",
+      "getUserThreads",
+      "groupMessagesByThreadId",
+      "getThreadRecepientNames",
+      "formatDate"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/time-tracker/provider-time-tracker-functions.ts",
+    "exports": [
+      "endSessionAndSignOutUser",
+      "getProviderAutomaticSessionLog",
+      "getRegisteredNurseArray",
+      "getProviderArray",
+      "fetchProviderAutomaticSessionLogData",
+      "fetchProviderActivityAuditCountsData",
+      "fetchProviderWeeklySummaryRowsData",
+      "fetchProviderEarningsBreakdownRowsData"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/functions/provider-portal/time-tracker/provider-time-tracker-types.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/time-tracker/provider-time-tracker-types.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/provider-portal/time-tracker/provider-time-tracker-functions.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/renewal-orders/renewal-orders.ts",
+    "exports": [
+      "getOrderStatusDetails",
+      "getFinalReviewStartsDate"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+      "utils/unvalidatedUtils/functions/job-scheduler/jobs/StripeInvoicePaidJobHandler.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/rudderstack/rudderstack-utils.ts",
+    "exports": [
+      "sendRudderstackEvent",
+      "trackRudderstackEvent",
+      "identifyRudderstackEvent",
+      "aliasRudderstackEvent"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-glp1-controller.ts",
+    "exports": [
+      "checkIfOrderIsSplitShipmentVariant",
+      "createSplitShipmentGLP1Record",
+      "updateSplitShipmentGLP1SecondShipmentSent"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+      "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-variant-mappings.ts",
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-variant-mappings.ts",
+    "exports": [
+      "SPLIT_SHIPMENT_GLP1_VARIANT_MAP",
+      "SplitShipmentGLP1VariantIndexMap"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": [
+      "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-glp1-controller.ts"
+    ]
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/split-shipment-glp1/split_shipment_record.d.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/state-auth/utils.ts",
+    "exports": [
+      "getUserStateEligibilitySelectionScreen",
+      "getUserStateEligibilityDosage",
+      "stateSelectionUserEligbility"
+    ],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/utils.ts",
+    "exports": [
+      "getURL",
+      "getCurrentDate",
+      "doStuff",
+      "runScript"
+    ],
+    "usedIn": [],
+    "dependsOn": [
+      "utils/unvalidatedUtils/clients/supabaseServerClient.ts"
+    ],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/hooks/session-storage/useSessionStorage.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  },
+  {
+    "source": "utils/unvalidatedUtils/hooks/storage/useDualStorage.ts",
+    "exports": [],
+    "usedIn": [],
+    "dependsOn": [],
+    "importedBy": []
+  }
+]
