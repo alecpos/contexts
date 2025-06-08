@@ -1,0 +1,5 @@
+.bioverse-thread-message-content {
+    max-height: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+}

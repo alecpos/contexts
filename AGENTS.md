@@ -1,185 +1,142 @@
+Here is your new `AGENTS.md` tailored to instruct Codex to parse and act on your audit results in a modular, centralized fashion, based on your original CODEX.md structure and the data provided in the `*.json` artifacts:
+
 ---
 
-# 🧠 AGENTS.md — Utility Modernization & Modularization Playbook
+# 🧠 AGENTS.md — Autonomous Utility Migration Agents
 
 **Last Updated:** 2025-06-08
 **Maintainer:** Engineering Team
-**Status:** In Progress
-**Scope:** Migrate, validate, and modularize all utility functions from `utils/unvalidatedUtils/` to `utils/modular/`
+**Status:** Active
+**Scope:** Codex agents responsible for parsing audit outputs and generating modular migration instructions across the utility layer.
 
 ---
 
-## 🎯 Project Mission
+## 🎯 Objective
 
-Refactor and modernize all legacy utility logic into a clean, fully validated utility system organized under `utils/modular/`. This process addresses major tech debt originating from copy-pasted or unvetted functions that lack context, tests, or structure.
-
-**Core Objectives:**
-
-* Eliminate unvalidated or dead logic
-* Improve traceability and usage visibility
-* Enforce typed, composable utilities with focused domains
-* Adopt test-driven utility development going forward
+Automate the ingestion, classification, and actionable migration steps from raw audit data (`call-graph.json`, `link-check-results.json`, `migration-plan.json`) to help ensure centralization, modularity, and maintainability in the `utils/modular/` refactor initiative.
 
 ---
 
-## 📦 Migration Scope
+## 📂 Input Files
 
-**Source:** `utils/unvalidatedUtils/`
-**Destination:** `utils/modular/`
+The agents should ingest and normalize the following structured artifacts:
 
-**Primary Issues Identified:**
-
-* Lack of test coverage or validation guarantees
-* Poor cohesion in utility responsibility
-* Duplicated functionality with inconsistent names
-* Silent failures and impure side effects
+| File                      | Purpose                                                                              |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| `migration-plan.json`     | Baseline migration targets with statuses (`migrate`, `refactor`, `delete`, `inline`) |
+| `call-graph.json`         | Maps interdependencies between utilities and their consumers                         |
+| `link-check-results.json` | Identifies Markdown documentation URLs and their validity for update analysis        |
 
 ---
 
-## 🧱 Utility Design System
+## 🤖 Agent Responsibilities
 
-### File System Conventions
+### 1. `CodexAuditParserAgent`
 
-```
-utils/
-└── modular/
-    ├── string/
-    ├── array/
-    ├── date/
-    ├── object/
-    ├── validation/
-    ├── url/
-    ├── math/
-    └── meta/
-```
+Parses and indexes all input files into a consistent, cross-referenced structure.
 
-### Principles
+* Extracts symbols, file paths, usage contexts from `call-graph.json`
+* Links source → target migration mappings from `migration-plan.json`
+* Flags unreachable or broken documentation references from `link-check-results.json`
 
-1. **Single-responsibility**: One module, one job.
-2. **Pure functions**: No side effects; all utils are deterministic.
-3. **Named exports only**: No `default` exports.
-4. **Typed**: Full TypeScript support, no `any` allowed.
-5. **Composable**: Utility functions must work in isolation.
-6. **Tests-first**: Every utility gets coverage and edge case testing.
-7. **Docs inline**: Use `/** */` JSDoc-style comments for every function.
-
----
-
-## 🔍 PHASE 1: Utility Inventory & Classification
-
-| Step | Task                                                   |
-| ---- | ------------------------------------------------------ |
-| 1️⃣  | Enumerate all `.ts` files in `utils/unvalidatedUtils/` |
-| 2️⃣  | Extract all exported function names                    |
-| 3️⃣  | Classify each: `keep`, `refactor`, `delete`            |
-| 4️⃣  | Map each to its target `utils/modular` folder          |
-| 5️⃣  | Audit usage across codebase                            |
-
-Example plan (output from audit script):
-
-```json
-[
-  {
-    "source": "utils/unvalidatedUtils/deepMerge.ts",
-    "destination": "utils/modular/object/deepMerge.ts",
-    "status": "refactor",
-    "usedIn": ["supply-selection.tsx", "checkout/route.ts"]
-  }
-]
-```
-
----
-
-## 🔨 PHASE 2: Refactor & Rewrite
-
-For each `keep` or `refactor` item:
-
-* [ ] Move to a domain-based folder under `modular/`
-* [ ] Rewrite in modern, idiomatic TypeScript
-* [ ] Add a dedicated unit test file (prefer colocated `*.test.ts`)
-* [ ] Document using JSDoc-style headers
-* [ ] Replace all legacy import paths across the codebase
-
-For each `delete` item:
-
-* [ ] Remove safely with confirmation from static usage audit
-
-Optional:
-
-* Use `migration-plan.json` to track status for CI validation
-
----
-
-## 🧪 PHASE 3: Validation and Testing
-
-Minimum requirements for every utility:
-
-* [ ] 100% unit test coverage
-* [ ] Snapshot output for non-deterministic return values
-* [ ] Edge case coverage for empty/null inputs
-* [ ] Regression cases if utility previously caused a bug
-* [ ] Tests must be colocated or discoverable by test runner
-
-Suggested tools: `vitest`, `jest`, `uvu`, `tsd`
-
----
-
-## 📘 PHASE 4: Documentation Integration
-
-Each validated utility should be documented inline and optionally included in a `UTILS_CATALOG.md` index.
-
-Format:
+Output:
 
 ```ts
-/**
- * Deeply merges two objects.
- * @param a First input object
- * @param b Second input object
- * @returns Combined object
- */
-export function deepMerge<T extends object, U extends object>(a: T, b: U): T & U { ... }
+type ParsedAuditData = {
+  symbol: string
+  sourcePath: string
+  destinationPath?: string
+  migrationStatus: "migrate" | "refactor" | "delete" | "inline"
+  usedIn?: string[]
+  docsToUpdate?: string[]
+  docURLsBroken?: string[]
+}
 ```
 
 ---
 
-## 🚧 PHASE 5: CI Integration & Regression Prevention
+### 2. `CodexMigrationPlannerAgent`
 
-* [ ] Add lint rule to reject imports from `utils/unvalidatedUtils/`
-* [ ] Add test to validate all utils have matching tests and JSDoc
-* [ ] Optional: Add codemod to auto-migrate legacy import paths
+Synthesizes parsed data into clear action plans per file.
 
----
+For each entry:
 
-## ✅ Completion Checklist
+* If status = `refactor` or `migrate`, emit:
 
-| Task                                  | Status |
-| ------------------------------------- | ------ |
-| All functions audited and categorized | ☐      |
-| All functions rewritten or deleted    | ☐      |
-| All legacy import paths removed       | ☐      |
-| 100% utility test coverage            | ☐      |
-| CI rules enforcing new structure      | ☐      |
-| UTILS\_CATALOG.md updated             | ☐      |
+  * New file path (in `utils/modular/`)
+  * JSDoc template stub
+  * Required test file location
+* If status = `delete` or unused in `call-graph.json`, emit:
 
----
+  * `PRUNE CANDIDATE`
+* Flag any utility used in multiple domains (`usedIn.length > 3`) for review
 
-## 🧠 Notes & Best Practices
+Output example:
 
-* Prefer `const` declarations and return early
-* If two utils differ only by parameter signature, unify via overloads
-* Use TS generics where object types vary
-* Avoid dependencies unless utility calls for it (e.g. date parsing)
-* Do not export utilities that are overly specific to one domain — inline them instead
+```ts
+{
+  action: "refactor",
+  path: "utils/modular/string/slugify.ts",
+  needs: ["addTests", "rewriteWithTypes", "updateImports", "addJSDoc"],
+  referencedBy: ["marketing/page.tsx"]
+}
+```
 
 ---
 
-## 📤 Final Deliverables
+### 3. `CodexDocumentationAgent`
 
-* `utils/modular/` with clean, typed, and tested files
-* `migration-plan.json` or migration summary table
-* Updated documentation for all utilities
-* Lint/test rules preventing regression into legacy patterns
+Correlates outdated utility references in `.md` files using:
+
+* Broken links from `link-check-results.json`
+* Deprecated function paths from `migration-plan.json`
+* Symbol usage mapping from `call-graph.json`
+
+Then recommends or optionally autogenerates:
+
+* Inline doc updates
+* URL rewrites
+* Dead section removals (e.g., "Helper Functions (OLD)")
 
 ---
 
-Let the engineering team know when a function’s behavior is ambiguous or unused — ambiguity is a red flag and should be pruned or clarified before migration.
+### 4. `CodexRefactorExecutorAgent`
+
+This agent will auto-generate:
+
+* New TS utility function stubs in `utils/modular/{domain}/`
+* Associated `*.test.ts` scaffolds
+* Inline JSDoc from usage inference
+* Rewrite plan for imports across all `usedIn` sources
+
+---
+
+## ✅ Completion Targets
+
+| Task                                                  | Status |
+| ----------------------------------------------------- | ------ |
+| Codex parses `*.json` files into normalized memory    | ☐      |
+| All legacy utility files receive action plans         | ☐      |
+| All `.md` references are checked & flagged for update | ☐      |
+| All rewrite/import mappings are staged                | ☐      |
+| New modular utilities follow typed, tested contract   | ☐      |
+
+---
+
+## 🔧 Agent Notes
+
+* Prefer pure functions with no side effects
+* Localize utilities into semantic domains (`string/`, `object/`, `dates/`)
+* Codex should prioritize functions used >1x for preservation
+* Codex should emit PR-ready patches for `refactor` and `migrate`
+* Use call graph metadata for contextual rename suggestions
+
+---
+
+## 📤 Output Formats
+
+Each agent should emit `*.codex-plan.json` artifacts (one per phase) and a final PR summary.
+
+---
+
+Let me know if you'd like Codex to emit patches, GitHub PR templates, or inline CLI-ready lint rules as part of output automation.

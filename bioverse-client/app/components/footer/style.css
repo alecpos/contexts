@@ -1,0 +1,210 @@
+.footer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 64px 24px 8px;
+    position: relative;
+    background-color: #f7f6f7;
+}
+.logo-container {
+    position: absolute;
+    top: 80px; /* 根据需要调整 */
+    left: 140px; /* 根据需要调整 */
+    width: 320px; /* 根据 logo 的尺寸调整 */
+    height: 75px; /* 保持高度自适应 */
+}
+
+.footer .columns {
+    align-items: flex-start;
+    display: flex;
+    height: 248px;
+    justify-content: space-between;
+    width: 1313px;
+}
+
+.footer .BIOVERSE-logo {
+    height: 115px;
+    object-fit: cover;
+    position: absolute;
+    width: 507px;
+}
+
+.footer .small-columns {
+    align-items: flex-start;
+    display: flex;
+    gap: 32px;
+    padding: 16px 0px 0px;
+    position: relative;
+    width: 714px;
+}
+
+.footer .column {
+    align-items: flex-start;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 24px;
+    position: relative;
+}
+
+.footer .content {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    width: 100%;
+}
+
+.footer .text-wrapper {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-75Bold', Helvetica;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+}
+
+.footer .footer-links {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+}
+
+.footer .link {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+}
+
+.footer .div {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    position: relative;
+}
+
+.footer .text-wrapper-2 {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+}
+
+.footer .link-2 {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+}
+
+.footer .link-3 {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 21px;
+    position: relative;
+}
+
+.footer .link-4 {
+    color: #212121;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.footer .link-5 {
+    color: #212121;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 21px;
+    position: relative;
+    width: 127px;
+}
+
+.footer .link-6 {
+    color: #212121;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 21px;
+    position: relative;
+    width: 141px;
+}
+
+.footer .social-links {
+    flex: 0 0 auto;
+    position: relative;
+}
+
+.footer .copyright {
+    align-items: center;
+    border-color: #dadada;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-shadow: 0px -1px 0px #e4ebf3;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 32px;
+    justify-content: center;
+    padding: 16px 0px;
+    position: relative;
+    width: 1313px;
+}
+
+.footer .text {
+    color: #333333;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+    text-align: center;
+    width: 368px;
+}

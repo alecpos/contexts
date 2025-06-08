@@ -1,0 +1,40 @@
+.pageBackground {
+    background: linear-gradient(180deg, #fff 0%, #c5ddf0 100%);
+}
+
+/* backButton.module.css */
+.backButton {
+    color: #1b1b1b8f;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.backButton:hover {
+    text-decoration: underline;
+}
+
+.backButton svg {
+    margin-right: 0.25em;
+    font-size: 1.75em;
+}
+
+/* dataContainer.module.css */
+.dataContainer {
+    color: #000000de;
+}
+
+.dataContainer h1 {
+    font-size: 1.75em;
+    font-weight: 600;
+}
+
+.dataContainer .prescription {
+    margin-top: 0.25em;
+    font-size: 1.1em;
+}
+
+.dataContainer .lastUpdated {
+    font-size: 0.8rem;
+    color: #1b1b1bde;
+    font-weight: 400;
+}

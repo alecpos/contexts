@@ -1,0 +1,257 @@
+.footer-mobile {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 765px;
+    position: relative;
+    width: 100vw;
+    background-color: #f7f6f7;
+}
+
+.footer-mobile .columns {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    height: 587px;
+    justify-content: center;
+    position: relative;
+    width: 393px;
+}
+
+.footer-mobile .column {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 108px;
+    padding: 20px 0px;
+    position: relative;
+    width: 337px;
+}
+
+.footer-mobile .BIOVERSE-logo {
+    height: 75px;
+    margin-bottom: -7px;
+    object-fit: cover;
+    position: relative;
+    width: 335px;
+}
+
+.footer-mobile .frame {
+    align-items: flex-start;
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    gap: 24px 24px;
+    position: relative;
+    width: 284px;
+}
+
+.footer-mobile .content-wrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 24px;
+    height: 174px;
+    position: relative;
+    width: 150px;
+}
+
+.footer-mobile .content {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    width: 150px;
+}
+
+.footer-mobile .text-wrapper {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-75Bold', Helvetica;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+}
+
+.footer-mobile .footer-links {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+}
+
+.footer-mobile .link {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+}
+
+.footer-mobile .div {
+    align-self: stretch;
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    position: relative;
+}
+
+.footer-mobile .div-wrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 24px;
+    height: 145px;
+    position: relative;
+    width: 110px;
+}
+
+.footer-mobile .content-2 {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    width: 110px;
+}
+
+.footer-mobile .column-2 {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 24px;
+    height: 116px;
+    position: relative;
+    width: 147px;
+    margin-top: 20px;
+}
+
+.footer-mobile .content-3 {
+    align-items: flex-start;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 16px;
+    position: relative;
+}
+
+.footer-mobile .link-2 {
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.footer-mobile .link-3 {
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    position: relative;
+    width: 127px;
+}
+
+.footer-mobile .link-4 {
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    position: relative;
+    width: 141px;
+}
+
+.footer-mobile .column-3 {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 24px;
+    height: 108px;
+    position: relative;
+    width: 110px;
+    margin-top: 20px;
+}
+
+.footer-mobile .content-4 {
+    align-items: flex-start;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 16px;
+    margin-bottom: -9px;
+    position: relative;
+}
+
+.footer-mobile .link-5 {
+    color: #212121;
+    font-family: 'Neue Haas Grotesk Display Pro-45Light', Helvetica;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-right: -17px;
+    position: relative;
+    width: 127px;
+}
+
+.footer-mobile .social-links {
+    flex: 0 0 auto;
+    position: relative;
+}
+
+.footer-mobile .copyright {
+    align-items: center;
+    border-color: #dadada;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-shadow: 0px -1px 0px #e4ebf3;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: center;
+    padding: 16px 0px;
+    position: relative;
+    width: 393px;
+}
+
+.footer-mobile .text {
+    color: #333333;
+    font-family: 'Inter', Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-top: -1px;
+    position: relative;
+    text-align: center;
+    width: 368px;
+}

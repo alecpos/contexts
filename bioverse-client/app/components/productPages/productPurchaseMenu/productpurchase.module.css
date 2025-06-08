@@ -1,0 +1,30 @@
+.subscriptionCOP {
+    color: #72797c;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    /* 137.5% */
+    letter-spacing: 0.5px;
+    text-decoration-line: line-through;
+}
+
+.savings {
+    color: red;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    /* 137.5% */
+    letter-spacing: 0.5px;
+}
+
+.subscriptionBoldedFont {
+    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 22px;
+    /* 137.5% */
+    letter-spacing: 0.25px;
+}

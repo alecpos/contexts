@@ -1,0 +1,50 @@
+.scrollingContentLong {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
+    animation-delay: 0s;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem /* 8px */;
+}
+
+.scrollingContentHealthStepsLong {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
+    animation-delay: 0s;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem /* 8px */;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.gradientText {
+    /* Gradient styles */
+    background: linear-gradient(
+        270deg,
+        rgba(77, 146, 151, 0.87) 50%,
+        rgba(40, 107, 162, 0.87) 91.67%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* This makes the text take the color of the background */
+    -webkit-text-fill-color: transparent;
+    /* For WebKit browsers */
+}

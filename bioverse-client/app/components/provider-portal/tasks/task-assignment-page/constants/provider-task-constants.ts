@@ -1,0 +1,3 @@
+export const INTAKE_COUNT_BEFORE_FORCED_MESSAGE_TASK: number = 5;
+
+export const PROVIDER_STATUS_TAG_RECORD_LIMIT: number = 3;

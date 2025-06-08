@@ -1,0 +1,14 @@
+.MuiOutlinedInput-root:hover fieldset {
+    /* border: #84665b solid 2px !important; */
+}
+
+.MuiInputBase-input-root fieldset {
+    background-color: '#EBEBEB' !important;
+    border: none !important;
+}
+
+.MuiOutlinedInput-input-root fieldset {
+    border-width: '20px' !important;
+    border-color: '#EBEBEB' !important;
+    border: none !important;
+}
