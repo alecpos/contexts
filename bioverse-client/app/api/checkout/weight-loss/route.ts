@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { updateExistingOrderStatusAndExternalMetadataUsingId } from '@/app/utils/database/controller/orders/orders-api';
+import { OrderStatus } from '@/app/types/orders/order-types';
 
 /**
  * Finalizes an order for the global weight loss funnel.
@@ -10,7 +12,12 @@ export async function POST(req: NextRequest) {
     if (!data || !data.order_id) {
       return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
     }
-    // TODO: implement checkout logic
+    await updateExistingOrderStatusAndExternalMetadataUsingId(
+      Number(data.order_id),
+      OrderStatus.ApprovedCardDownFinalized,
+      {}
+    );
+
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error('checkout POST error', error);
