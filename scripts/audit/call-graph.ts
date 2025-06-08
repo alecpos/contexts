@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
 
-const ROOT = path.join(__dirname, '..');
+// Resolve project root two levels up from this file
+const ROOT = path.join(__dirname, '..', '..');
 const SOURCE_DIR = path.join(ROOT, 'utils', 'unvalidatedUtils');
 
 interface CallSite {
