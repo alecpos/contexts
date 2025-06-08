@@ -3,7 +3,8 @@ import path from 'path';
 import ts from 'typescript';
 import { execSync } from 'child_process';
 
-const ROOT = path.join(__dirname, '..');
+// Resolve project root two levels up from this file
+const ROOT = path.join(__dirname, '..', '..');
 const SOURCE_DIR = path.join(ROOT, 'utils', 'unvalidatedUtils');
 
 interface ExportDetails {
