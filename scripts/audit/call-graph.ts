@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(__dirname, '..', '..');
 const SOURCE_DIR = path.join(ROOT, 'utils', 'unvalidatedUtils');
 
 interface CallSite {
@@ -16,6 +16,7 @@ interface Calls {
   source: string;
   calls: CallSite[];
   httpEntry?: boolean;
+  reachableEndpoints?: string[];
 }
 
 const results: Calls[] = [];
@@ -91,6 +92,33 @@ function analyzeFile(filePath: string): Calls {
 }
 
 walk(SOURCE_DIR);
+// compute reachable API endpoints for each file
+const adjacency = new Map<string, Set<string>>();
+const apiFiles = new Set<string>();
+
+for (const res of results) {
+  adjacency.set(res.source, new Set(res.calls.map(c => c.module)));
+  if (res.httpEntry) apiFiles.add(res.source);
+}
+
+function collect(start: string, visited: Set<string> = new Set()): Set<string> {
+  if (visited.has(start)) return new Set();
+  visited.add(start);
+  const out = new Set<string>();
+  if (apiFiles.has(start)) out.add(start);
+  const mods = adjacency.get(start);
+  if (mods) {
+    for (const m of mods) {
+      if (apiFiles.has(m)) out.add(m);
+      else collect(m, visited).forEach(e => out.add(e));
+    }
+  }
+  return out;
+}
+
+for (const res of results) {
+  res.reachableEndpoints = Array.from(collect(res.source));
+}
 fs.writeFileSync(path.join(ROOT, 'call-graph.json'), JSON.stringify(results, null, 2));
 console.log(`Wrote ${results.length} entries to call-graph.json`);
 

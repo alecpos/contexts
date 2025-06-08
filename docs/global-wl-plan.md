@@ -59,3 +59,17 @@ Success is achieved when the new funnel matches the Figma designs, integrates wi
 | `global-wl-checkout` | `wl-checkout` | ~0.5d |
 | `global-wl-order-summary` | `order-summary` | ~0.5d |
 | `global-wl-whats-next` | `whats-next` | ~0.25d |
+
+### Timing Per Page – Other Funnels
+
+The legacy weight-loss funnel provides additional benchmarks that may help
+estimate work in related flows.
+
+| Page | Est. Time |
+| --- | --- |
+| `wl-intro` | ~0.25d |
+| `wl-goal-weight` | ~0.5d |
+| `wl-medications` | ~0.5d |
+| `wl-checkout` | ~0.5d |
+| `wl-order-summary` | ~0.5d |
+| `wl-whats-next` | ~0.25d |

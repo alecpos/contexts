@@ -3,7 +3,7 @@ import path from 'path';
 import ts from 'typescript';
 import { execSync } from 'child_process';
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(__dirname, '..', '..');
 const SOURCE_DIR = path.join(ROOT, 'utils', 'unvalidatedUtils');
 
 interface ExportDetails {
@@ -82,36 +82,19 @@ walk(SOURCE_DIR);
 
 // map to compute reachable API endpoints using call-graph results
 try {
-  const callGraph: Array<{ source: string; calls: Record<string, string[]> }> = JSON.parse(
+  const callGraph: Array<{ source: string; reachableEndpoints?: string[] }> = JSON.parse(
     fs.readFileSync(path.join(ROOT, 'call-graph.json'), 'utf8')
   );
-  const adjacency = new Map<string, Set<string>>();
-  const apiSet = new Set<string>();
 
+  const map = new Map<string, string[]>();
   for (const entry of callGraph) {
-    adjacency.set(entry.source, new Set(Object.keys(entry.calls)));
-    if (entry.source.includes('/pages/api/') || entry.source.includes('/app/api/')) {
-      apiSet.add(entry.source);
+    if (entry.reachableEndpoints) {
+      map.set(entry.source, entry.reachableEndpoints);
     }
-  }
-
-  function collect(start: string, visited: Set<string> = new Set()): Set<string> {
-    if (visited.has(start)) return new Set();
-    visited.add(start);
-    const out = new Set<string>();
-    const calls = adjacency.get(start);
-    if (apiSet.has(start)) out.add(start);
-    if (calls) {
-      for (const mod of calls) {
-        if (apiSet.has(mod)) out.add(mod);
-        else collect(mod, visited).forEach(ep => out.add(ep));
-      }
-    }
-    return out;
   }
 
   for (const r of results) {
-    r.apiEndpoints = Array.from(collect(r.source));
+    r.apiEndpoints = map.get(r.source) ?? [];
   }
 } catch {
   console.warn('call-graph.json missing, apiEndpoints not computed');
