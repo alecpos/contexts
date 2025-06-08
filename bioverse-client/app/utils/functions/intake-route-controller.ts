@@ -3,6 +3,7 @@ import {
     STANDARD_INTAKE_ROUTES,
     NAD_INTAKE_ROUTES,
     COMBINED_WEIGHT_LOSS_ROUTES,
+    GLOBAL_WL_ROUTES,
     GLUTATHIONE_INTAKE_ROUTES,
     B12_INTAKE_ROUTES,
     SKINCARE_INTAKE_ROUTES,
@@ -708,6 +709,18 @@ export function getCurrentIntakeProgressBySection(
 
             routesArray = getRouteArrayForTest(
                 TIRZEPATIDE_ROUTES[current_version],
+                vwo_test_ids
+            );
+            break;
+        case PRODUCT_HREF.OZEMPIC:
+        case PRODUCT_HREF.MOUNJARO:
+        case PRODUCT_HREF.ZEPBOUND:
+        case PRODUCT_HREF.WL_CAPSULE:
+            const current_version_global =
+                LATEST_INTAKE_VERSIONS.global_wl.latest_version;
+
+            routesArray = getRouteArrayForTest(
+                GLOBAL_WL_ROUTES[current_version_global],
                 vwo_test_ids
             );
             break;
