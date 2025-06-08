@@ -9,8 +9,7 @@ services:
     volumes:
       - .:/app
     command: npm test
-    
- server:
+  server:
     build: .
     environment:
       - STRIPE_SK=${STRIPE_SK}
