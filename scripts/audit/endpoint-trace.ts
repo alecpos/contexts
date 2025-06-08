@@ -5,8 +5,6 @@ import path from 'path';
 // Resolve project root two levels up from this file
 const ROOT = path.join(__dirname, '..', '..');
 
-
-
 const callGraphPath = path.join(ROOT, 'call-graph.json');
 
 interface GraphEntry {
@@ -55,7 +53,9 @@ function trace(start: string, visited: Set<string> = new Set()): Set<string> {
 
 const traces: Record<string, string[]> = {};
 for (const file of adjacency.keys()) {
-  traces[file] = Array.from(trace(file));
+  if (/page\.tsx?$/.test(file)) {
+    traces[file] = Array.from(trace(file));
+  }
 }
 
 fs.writeFileSync(path.join(ROOT, 'endpoint-trace.json'), JSON.stringify(traces, null, 2));
