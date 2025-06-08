@@ -1,4 +1,4 @@
-Here is your new `AGENTS.md` tailored to instruct Codex to parse and act on your audit results in a modular, centralized fashion, based on your original CODEX.md structure and the data provided in the `*.json` artifacts:
+Here is the updated `AGENTS.md` including logic for dependency resolution. The `CodexRefactorExecutorAgent` is now enhanced to handle missing dependencies by either running `npm install` locally or searching GitHub for up-to-date implementations when type or utility definitions are ambiguous or missing.
 
 ---
 
@@ -19,8 +19,6 @@ Automate the ingestion, classification, and actionable migration steps from raw 
 
 ## 📂 Input Files
 
-The agents should ingest and normalize the following structured artifacts:
-
 | File                      | Purpose                                                                              |
 | ------------------------- | ------------------------------------------------------------------------------------ |
 | `migration-plan.json`     | Baseline migration targets with statuses (`migrate`, `refactor`, `delete`, `inline`) |
@@ -33,11 +31,11 @@ The agents should ingest and normalize the following structured artifacts:
 
 ### 1. `CodexAuditParserAgent`
 
-Parses and indexes all input files into a consistent, cross-referenced structure.
+Parses and indexes all input files into a consistent, cross-referenced structure:
 
-* Extracts symbols, file paths, usage contexts from `call-graph.json`
-* Links source → target migration mappings from `migration-plan.json`
-* Flags unreachable or broken documentation references from `link-check-results.json`
+* Maps function symbols to files and usages.
+* Links `migration-plan.json` and `call-graph.json` data.
+* Flags broken documentation URLs.
 
 Output:
 
@@ -57,21 +55,13 @@ type ParsedAuditData = {
 
 ### 2. `CodexMigrationPlannerAgent`
 
-Synthesizes parsed data into clear action plans per file.
+Generates a structured migration checklist per utility:
 
-For each entry:
+* Creates mappings for refactor/move/delete/inlining actions.
+* Tags high-impact utilities used in many files.
+* Lists required documentation and test artifacts.
 
-* If status = `refactor` or `migrate`, emit:
-
-  * New file path (in `utils/modular/`)
-  * JSDoc template stub
-  * Required test file location
-* If status = `delete` or unused in `call-graph.json`, emit:
-
-  * `PRUNE CANDIDATE`
-* Flag any utility used in multiple domains (`usedIn.length > 3`) for review
-
-Output example:
+Example:
 
 ```ts
 {
@@ -86,57 +76,102 @@ Output example:
 
 ### 3. `CodexDocumentationAgent`
 
-Correlates outdated utility references in `.md` files using:
+Validates all Markdown docs across the repo using:
 
-* Broken links from `link-check-results.json`
-* Deprecated function paths from `migration-plan.json`
-* Symbol usage mapping from `call-graph.json`
+* `link-check-results.json` to flag broken URLs
+* `migration-plan.json` to find outdated references
+* `call-graph.json` to suggest where examples should be updated
 
-Then recommends or optionally autogenerates:
-
-* Inline doc updates
-* URL rewrites
-* Dead section removals (e.g., "Helper Functions (OLD)")
+Output: file patch suggestions or inline comments.
 
 ---
 
 ### 4. `CodexRefactorExecutorAgent`
 
-This agent will auto-generate:
+Automates utility migration and test generation.
 
-* New TS utility function stubs in `utils/modular/{domain}/`
-* Associated `*.test.ts` scaffolds
-* Inline JSDoc from usage inference
-* Rewrite plan for imports across all `usedIn` sources
+#### Responsibilities:
+
+* **Creates Typed Refactor Scaffolds:** Emits new function definitions with inferred types from usage.
+* **Scaffolds Co-located Tests:** Creates `*.test.ts` for each utility using Vitest/Jest style.
+* **Injects JSDoc:** Adds documentation headers using symbols and context from call graphs.
+* **Handles Dependency Issues:**
+
+  * 🧪 **Missing Node Modules (local run):**
+    If test execution fails due to missing packages, automatically run:
+
+    ```bash
+    npm install <missing-package>
+    ```
+
+  * 🔍 **Missing or Ambiguous Type/Helper:**
+    If type definition or helper is not found:
+
+    1. Search GitHub with query:
+
+       ```
+       <symbol name> in:file language:TypeScript repo:<target org> or stars:>100
+       ```
+    2. Fetch and parse latest version of the file containing the export.
+    3. Validate signature and data shape.
+    4. Import or adapt to local codebase.
+
+Example behavior:
+
+```json
+{
+  "dependencyResolution": {
+    "attempts": [
+      "npm install lodash.clonedeep",
+      "github search: `slugify in:file language:ts`"
+    ],
+    "fallback": "log error and prompt for manual definition"
+  }
+}
+```
 
 ---
 
-## ✅ Completion Targets
+## 🛡 Testing & Safety
 
-| Task                                                  | Status |
-| ----------------------------------------------------- | ------ |
-| Codex parses `*.json` files into normalized memory    | ☐      |
-| All legacy utility files receive action plans         | ☐      |
-| All `.md` references are checked & flagged for update | ☐      |
-| All rewrite/import mappings are staged                | ☐      |
-| New modular utilities follow typed, tested contract   | ☐      |
+Every emitted function must:
 
----
-
-## 🔧 Agent Notes
-
-* Prefer pure functions with no side effects
-* Localize utilities into semantic domains (`string/`, `object/`, `dates/`)
-* Codex should prioritize functions used >1x for preservation
-* Codex should emit PR-ready patches for `refactor` and `migrate`
-* Use call graph metadata for contextual rename suggestions
+* Use strict typing with no `any`
+* Have complete test coverage including edge cases
+* Pass CI with all dependencies resolved
+* Fail gracefully and log assertive messages
 
 ---
 
-## 📤 Output Formats
+## ✅ Completion Tracker
 
-Each agent should emit `*.codex-plan.json` artifacts (one per phase) and a final PR summary.
+| Task                                | Status |
+| ----------------------------------- | ------ |
+| Parse JSON input into ASTs          | ☐      |
+| Generate all function plans         | ☐      |
+| Check and fix doc references        | ☐      |
+| Scaffold typed utilities + tests    | ☐      |
+| Resolve missing packages or imports | ☐      |
+| Validate and run all migrated tests | ☐      |
 
 ---
 
-Let me know if you'd like Codex to emit patches, GitHub PR templates, or inline CLI-ready lint rules as part of output automation.
+## 🧩 Developer Notes
+
+* Every function must be "pure" and side-effect free unless explicitly documented.
+* Prefer domain folders like `string/`, `object/`, `pricing/`, etc.
+* JSDoc format must match `TSDoc` spec with `@param`, `@returns`, and `@example`.
+
+---
+
+## 📤 Final Output
+
+* `utils/modular/` with migrated code
+* Fully typed `*.ts` files and `*.test.ts`
+* `*.codex-plan.json` audit trails
+* Updated `.md` files with correct utility references
+* Automated patch suggestions or PR metadata
+
+---
+
+Let me know if you'd like a GitHub Actions job runner or a CLI agent scaffold (`bin/codex-migrate`) to kick off each phase.
