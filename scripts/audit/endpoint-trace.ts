@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
+
+// Resolve project root two levels up from this file
 const ROOT = path.join(__dirname, '..', '..');
+
 const callGraphPath = path.join(ROOT, 'call-graph.json');
 
 interface GraphEntry {
