@@ -95,3 +95,35 @@ The context provides three functions:
 - `alias(newUserId, anonymousId)` – alias an anonymous user to a new id
 
 Wrap your application with `RudderStackProvider` to ensure events are sent securely from the server.
+
+---
+
+## OpenAIProvider
+
+`OpenAIProvider` wraps the OpenAI chat completion API. It is a server component and requires `OPENAI_API_KEY`.
+
+```bash
+OPENAI_API_KEY=<your api key>
+```
+
+### Usage
+
+Wrap your application's root layout with `OpenAIProvider` and call the helper hook `useOpenAI` from other server components.
+
+```tsx
+import { OpenAIProvider } from './providers/OpenAIProvider'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <OpenAIProvider>{children}</OpenAIProvider>
+}
+```
+
+```tsx
+import { useOpenAI } from '../providers/OpenAIProvider'
+
+export default async function Example() {
+  const { generateChat } = useOpenAI()
+  const res = await generateChat([{ role: 'user', content: 'hello' }])
+  return <pre>{JSON.stringify(res, null, 2)}</pre>
+}
+```
