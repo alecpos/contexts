@@ -13,7 +13,11 @@ import { getNextIntakeRoute } from '@/app/utils/functions/intake-route-controlle
 import { useState } from 'react';
 
 /** Collects the patient's target weight. */
-export default function GoalWeight() {
+interface Props {
+    userId: string;
+}
+
+export default function GoalWeight({ userId }: Props) {
     const router = useRouter();
     const url = useParams();
     const searchParams = useSearchParams();
@@ -22,14 +26,23 @@ export default function GoalWeight() {
     const { product_href } = getIntakeURLParams(url, searchParams);
     const [weight, setWeight] = useState(180);
 
-    const pushToNextRoute = () => {
+    const pushToNextRoute = async () => {
+        await fetch('/api/patient/goal-weight', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: userId, weight }),
+        });
         const nextRoute = getNextIntakeRoute(fullPath, product_href, search);
-        router.push(`/intake/prescriptions/${product_href}/${nextRoute}?${search}`);
+        router.push(
+            `/intake/prescriptions/${product_href}/${nextRoute}?${search}`,
+        );
     };
 
     return (
         <div className="flex flex-col items-center gap-4 mt-6">
-            <BioType className="inter-h5-question-header">What is your goal weight?</BioType>
+            <BioType className="inter-h5-question-header">
+                What is your goal weight?
+            </BioType>
             <input
                 type="number"
                 className="border p-2"

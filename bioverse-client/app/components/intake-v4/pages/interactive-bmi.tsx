@@ -16,7 +16,11 @@ import { useState } from 'react';
  * Renders an interactive BMI comparison graph. Users can adjust their
  * current and goal weight to see projected BMI changes.
  */
-export default function InteractiveBMI() {
+interface Props {
+    userId: string;
+}
+
+export default function InteractiveBMI({ userId }: Props) {
     const router = useRouter();
     const url = useParams();
     const searchParams = useSearchParams();
@@ -31,9 +35,16 @@ export default function InteractiveBMI() {
     const currentBmi = currentWeight / (HEIGHT_M * HEIGHT_M);
     const goalBmi = goalWeight / (HEIGHT_M * HEIGHT_M);
 
-    const pushToNextRoute = () => {
+    const pushToNextRoute = async () => {
+        await fetch('/api/patient/goal-weight', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: userId, weight: goalWeight }),
+        });
         const nextRoute = getNextIntakeRoute(fullPath, product_href, search);
-        router.push(`/intake/prescriptions/${product_href}/${nextRoute}?${search}`);
+        router.push(
+            `/intake/prescriptions/${product_href}/${nextRoute}?${search}`,
+        );
     };
 
     return (
@@ -46,7 +57,9 @@ export default function InteractiveBMI() {
                         type="number"
                         className="border p-1 rounded"
                         value={currentWeight}
-                        onChange={(e) => setCurrentWeight(Number(e.target.value))}
+                        onChange={(e) =>
+                            setCurrentWeight(Number(e.target.value))
+                        }
                     />
                 </label>
                 <label className="flex flex-col text-sm">
@@ -60,8 +73,12 @@ export default function InteractiveBMI() {
                 </label>
             </div>
             <div className="h-40 w-full border flex flex-col items-center justify-center gap-2">
-                <span className="text-xs text-gray-600">Current BMI: {currentBmi.toFixed(1)}</span>
-                <span className="text-xs text-gray-600">Goal BMI: {goalBmi.toFixed(1)}</span>
+                <span className="text-xs text-gray-600">
+                    Current BMI: {currentBmi.toFixed(1)}
+                </span>
+                <span className="text-xs text-gray-600">
+                    Goal BMI: {goalBmi.toFixed(1)}
+                </span>
             </div>
             <AnimatedContinueButtonV3 onClick={pushToNextRoute} />
         </div>
