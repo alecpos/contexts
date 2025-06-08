@@ -1,0 +1,78 @@
+.pdptitle {
+    color: var(--primary-main, #286ba2);
+    font-family: 'Tw Cen MT Pro SemiBold', sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    line-height: normal;
+    /* 122.222% */
+    letter-spacing: 0.72px;
+}
+
+.pdpheaderMobile {
+    font-style: normal;
+    line-height: 32px;
+    /* 133.333% */
+    letter-spacing: 0.72px;
+}
+
+.container {
+    background-color: #f9f8ff;
+    z-index: 1;
+    border-radius: 0.375rem;
+    /* equivalent to 'rounded-md' in Tailwind */
+    width: 100%;
+    /* equivalent to 'w-full' */
+    margin-top: 2rem;
+    /* equivalent to 'mt-8' */
+    align-self: center;
+    /* equivalent to 'self-center' */
+    padding-top: 0.5rem;
+    /* equivalent to 'p-2' */
+    padding-bottom: 0.5rem;
+    /* equivalent to 'p-2' */
+    text-align: center;
+    /* equivalent to 'text-center' */
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.gradientText {
+    /* Gradient styles */
+    background: linear-gradient(
+        270deg,
+        rgba(77, 146, 151, 0.87) 50%,
+        rgba(40, 107, 162, 0.87) 91.67%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* This makes the text take the color of the background */
+    -webkit-text-fill-color: transparent;
+    /* For WebKit browsers */
+}
+
+.scrollingContent {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 10s linear infinite;
+    animation-delay: 0s;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem /* 8px */;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}

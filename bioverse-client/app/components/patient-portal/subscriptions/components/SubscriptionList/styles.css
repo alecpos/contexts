@@ -1,0 +1,18 @@
+.swiper-slide {
+    margin-right: 100px;
+    width: 264px;
+}
+
+.swiper-wrapper {
+    display: flex;
+    gap: 100px; /* Default gap */
+
+    /* Media query for mobile devices */
+    @media (max-width: 640px) {
+        gap: 0px; /* Adjusted gap for mobile */
+    }
+}
+
+.swiper {
+    /* overflow-x: hidden; */
+}

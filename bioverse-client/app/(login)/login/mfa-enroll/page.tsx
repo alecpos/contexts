@@ -1,0 +1,33 @@
+import type { Metadata } from 'next';
+import {
+    readUserSession,
+    readUserSessionCheckForMFARequirement,
+} from '@/app/utils/actions/auth/session-reader';
+import { redirect } from 'next/navigation';
+import MfaPageContents from '@/app/components/login/mfa/mfaPageContents';
+
+export const metadata: Metadata = {
+    title: 'Bioverse: Login',
+    description: 'Login or Sign up for an Account!',
+};
+
+interface Props {
+    searchParams: { originalRef: any };
+}
+
+export default async function Page({ searchParams }: Props) {
+    const url = searchParams.originalRef;
+    const decodedUrl = decodeURI(url);
+
+    const user_mfa_data = await readUserSessionCheckForMFARequirement();
+
+    if (!user_mfa_data) {
+        return redirect('/login');
+    }
+
+    return (
+        <>
+            <MfaPageContents url={decodedUrl} />
+        </>
+    );
+}
