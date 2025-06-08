@@ -127,3 +127,68 @@ export default async function Example() {
   return <pre>{JSON.stringify(res, null, 2)}</pre>
 }
 ```
+
+---
+
+## CustomerIOProvider
+
+`CustomerIOProvider` wraps the Customer.io REST API and must run on the server. It validates the following environment variables:
+
+```bash
+CUSTOMERIO_SITE_ID=<site id>
+CUSTOMERIO_API_KEY=<api key>
+```
+
+### Usage
+
+Wrap your application's root layout with `CustomerIOProvider` and call the helper hook `useCustomerIO` from server components.
+
+```tsx
+import { CustomerIOProvider } from './providers/CustomerIOProvider'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <CustomerIOProvider>{children}</CustomerIOProvider>
+}
+```
+
+```tsx
+import { useCustomerIO } from '../providers/CustomerIOProvider'
+
+export default async function Example() {
+  const { triggerEvent } = useCustomerIO()
+  await triggerEvent('123', 'signup-complete')
+  return null
+}
+```
+
+---
+
+## MixpanelProvider
+
+`MixpanelProvider` sends analytics events to Mixpanel. It is a server component and requires `MIXPANEL_PROD_PROJECT_TOKEN`.
+
+```bash
+MIXPANEL_PROD_PROJECT_TOKEN=<project token>
+```
+
+### Usage
+
+Wrap your application's root layout with `MixpanelProvider` and call the helper hook `useMixpanel` from server components.
+
+```tsx
+import { MixpanelProvider } from './providers/MixpanelProvider'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <MixpanelProvider>{children}</MixpanelProvider>
+}
+```
+
+```tsx
+import { useMixpanel } from '../providers/MixpanelProvider'
+
+export default async function Example() {
+  const { track } = useMixpanel()
+  await track('lead', { properties: { distinct_id: '123' } })
+  return null
+}
+```
