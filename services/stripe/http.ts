@@ -176,10 +176,6 @@ export async function listCharges(limit: number = 1) {
   return fetchWithFallback(`/charges?limit=${limit}`)
 }
 
-export async function listAllCharges(limit: number = 100, maxPages: number = 2) {
-  return autoPaginate(`/charges?limit=${limit}`, maxPages)
-}
-
 export async function createPaymentIntent(
   amount: number,
   currency: string,
@@ -696,5 +692,9 @@ export async function approveReview(id: string) {
 
 export async function listReviews(limit: number = 10) {
   return fetchWithFallback(`/reviews?limit=${limit}`)
+}
+
+export async function listAllCharges(limit: number = 100, maxPages: number = 2) {
+  return autoPaginate(`/charges?limit=${limit}`, maxPages)
 }
 
