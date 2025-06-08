@@ -16,7 +16,11 @@ import { useState } from 'react';
  * Renders an interactive BMI comparison graph. Users can adjust their
  * current and goal weight to see projected BMI changes.
  */
-export default function InteractiveBMI() {
+interface Props {
+  userId: string;
+}
+
+export default function InteractiveBMI({ userId }: Props) {
     const router = useRouter();
     const url = useParams();
     const searchParams = useSearchParams();
@@ -26,12 +30,23 @@ export default function InteractiveBMI() {
 
     const [currentWeight, setCurrentWeight] = useState(200);
     const [goalWeight, setGoalWeight] = useState(180);
+    const [loading, setLoading] = useState(false);
     const HEIGHT_M = 1.75;
 
     const currentBmi = currentWeight / (HEIGHT_M * HEIGHT_M);
     const goalBmi = goalWeight / (HEIGHT_M * HEIGHT_M);
 
-    const pushToNextRoute = () => {
+    const pushToNextRoute = async () => {
+        setLoading(true);
+        try {
+            await fetch('/api/patient/goal-weight', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, weight: goalWeight }),
+            });
+        } catch (e) {
+            console.error('Failed to save goal weight', e);
+        }
         const nextRoute = getNextIntakeRoute(fullPath, product_href, search);
         router.push(`/intake/prescriptions/${product_href}/${nextRoute}?${search}`);
     };

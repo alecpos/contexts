@@ -11,8 +11,6 @@ interface Props {
 export default async function GlobalWLInteractive({ params, searchParams }: Props) {
   const user_id = (await readUserSession()).data.session?.user.id!;
   return (
-    <>
-      <InteractiveBMI />
-    </>
+    <InteractiveBMI userId={user_id} />
   );
 }
