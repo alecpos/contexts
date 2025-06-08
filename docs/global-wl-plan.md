@@ -3,12 +3,14 @@
 This document outlines the approach for **BV-3284 Build & Integrate New Global Weight Loss Funnel for A/B Testing**. The goal is to implement the redesigned funnel and prepare it for A/B testing against the existing version.
 
 ## Objectives
+
 - Capture goal weight and display interactive BMI feedback.
 - Offer medication selection for Ozempic, Mounjaro, Zepbound and BIOVERSE Weight Loss Capsule.
 - Route 30% of users through this new funnel and keep 70% on the current flow.
 - Store new answers in the patient model and ensure DoseSpot integration for retail prescriptions.
 
 ## Sprint Breakdown (15 points)
+
 1. **Page Scaffolding (3 pts)** – Create new route files and basic React components for goal weight input, interactive BMI feedback and medication selection.
 2. **Backend Updates (4 pts)** – Extend order and questionnaire controllers to store goal weight and selected medication. Add DoseSpot prescription logic for the new options.
 3. **A/B Split Logic (3 pts)** – Implement percentage based routing in the intake controller and verify that analytics capture which version a user sees.
@@ -18,10 +20,12 @@ This document outlines the approach for **BV-3284 Build & Integrate New Global W
 Success is achieved when the new funnel matches the Figma designs, integrates with backend services and can be toggled on for a percentage of traffic.
 
 ## Progress
+
 - Initial pages for the new funnel have been scaffolded under `app/(intake)/intake/prescriptions/[product]/`:
   - `global-wl-goal-weight`
   - `global-wl-interactive`
   - `global-wl-medications`
   - `global-wl-checkout`
+  - `global-wl-intro`
 - Each page mirrors the existing route pattern and renders a placeholder component from `components/intake-v4/pages/`.
 - Next we will flesh out the remaining screens using the same `app/(intake)/intake/prescriptions/[product]/<route>` structure. This keeps parity with the current weight‑loss routes and makes A/B testing easier. New files will follow the pattern of a thin server component that imports a client component from `components/intake-v4/pages/`.

@@ -121,7 +121,7 @@ export enum AB_TESTS_IDS {
     WL_RO_TEST = 'wl-ro-test',
     WL_NEW_SCREEN_TEST = 'wl-ns-test',
     SEM_SL = 'sem-sl', //semaglutide spring sale (ends may 16th, 2025) - also using this for global weight loss as well!
-    COMP_COMPARE = 'comp-compare', 
+    COMP_COMPARE = 'comp-compare',
     SEM_6MB = 'sem6mb', //ab test for a new 6 month biannual variant semaglutide revive
 }
 
@@ -217,6 +217,7 @@ export enum INTAKE_ROUTE_V3 {
     ORDER_SUMMARY_V3_AP = 'order-summary-v3-ap',
     ONE_MOMENT = 'one-moment',
     NEW_NON_WL_CHECKOUT = 'checkout-v3',
+    GLOBAL_WL_INTRO = 'global-wl-intro',
     GLOBAL_WL_GOAL_WEIGHT = 'global-wl-goal-weight',
     GLOBAL_WL_INTERACTIVE = 'global-wl-interactive',
     GLOBAL_WL_MEDICATIONS = 'global-wl-medications',

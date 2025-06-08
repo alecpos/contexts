@@ -193,7 +193,7 @@ export const SEMAGLUTIDE_ROUTES: IntakeRouteSpecification = {
     1: {
         version: 1,
         route_array: [
-            INTAKE_ROUTE_V3.WEIGHT_LOSS_ACCOMPLISH_GOALS, 
+            INTAKE_ROUTE_V3.WEIGHT_LOSS_ACCOMPLISH_GOALS,
             INTAKE_ROUTE_V3.WEIGHT_LOSS_BMI,
             INTAKE_ROUTE_V3.WEIGHT_LOSS_DATA_PROCESSING,
             INTAKE_ROUTE_V3.WEIGHT_LOSS_GRAPH_PRE_SIGNUP,
@@ -938,6 +938,7 @@ export const GLOBAL_WL_ROUTES: IntakeRouteSpecification = {
     1: {
         version: 1,
         route_array: [
+            INTAKE_ROUTE_V3.GLOBAL_WL_INTRO,
             INTAKE_ROUTE_V3.GLOBAL_WL_GOAL_WEIGHT,
             INTAKE_ROUTE_V3.GLOBAL_WL_INTERACTIVE,
             INTAKE_ROUTE_V3.GLOBAL_WL_MEDICATIONS,
@@ -1194,7 +1195,7 @@ export const LATEST_INTAKE_VERSIONS: LatestIntakeSpecification = {
         route_array: ED_X_PRODUCTS_INTAKE_ROUTES,
         latest_version: 1,
     },
-'x-chews': {
+    'x-chews': {
         route_array: ED_X_PRODUCTS_INTAKE_ROUTES,
         latest_version: 1,
     },
@@ -1202,5 +1203,4 @@ export const LATEST_INTAKE_VERSIONS: LatestIntakeSpecification = {
         latest_version: 1,
         route_array: SERMORELIN_ROUTES,
     },
-
 };
