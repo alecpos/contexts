@@ -220,4 +220,5 @@ export enum INTAKE_ROUTE_V3 {
     GLOBAL_WL_GOAL_WEIGHT = 'global-wl-goal-weight',
     GLOBAL_WL_INTERACTIVE = 'global-wl-interactive',
     GLOBAL_WL_MEDICATIONS = 'global-wl-medications',
+    GLOBAL_WL_CHECKOUT = 'global-wl-checkout',
 }

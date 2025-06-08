@@ -22,5 +22,6 @@ Success is achieved when the new funnel matches the Figma designs, integrates wi
   - `global-wl-goal-weight`
   - `global-wl-interactive`
   - `global-wl-medications`
+  - `global-wl-checkout`
 - Each page mirrors the existing route pattern and renders a placeholder component from `components/intake-v4/pages/`.
 - Next we will flesh out the remaining screens using the same `app/(intake)/intake/prescriptions/[product]/<route>` structure. This keeps parity with the current weight‑loss routes and makes A/B testing easier. New files will follow the pattern of a thin server component that imports a client component from `components/intake-v4/pages/`.
