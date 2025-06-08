@@ -32,3 +32,30 @@ Success is achieved when the new funnel matches the Figma designs, integrates wi
 - `global-wl-whats-next`
 - Each page mirrors the existing route pattern and renders a placeholder component from `components/intake-v4/pages/`.
 - Next we will flesh out the remaining screens using the same `app/(intake)/intake/prescriptions/[product]/<route>` structure. This keeps parity with the current weight‑loss routes and makes A/B testing easier. New files will follow the pattern of a thin server component that imports a client component from `components/intake-v4/pages/`.
+
+## Must Implement & API Requirements
+
+### Must Implement
+
+- Complete interactive form logic on each page.
+- Track analytics events for every screen.
+- Wire server-side validation for medication selection.
+- Persist BMI graph data between steps.
+
+### API Requirements
+
+- `POST /api/patient/goal-weight` – save the patient target weight.
+- `GET /api/products/weight-loss` – fetch medication options.
+- `POST /api/prescriptions/medication` – create the prescription record.
+- `POST /api/checkout/weight-loss` – finalize the order.
+
+### Timing Per Page (Existing Funnel Benchmarks)
+
+| Page | Reference | Est. Time |
+| --- | --- | --- |
+| `global-wl-goal-weight` | `wl-goal-weight` | ~0.5d |
+| `global-wl-interactive` | `wl-interactive` | ~1d |
+| `global-wl-medications` | `wl-medications` | ~0.5d |
+| `global-wl-checkout` | `wl-checkout` | ~0.5d |
+| `global-wl-order-summary` | `order-summary` | ~0.5d |
+| `global-wl-whats-next` | `whats-next` | ~0.25d |
