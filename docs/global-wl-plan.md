@@ -76,3 +76,11 @@ estimate work in related flows.
 | `wl-checkout` | ~0.5d |
 | `wl-order-summary` | ~0.5d |
 | `wl-whats-next` | ~0.25d |
+
+## Next Steps
+
+- Implement full logic for goal weight capture and ensure the value persists across steps.
+- Build out interactive BMI feedback graph using live data from the form.
+- Connect medication options to DoseSpot integration and store selection in the patient model.
+- Add A/B routing logic so 30% of global weight loss traffic goes through these new pages.
+- Verify analytics events trigger for every screen in both the control and variant flows.
