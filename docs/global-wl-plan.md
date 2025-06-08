@@ -36,6 +36,21 @@ Success is achieved when the new funnel matches the Figma designs, integrates wi
 - Route constants have been updated (`GLOBAL_WL_ROUTES`) so the intake controller knows about the new sequence.
 - With the skeleton in place, the next step is fleshing out form logic and data wiring while keeping the same server component + client component split.
 
+## Route Structure & Pages
+
+All screens live under `app/(intake)/intake/prescriptions/[product]/` so any value from `ALL_PRODUCT_HREFS` automatically loads the funnel. Each page is a thin server component that renders a matching client component from `components/intake-v4/pages/`.
+
+- `global-wl-intro/page.tsx`
+- `global-wl-goal-weight/page.tsx`
+- `global-wl-interactive/page.tsx`
+- `global-wl-medications/page.tsx`
+- `global-wl-checkout/page.tsx`
+- `global-wl-up-next/page.tsx`
+- `global-wl-order-summary/page.tsx`
+- `global-wl-whats-next/page.tsx`
+
+This mirrors the existing weight‑loss routes and keeps parity for analytics and A/B tests. Additional pages should follow the same naming convention.
+
 ## Must Implement & API Requirements
 
 ### Must Implement
