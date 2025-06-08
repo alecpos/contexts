@@ -192,3 +192,67 @@ export default async function Example() {
   return null
 }
 ```
+
+---
+
+## BmgProvider
+
+`BmgProvider` sends marketing conversion events to BMG. It is a server component and requires `BMG_API_KEY`.
+
+```bash
+BMG_API_KEY=<api key>
+```
+
+### Usage
+
+Wrap your application's root layout with `BmgProvider` and call the helper hook `useBmg` from server components.
+
+```tsx
+import { BmgProvider } from './providers/BmgProvider'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <BmgProvider>{children}</BmgProvider>
+}
+```
+
+```tsx
+import { useBmg } from '../providers/BmgProvider'
+
+export default async function Example() {
+  const { sendEvent } = useBmg()
+  await sendEvent(1, 'CA', 'purchase', '20', new Date().toISOString(), 'USD', 'ads', 'product', 'selection', 'campaign', 'medium', 'content', 'term')
+  return null
+}
+```
+
+---
+
+## EasypostProvider
+
+`EasypostProvider` creates shipment trackers using the Easypost API. It is a server component and requires `EASYPOST_API_KEY`.
+
+```bash
+EASYPOST_API_KEY=<api key>
+```
+
+### Usage
+
+Wrap your application's root layout with `EasypostProvider` and call the helper hook `useEasypost` from server components.
+
+```tsx
+import { EasypostProvider } from './providers/EasypostProvider'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <EasypostProvider>{children}</EasypostProvider>
+}
+```
+
+```tsx
+import { useEasypost } from '../providers/EasypostProvider'
+
+export default async function Example() {
+  const { createTracker } = useEasypost()
+  await createTracker('123', '9400110898825022579493', 'USPS', 'curexa')
+  return null
+}
+```

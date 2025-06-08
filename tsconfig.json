@@ -9,7 +9,8 @@
     "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {
-      "*": ["*", "services/*", "providers/*"]
+      "*": ["*", "services/*", "providers/*"],
+      "@/*": ["bioverse-client/app/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
