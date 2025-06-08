@@ -11,8 +11,6 @@ interface Props {
 export default async function GlobalWLMedications({ params, searchParams }: Props) {
   const user_id = (await readUserSession()).data.session?.user.id!;
   return (
-    <>
-      <MedicationOptions />
-    </>
+    <MedicationOptions userId={user_id} />
   );
 }
