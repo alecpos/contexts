@@ -944,6 +944,8 @@ export const GLOBAL_WL_ROUTES: IntakeRouteSpecification = {
             INTAKE_ROUTE_V3.GLOBAL_WL_MEDICATIONS,
             INTAKE_ROUTE_V3.GLOBAL_WL_CHECKOUT,
             INTAKE_ROUTE_V3.GLOBAL_WL_UP_NEXT,
+            INTAKE_ROUTE_V3.GLOBAL_WL_ORDER_SUMMARY,
+            INTAKE_ROUTE_V3.GLOBAL_WL_WHATS_NEXT,
         ],
         ab_tests: [],
     },

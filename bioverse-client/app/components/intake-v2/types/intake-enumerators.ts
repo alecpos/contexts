@@ -223,4 +223,6 @@ export enum INTAKE_ROUTE_V3 {
     GLOBAL_WL_MEDICATIONS = 'global-wl-medications',
     GLOBAL_WL_CHECKOUT = 'global-wl-checkout',
     GLOBAL_WL_UP_NEXT = 'global-wl-up-next',
+    GLOBAL_WL_ORDER_SUMMARY = 'global-wl-order-summary',
+    GLOBAL_WL_WHATS_NEXT = 'global-wl-whats-next',
 }
