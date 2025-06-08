@@ -16,3 +16,10 @@ This document outlines the approach for **BV-3284 Build & Integrate New Global W
 5. **Tracking & QA (2 pts)** – Ensure events flow to analytics and test both funnels across common devices.
 
 Success is achieved when the new funnel matches the Figma designs, integrates with backend services and can be toggled on for a percentage of traffic.
+
+## Progress
+- Initial pages for the new funnel have been scaffolded under `app/(intake)/intake/prescriptions/[product]/`:
+  - `global-wl-goal-weight`
+  - `global-wl-interactive`
+  - `global-wl-medications`
+- Each page mirrors the existing route pattern and renders a placeholder component from `components/intake-v4/pages/`.
