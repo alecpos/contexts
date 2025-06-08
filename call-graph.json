@@ -1,0 +1,2516 @@
+[
+  {
+    "source": "utils/unvalidatedUtils/actions/admin/dashboard-scripts.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getAllOrdersForAdminTable"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getAllRenewalOrdersForAdminOrderTable"
+      ],
+      "utils/unvalidatedUtils/actions/admin/parsers": [
+        "prescriptionRequestToAdminDashboard",
+        "renewalOrderToProviderDashboard"
+      ],
+      "lodash": [
+        "concat"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/admin/parsers.ts",
+    "calls": {
+      "utils/unvalidatedUtils/functions/dates": [
+        "getDateHourDifference"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/alternatives/weight-loss/alternative-weight-loss-actions.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/actions/auth/session-reader": [
+        "readUserSession"
+      ],
+      "lodash": [
+        "isEmpty"
+      ],
+      "@/app/services/stripe/customer": [
+        "fetchDefaultCardForCustomer"
+      ],
+      "@/app/utils/database/controller/orders/orders-api": [
+        "fetchOrderData",
+        "insertNewManualOrder",
+        "updateOrder"
+      ],
+      "@/app/utils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "createUserStatusTagWAction"
+      ],
+      "utils/unvalidatedUtils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "@/app/utils/functions/prescription-scripts/empower-approval-script-generator": [
+        "generateEmpowerScript"
+      ],
+      "@/app/services/pharmacy-integration/empower/provider-script-feedback": [
+        "processEmpowerScript"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/auth-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/authorization.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/employees/employees-api": [
+        "getCurrentEmployeeRole"
+      ],
+      "utils/unvalidatedUtils/functions/auth/authorization/authorizaiton-helper": [
+        "determineAccessByRoleName"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/change-email.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/oauth.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseBrowserClient": [
+        "createSupabaseBrowserClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/server-signIn-signOut.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerClient",
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/session-reader.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerClient",
+        "createSupabaseServerComponentClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/employees/employees-api": [
+        "getEmployeeRecordById"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/auth/sign-out.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/check-up/check-up-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "createUserStatusTagWAction",
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/functions/renewal-orders/renewal-orders": [
+        "getOrderStatusDetails"
+      ],
+      "lodash": [
+        "isNaN",
+        "isUndefined"
+      ],
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history": [
+        "logPatientAction"
+      ],
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "getSubscriptionById",
+        "handleCheckUpSubscriptionExtension"
+      ],
+      "@/app/utils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "addOrRemoveStatusFlags"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "addCheckInCompletionToRenewalOrder",
+        "createFirstTimeRenewalOrder",
+        "createUpcomingRenewalOrder",
+        "getLatestRenewalOrderForSubscription",
+        "getMonthsIntoRenewalOrderSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions": [
+        "updateActionItem"
+      ],
+      "utils/unvalidatedUtils/functions/pricing": [
+        "isGLP1Product"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/check-up/check-up-constants.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/coordinator/dashboard-scripts.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getAllLeadCoordinatorOrders",
+        "getAllOrdersForCoordinatorOrderTable"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getAllRenewalOrdersForCoordinatorOrderTable"
+      ],
+      "utils/unvalidatedUtils/actions/coordinator/parsers": [
+        "prescriptionRequestToCoordinatorDashboardv2",
+        "renewalOrderToCoordinatorDashboard"
+      ],
+      "lodash": [
+        "concat"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/coordinator/parsers.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/engineer/dashboard-scripts.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "getEngineerStatusTagOrders"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/hhq-questionnaire.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/hooks/useLocalStorage.ts",
+    "calls": {
+      "react": [
+        "useEffect",
+        "useState"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/order-control.ts",
+    "calls": {
+      "utils/services/stripe/setupIntent": [
+        "createSetupIntentServer"
+      ],
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/order-util.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "getSubscriptionStatusFlagsFromOriginalOrderId",
+        "isActiveSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "updateOrder"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history": [
+        "logPatientAction"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "utils/unvalidatedUtils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2": [
+        "getQuestionAnswersForBMI"
+      ],
+      "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator": [
+        "generateEmpowerScript"
+      ],
+      "@/app/services/pharmacy-integration/empower/provider-script-feedback": [
+        "processEmpowerScript"
+      ],
+      "utils/unvalidatedUtils/functions/prescription-scripts/hallandale-approval-script-generator": [
+        "generateHallandaleScript"
+      ],
+      "@/app/services/pharmacy-integration/hallandale/hallandale-script-api": [
+        "sendHallendaleScript"
+      ],
+      "utils/unvalidatedUtils/functions/prescription-scripts/revive-script-generator": [
+        "generateReviveScript"
+      ],
+      "@/app/services/pharmacy-integration/revive/revive-send-script-api": [
+        "sendReviveScript"
+      ],
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator": [
+        "generateBoothwynScriptWithData"
+      ],
+      "@/app/services/pharmacy-integration/boothwyn/boothwyn-script-api": [
+        "sendBoothwynScript"
+      ],
+      "utils/unvalidatedUtils/database/controller/messaging/threads/threads": [
+        "getThreadIDByPatientIDAndProduct"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/containers/utils/post-prescribe-macro-selector/post-prescribe-macro-selector": [
+        "getProviderMacroHTMLPrePopulated"
+      ],
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages": [
+        "postNewMessage"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/product-data.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/intake/wl-supply.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/membership/membership-portal-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/membership/order-history-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ],
+      "@/app/services/customerio/event_actions": [
+        "trackMessageEvent"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-user.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-util.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/message-v2-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/messaging/threads/threads": [
+        "listAllThreadsForPatient"
+      ],
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages": [
+        "getMessagesForThread"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/message/messageTest.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/pdp-api/pdp-api.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/prescription-subscriptions/prescription-subscriptions-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getOrderDetailsById"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getRenewalOrder"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/active-subscriptions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/announcements.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/auth.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/check-for-renewal-order.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/dashboard-scripts.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/providers/providers-api": [
+        "getProviderLicensedStates",
+        "getProviderLicensedStatesWithID"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getAllOrdersForProviderOrderTablev2",
+        "getAllOrdersForTaskQueue"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getAllRenewalOrdersForProviderOrderTablev2",
+        "getAllRenewalOrdersForTaskQueue"
+      ],
+      "lodash": [
+        "concat"
+      ],
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/actions/provider/parsers": [
+        "prescriptionRequestToProviderDashboardv2",
+        "renewalOrderToProviderDashboard"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "getStatusTags"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/get-suggested-dosages.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/parsers.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/patient-intake.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/patient-overview.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/prescription-requests.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/provider-dosespot.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/providers/providers-api": [
+        "getCurrentProviderDoseSpotId"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/provider/update-renewal-order-metadata.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/questionnaire-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire": [
+        "getQuestionAnswerWithQuestionID"
+      ],
+      "utils/unvalidatedUtils/functions/client-utils": [
+        "getCommonStringsSorted"
+      ],
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ],
+      "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants": [
+        "constructCheckupJunction",
+        "constructNonWeightlossCheckupQuestions",
+        "constructWeightlossCheckupQuestions"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/questionnaire-question-constants.ts",
+    "calls": {
+      "lodash": [
+        "cloneDeep"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v1.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v2.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/questionnaires/weightloss-questions/weightloss-questions-v3.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/stripe/stripe-webhook-actions.ts",
+    "calls": {
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history": [
+        "logPatientAction"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/actions/subscriptions/subscription-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/AnnuallyCheckInComms.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/BiannuallyCheckInComms.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/CommsSchedule.ts",
+    "calls": {
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getLatestRenewalOrderForOriginalOrderId"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/MonthlyCheckInComms.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/CommsScheduler/ThreeMonthCheckInComms.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Dashboard.ts",
+    "calls": {
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeSubscription"
+      ],
+      "utils/unvalidatedUtils/functions/dates": [
+        "convertEpochToDate"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/containers/utils/intake-helpers": [
+        "getDaysBetweenDates",
+        "getIntakeDashboardTitle"
+      ],
+      "utils/unvalidatedUtils/functions/pricing": [
+        "isGLP1Product",
+        "isWeightlossProduct"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getLatestProcessedOrderGeneral"
+      ],
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ],
+      "utils/unvalidatedUtils/functions/formatting": [
+        "getFormattedCadence"
+      ],
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeConstantIndex.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeController.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeEquivalenceMap.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/DosingChangeController/DosageChangeModel.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Pharmacy.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getLastCompleteOrderForOriginalOrderId",
+        "updateRenewalOrderByRenewalOrderId"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "utils/unvalidatedUtils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter": [
+        "getScriptForVariantIndex"
+      ],
+      "@/app/services/pharmacy-integration/empower/provider-script-feedback": [
+        "processAutomaticEmpowerScript"
+      ],
+      "@/app/services/pharmacy-integration/hallandale/hallandale-script-api": [
+        "processAutomaticHallandaleScript"
+      ],
+      "utils/unvalidatedUtils/functions/prescription-scripts/prescription-scripts-utils": [
+        "updatePrescriptionScript"
+      ],
+      "utils/unvalidatedUtils/database/controller/prescription_script_audit/prescription_script_audit": [
+        "saveScriptForFutureUse"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/BestPharmacyMatrix.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/ProductVarianceMap.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantController.ts",
+    "calls": {
+      "utils/unvalidatedUtils/classes/ProductVariant/BestPharmacyMatrix": [
+        "findVariantPharmacyByState"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/ProductVariantModel.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/constants/ProductEquivalencyConstants.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/ProductVariant/constants/VariantPharmacyMap.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/BaseScriptHandler.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "updateRenewalOrderByRenewalOrderId"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "utils/unvalidatedUtils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes": [
+        "getPatientAllergyData"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "createUserStatusTagWAction",
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/database/controller/prescription_script_audit/prescription_script_audit": [
+        "saveScriptForFutureUse"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/BoothwynScriptHandler.ts",
+    "calls": {
+      "@/app/services/pharmacy-integration/boothwyn/boothwyn-script-api": [
+        "processAutomaticBoothwynScript"
+      ],
+      "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator": [
+        "generateBoothwynScriptAsync"
+      ],
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "updateRenewalOrderFromRenewalOrderId"
+      ],
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions": [
+        "updatePrescriptionSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/EmpowerScriptHandler.ts",
+    "calls": {
+      "@/app/services/pharmacy-integration/empower/provider-script-feedback": [
+        "processAutomaticEmpowerScript"
+      ],
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2": [
+        "getQuestionAnswersForBMI"
+      ],
+      "@/app/utils/functions/prescription-scripts/empower-approval-script-generator": [
+        "generateEmpowerScriptAsync"
+      ],
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "updateRenewalOrderByRenewalOrderId"
+      ],
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions": [
+        "updatePrescriptionSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/HallandaleScriptHandler.ts",
+    "calls": {
+      "@/app/services/pharmacy-integration/hallandale/hallandale-script-api": [
+        "processAutomaticHallandaleScript"
+      ],
+      "@/app/utils/functions/prescription-scripts/hallandale-approval-script-generator": [
+        "generateHallandaleScriptAsync"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/tab-column/prescribe/prescribe-windows/hallandale/utils/hallandale-base64-pdf": [
+        "convertHallandaleOrderToBase64"
+      ],
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "updateRenewalOrderFromRenewalOrderId"
+      ],
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions": [
+        "updatePrescriptionSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/ReviveScriptHandler.ts",
+    "calls": {
+      "@/app/services/pharmacy-integration/revive/revive-send-script-api": [
+        "processAutomaticReviveScript"
+      ],
+      "utils/unvalidatedUtils/functions/prescription-scripts/revive-script-generator": [
+        "generateReviveScript"
+      ],
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "updateRenewalOrderFromRenewalOrderId"
+      ],
+      "utils/unvalidatedUtils/actions/subscriptions/subscription-actions": [
+        "updatePrescriptionSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/Scripts/ScriptHandlerFactory.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/SigVisualizer/SigVisualizer.ts",
+    "calls": {
+      "@/app/services/pharmacy-integration/empower/empower-variant-product-script-data": [
+        "getEmpowerCatalogObject"
+      ],
+      "@/app/services/pharmacy-integration/hallandale/hallandale-variant-product-script-data": [
+        "getHallandaleCatalogObject"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/classes/SigVisualizer/sig-visualizer.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/clients/supabaseBrowserClient.ts",
+    "calls": {
+      "@supabase/ssr": [
+        "createBrowserClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/clients/supabaseReqResClient.ts",
+    "calls": {
+      "@supabase/ssr": [
+        "createServerClient"
+      ],
+      "cookies-next": [
+        "getCookie",
+        "setCookie"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/clients/supabaseServerClient.ts",
+    "calls": {
+      "next/headers": [
+        "cookies"
+      ],
+      "@supabase/ssr": [
+        "createServerClient"
+      ],
+      "@supabase/supabase-js": [
+        "createClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/VWO/vwo_test_mappings.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/clinical-note-template-latest-versions.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/clinical-note-template-product-map.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/intake.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/provider-portal/ProviderTasks.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/acarbose-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/atorvastatin-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/b12-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/cgm-sensor-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/ed-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/glp-1-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/glutathione-injection-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/metformin-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/minoxidil-finasteride-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/nad-product-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/skin-care-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/telmisartan-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/wl-capsule-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/constants/templates/zofran-templates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/discounts/database-discounts-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/order_management/admin-order-management.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/product_prices/product-prices.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/api-controller/products/products.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/action-items/action-items-actions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "lodash": [
+        "isEmpty",
+        "isUndefined"
+      ],
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions": [
+        "createQuestionnaireSessionForCheckup"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/admin_controlled_items/admin-controlled-items.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/admin_order_cancel_audit/admin-order-cancel-audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/ai_generation_audit/ai_generation_audit_api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_enums.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ],
+      "date-fns": [
+        "parseISO"
+      ],
+      "utils/unvalidatedUtils/database/controller/profiles/profiles": [
+        "updateCurrentProfileHeight"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/coordinator_activity_audit/coordinator_activity_audit-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getAllOrdersForCoordinatorOrderTable"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getAllRenewalOrdersForCoordinatorOrderTable"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/coordinator_activity_audit/coordinator_activity_audit.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/coordinator_tasks/coordinator-task-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/custom_orders/custom_orders_api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "isRenewalOrder"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/customerio_audit/audit_customerio.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/dose_spot_webhook_audit/dose-spot-webhook-audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/ds_match_failures/ds-match-failures.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/employees/employees-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/employees/employees-database-type.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/escalations/escalations-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/internal_notes/internal-notes-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/job-scheduler/job-scheduler-actions.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering",
+        "getStatusTagForOrder",
+        "updateStatusTagToReview"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getBaseOrderById"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros-dbtype.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros-types.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/macros/macros.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/messages/messages.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history": [
+        "logPatientAction"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/macros/macros-api": [
+        "getMacroById"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeSubscription"
+      ],
+      "@/app/utils/functions/dates": [
+        "convertEpochToDate"
+      ],
+      "utils/unvalidatedUtils/database/controller/providers/providers-api": [
+        "getProviderFromId"
+      ],
+      "utils/unvalidatedUtils/database/controller/macros/macros": [
+        "replaceParametersAutomaticSend"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/thread_escalations/thread_escalations.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/thread_members/thread_members.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/messaging/threads/threads.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ],
+      "utils/unvalidatedUtils/database/controller/messaging/messages/messages": [
+        "getFirstMessageForThread"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/mixpanel/mixpanel.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/order_data_audit/order_audit_descriptions.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_type.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/address-in-most-recent-order.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/create-manual-order.ts",
+    "calls": {
+      "@/app/utils/database/controller/products/products": [
+        "getPriceIdForProductVariant"
+      ],
+      "@/app/utils/functions/pricing": [
+        "isGLP1Product"
+      ],
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "getSubscriptionByProduct"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getBaseOrderByProduct"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/create-order": [
+        "getPriceForStripePriceId"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeInvoice",
+        "getStripeSubscription"
+      ],
+      "@/app/utils/functions/dates": [
+        "convertEpochToDate"
+      ],
+      "@/app/utils/functions/client-utils": [
+        "formatDateToMMDDYYYY"
+      ],
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/messaging/threads/threads": [
+        "createNewThreadForPatientProduct"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/create-order-utils.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/create-order.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "deleteOrderById",
+        "getBaseOrderByProduct",
+        "insertNewManualOrder",
+        "updateOrder"
+      ],
+      "@/app/utils/database/controller/products/products": [
+        "getPriceIdForProductVariant"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "createRenewalOrderWithPayload",
+        "getLatestOrderForSubscriptionThatWasSent",
+        "getLatestRenewalOrderByCustomerAndProduct"
+      ],
+      "@/app/utils/functions/client-utils": [
+        "convertStripePriceToDollars"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "cancelStripeSubscriptionManualOrder",
+        "createBalanceTransaction",
+        "getStripePriceId",
+        "listPaidInvoices",
+        "refundStripeInvoice",
+        "updateStripeProductWithProduct"
+      ],
+      "@/app/utils/actions/prescription-subscriptions/prescription-subscriptions-actions": [
+        "getAllActiveGLP1SubscriptionsForProduct"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "updateStatusTagToReview"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription",
+        "updatePrescriptionSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/create-order-utils": [
+        "getNextRenewalOrderId"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/order-matching-dose-spot.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/orders-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "concat",
+        "isEmpty"
+      ],
+      "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions": [
+        "createQuestionnaireSessionForOrder"
+      ],
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceVariantTableData"
+      ],
+      "@/app/utils/actions/intake/order-util": [
+        "getOrderType"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getLatestRenewalOrderForOriginalOrderId",
+        "getRenewalOrderForPatientIntake",
+        "updateRenewalOrder"
+      ],
+      "utils/unvalidatedUtils/database/controller/shipping_tracking_failed_audit/shipping-tracking-failed-audit": [
+        "auditShippingTrackingFailed"
+      ],
+      "@/app/services/pharmacy-integration/revive/revive-patient-api": [
+        "changePatientAddressInReviveIfNecessary"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/orders-dbtype.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/orders/process-manual-order.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "getSubscriptionByProduct"
+      ],
+      "@/app/utils/database/controller/products/products": [
+        "getPriceIdForProductVariant"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "createBalanceTransaction",
+        "refundStripeInvoiceWithAmount",
+        "updateStripeProduct",
+        "updateStripeSubscriptionImmediately"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "updateStatusTagToReview"
+      ],
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api": [
+        "createOrderDataAudit"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "updatePrescriptionSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "createRenewalOrderWithPayload",
+        "getLatestRenewalOrderByCustomerAndProduct"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/create-order-utils": [
+        "getNextRenewalOrderId"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getMonthsIntoRenewalOrderSubscription",
+        "isRenewalOrder"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "lodash": [
+        "isEmpty"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getOrderById"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history-types.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_combined_wl_answers_temp/patient_combined_wl_answers_temp_api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_document_uploads/patient_document_uploads.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_providers/patient-providers.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_weight_audit/patient-weight-audit-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/patient_weight_audit/patient-weight-audit-database-type.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_error_audit/payment_error_audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_audit/payment_failure_audit-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient_action_history/patient-action-history": [
+        "logPatientAction"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_audit/payment_failure_audit.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failure_tracker/payment_failure_tracker_enums.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/payment_failures/payment-failures.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/pharmacy-order-failures/pharmacy-order-failures.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscription_enums.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "updateOrderSubscriptionID"
+      ],
+      "@/app/services/pharmacy-integration/prescription-refill-count": [
+        "getRefillCount"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription",
+        "getSubscriptionDetails",
+        "updatePrescriptionSubscription"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "extendSubscriptionRenewalBy5Days",
+        "getStripeSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/product_variants/product_variants.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/services/pharmacy-integration/empower/empower-variant-product-script-data": [
+        "getEmpowerCatalogObject"
+      ],
+      "@/app/services/pharmacy-integration/hallandale/hallandale-variant-product-script-data": [
+        "getHallandaleCatalogObject"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/products/products.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/profiles/profiles-database-type.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/profiles/profiles.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "checkForExistingOrderV2",
+        "getIncompleteGlobalWLOrderPostHrefSwap"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "identifyUser"
+      ],
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getLatestRenewalOrderForOriginalOrderId",
+        "updateRenewalOrder"
+      ],
+      "@/app/utils/functions/renewal-orders/renewal-orders": [
+        "getOrderStatusDetails"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/provider_activity_audit/provider_activity_audit-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/provider_activity_audit/provider_activity_audit.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/providers/providers-api.ts",
+    "calls": {
+      "@/app/utils/actions/auth/session-reader": [
+        "getCurrentUserId",
+        "readUserSession"
+      ],
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient",
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/providers/providers-type.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/actions/auth/session-reader": [
+        "readUserSession"
+      ],
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions": [
+        "getAllActionsItemsForPatientWithSession"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getAllGLP1OrdersForProduct",
+        "getAllGLP1RenewalOrdersForProduct"
+      ],
+      "utils/unvalidatedUtils/actions/prescription-subscriptions/prescription-subscriptions-actions": [
+        "getAllGLP1SubscriptionsForProduct"
+      ],
+      "utils/unvalidatedUtils/functions/pricing": [
+        "isGLP1Product"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/questionnaires/questionnaire_sessions.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "updateOrder"
+      ],
+      "utils/unvalidatedUtils/database/controller/action-items/action-items-actions": [
+        "updateActionItem"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/questionnaires/supabase_questionnaire_types.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/renewal_order_audit/renewal_order_audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getBaseOrderById",
+        "getFirstCompletedOrderCreatedDate",
+        "getOrderById",
+        "getOrderIdByPatientIdAndProductHref"
+      ],
+      "@/app/utils/functions/renewal-orders/renewal-orders": [
+        "getFinalReviewStartsDate"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "forwardOrderToEngineering"
+      ],
+      "@/app/utils/functions/client-utils": [
+        "extractRenewalOrderId"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription"
+      ],
+      "utils/unvalidatedUtils/database/controller/admin_order_cancel_audit/admin-order-cancel-audit": [
+        "insertAuditIntoAdministrativeCancelTable"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeSubscription",
+        "safeCancelSubscription"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "@/app/utils/functions/pricing": [
+        "isGLP1Product"
+      ],
+      "@/app/utils/functions/dates": [
+        "convertEpochToDate"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/containers/utils/intake-helpers": [
+        "getDaysBetweenDates"
+      ],
+      "utils/unvalidatedUtils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/revive_pharmacy_patient_data/revive_pharamacy_patient_data_api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/revive_pharmacy_patient_data/revive_pharmacy_patient_data.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/shipping_status_audit/shipping_status_audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/shipping_tracking_failed_audit/shipping-tracking-failed-audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/site-error-audit/site_error_audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/site-error-audit/site_error_identifiers.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/storage/face-pictures/face-picture-functions.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/storage/license-selfie/license-selfie-functions.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/stripe_audit/stripe_audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/subscription_status_audit/subscription_stauts_audit.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/controller/tasks/task-api.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "lodash": [
+        "isEmpty"
+      ],
+      "@/app/utils/actions/auth/session-reader": [
+        "readUserSession"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/schema.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/storage/lab-work-documents/lab-work-documents.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/storage/license-selfie/license-selfie.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/database/storage/skin-care-face-pictures/skin-care-face-uploads.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/address-verification.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-controller.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "getStripeSubscriptionIdFromSubscription"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeSubscription"
+      ],
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/annual-glp1/annual-glp1-mappings.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/annual-glp1/annual_record.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/auth/authorization/authorizaiton-helper.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/auth/password-reset/password-reset.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/clean-stale-orders/clean-stale-orders.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/client-utils.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/coordinator-portal/time-tracker/coordinator-time-tracker-functions.ts",
+    "calls": {
+      "@/app/utils/database/controller/coordinator_activity_audit/coordinator_activity_audit-api": [
+        "endSession",
+        "getCoordinatorActivityAuditCountsBetweenDates",
+        "getCoordinatorAutomaticSessionTimes",
+        "getCoordinatorSessionRecord"
+      ],
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "dayjs": [
+        "dayjs"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/coordinator-portal/time-tracker/coordinator-time-tracker-types.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/csv_convert_download.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/customerio/utils.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/dates.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/formatting.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/generateUUIDFromStringAndNumber.ts",
+    "calls": {
+      "crypto": [
+        "createHash"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/intake-route-controller.ts",
+    "calls": {
+      "lodash": [
+        "isEmpty"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/isTransitionScreen.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/BaseJobSchedulerHandler.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/job-scheduler/job-scheduler-actions": [
+        "auditJobScheduler",
+        "handleJobFailure",
+        "handleJobSuccess"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/JobSchedulerFactory.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/BaseCommJobHandler.ts",
+    "calls": {
+      "@/app/utils/database/controller/job-scheduler/job-scheduler-actions": [
+        "createNewCommsJob"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/IDAndSelfieCheckJobHandler.ts",
+    "calls": {
+      "@/app/utils/database/controller/profiles/profiles": [
+        "getIDVerificationData"
+      ],
+      "@/app/utils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "createUserStatusTagWAction"
+      ],
+      "@/app/utils/database/controller/orders/orders-api": [
+        "getBaseOrderById"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "shouldSendIDVerification"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/RenewalAutoshipJobHandler.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/RenewalValidationJobHandler.ts",
+    "calls": {
+      "@/app/utils/database/controller/renewal_orders/renewal_orders": [
+        "getLatestRenewalOrderForSubscription"
+      ],
+      "@/app/utils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "addOrRemoveStatusFlags"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription"
+      ],
+      "@/app/utils/database/controller/order_data_audit/order_data_audit_api": [
+        "createOrderDataAudit"
+      ],
+      "@/app/utils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ],
+      "@/app/utils/classes/DosingChangeController/DosageChangeEquivalenceMap": [
+        "getDosageEquivalenceCodeFromVariantIndex"
+      ],
+      "@/app/utils/database/controller/profiles/profiles": [
+        "getUserState"
+      ],
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping": [
+        "convertBundleVariantToSingleVariant"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "updateStripeProduct"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/SendPrescriptionJobHandler.ts",
+    "calls": {
+      "utils/unvalidatedUtils/functions/client-utils": [
+        "getOrderTypeFromOrderId"
+      ],
+      "@/app/utils/database/controller/renewal_orders/renewal_orders": [
+        "getRenewalOrder"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/job-scheduler/jobs/StripeInvoicePaidJobHandler.ts",
+    "calls": {
+      "@/app/utils/database/controller/renewal_orders/renewal_orders": [
+        "createUpcomingRenewalOrderWithRenewalOrderId",
+        "getLatestRenewalOrderForSubscription",
+        "getRenewalOrder",
+        "updateRenewalOrder",
+        "updateRenewalOrderStatus"
+      ],
+      "@/app/utils/actions/subscriptions/subscription-actions": [
+        "getPrescriptionSubscription",
+        "updatePrescriptionSubscription"
+      ],
+      "utils/unvalidatedUtils/functions/pricing": [
+        "isWeightlossProduct"
+      ],
+      "@/app/utils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "createUserStatusTagWAction",
+        "forwardOrderToEngineering",
+        "updateStatusTagToResolved"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getLastInvoiceBeforeRenewal",
+        "getStripeInvoice",
+        "updateStripeProduct"
+      ],
+      "@/app/utils/database/controller/products/products": [
+        "getSingleProductVariantCadence",
+        "getVariantIndexByPriceIdV2"
+      ],
+      "@/app/utils/database/controller/action-items/action-items-actions": [
+        "getLastestActionItemForProduct",
+        "updateActionItem"
+      ],
+      "@/app/utils/database/controller/order_data_audit/order_data_audit_api": [
+        "createOrderDataAudit",
+        "getLatestDosageSelectionForRenewalOrder"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/containers/utils/approval-pharmacy-scripts/approval-pharmacy-product-map": [
+        "getEligiblePharmacy"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/intake-response-column/adjust-dosing-dialog/dosing-mappings": [
+        "getMonthlyGlp1Dosage"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "triggerEvent"
+      ],
+      "@/app/services/pharmacy-integration/curexa/curexa-actions": [
+        "sendRenewalCurexaOrder"
+      ],
+      "@/app/services/pharmacy-integration/gogomeds/ggm-actions": [
+        "sendGGMRenewalRequest"
+      ],
+      "@/app/services/pharmacy-integration/tmc/tmc-actions": [
+        "sendRenewalOrderToTMC"
+      ],
+      "@/app/services/pharmacy-integration/empower/send-script": [
+        "sendRenewalOrderToEmpower"
+      ],
+      "utils/unvalidatedUtils/functions/renewal-orders/renewal-orders": [
+        "getOrderStatusDetails"
+      ],
+      "@/app/utils/database/controller/product_variants/product_variants": [
+        "getPriceDataRecordWithVariant"
+      ],
+      "@/app/utils/actions/check-up/check-up-actions": [
+        "getLastCheckInFormSubmission",
+        "isWithinLastThreeMonths"
+      ],
+      "@/app/utils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "@/app/utils/database/controller/job-scheduler/job-scheduler-actions": [
+        "createNewAutoRenewalJob",
+        "createNewSendPrescriptionJob"
+      ],
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping": [
+        "convertBundleVariantToSingleVariant",
+        "shouldConvertBundleSubscriptionToMonthly"
+      ],
+      "@/app/utils/classes/DosingChangeController/DosageChangeEquivalenceMap": [
+        "getDosageEquivalenceCodeFromVariantIndex"
+      ],
+      "@/app/utils/database/controller/profiles/profiles": [
+        "getUserState"
+      ],
+      "@/app/utils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "addOrRemoveStatusFlags"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/jobs/JobsFactory.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getMonthsIntoRenewalOrderSubscription",
+        "getRenewalOrder",
+        "isRenewalOrder"
+      ],
+      "utils/unvalidatedUtils/functions/jobs/jobs": [
+        "getReviewStatusTagForRenewalOrder"
+      ],
+      "utils/unvalidatedUtils/database/controller/patient-status-tags/patient-status-tags-api": [
+        "createUserStatusTagWAction"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "shouldSendIDVerification",
+        "triggerEvent"
+      ],
+      "@/app/services/mixpanel/mixpanel-utils": [
+        "retryVerifyMixpanelEvent"
+      ],
+      "utils/unvalidatedUtils/functions/pricing": [
+        "isGLP1Product"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/jobs/jobs.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getMonthsIntoRenewalOrderSubscription"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/meta-events.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/patient-portal/patient-portal-utils.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/renewal_orders/renewal_orders": [
+        "getPriceForRenewalOrder"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "getPriceForProduct"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-to-single-vial-converter.ts",
+    "calls": {
+      "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping": [
+        "convertBundleVariantToSingleVariant"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/containers/utils/approval-pharmacy-scripts/approval-pharmacy-product-map": [
+        "getEligiblePharmacy"
+      ],
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2": [
+        "getQuestionAnswersForBMI"
+      ],
+      "@/app/utils/functions/prescription-scripts/empower-approval-script-generator": [
+        "generateEmpowerScript"
+      ],
+      "@/app/utils/functions/prescription-scripts/hallandale-approval-script-generator": [
+        "generateHallandaleScript"
+      ],
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical-notes": [
+        "getPatientAllergyData"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "@/app/components/provider-portal/intake-view/v2/components/tab-column/prescribe/prescribe-windows/hallandale/utils/hallandale-base64-pdf": [
+        "convertHallandaleOrderToBase64"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/pharmacy-helpers/bundle-variant-index-mapping.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/boothwyn-script-generator.ts",
+    "calls": {
+      "utils/unvalidatedUtils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api": [
+        "getResendCount"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/empower-approval-script-generator.ts",
+    "calls": {
+      "@/app/services/pharmacy-integration/empower/empower-variant-product-script-data": [
+        "getEmpowerCatalogObject"
+      ],
+      "utils/components/provider-portal/intake-view/v2/components/tab-column/prescribe/prescribe-windows/empower/utils/bmi-diagnosis-functions": [
+        "getDiagnosisWithBMIData"
+      ],
+      "@/app/services/pharmacy-integration/empower/empower-catalog": [
+        "searchEmpowerItemCatalogByCode"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "utils/unvalidatedUtils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "utils/unvalidatedUtils/database/controller/clinical_notes/clinical_notes_v2": [
+        "getQuestionAnswersForBMI"
+      ],
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api": [
+        "getResendCount"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/hallandale-approval-script-generator.ts",
+    "calls": {
+      "@/app/services/pharmacy-integration/hallandale/hallandale-variant-product-script-data": [
+        "getHallandaleCatalogObject"
+      ],
+      "@/app/services/pharmacy-integration/hallandale/hallandale-catalog": [
+        "searchHallandaleItemCatalogByCode"
+      ],
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "utils/unvalidatedUtils/actions/provider/patient-overview": [
+        "getPatientInformationById"
+      ],
+      "utils/unvalidatedUtils/database/controller/order_data_audit/order_data_audit_api": [
+        "getResendCount"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/prescription-scripts-utils.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/revive-script-generator.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "@/app/services/pharmacy-integration/revive/revive-patient-api": [
+        "retrieveOrCreateAndRetrieveRevivePatientData"
+      ],
+      "uuid": [
+        "uuidv4"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/prescription-scripts/tmc-approval-script-generator.ts",
+    "calls": {
+      "utils/components/provider-portal/intake-view/v2/components/tab-column/prescribe/prescribe-windows/tmc/utils/tmc-medication-ids": [
+        "findMedicationByHref"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/pricing.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/intakes/provider-intake-utils.ts",
+    "calls": {
+      "utils/unvalidatedUtils/functions/pricing": [
+        "isGLP1Product"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/messages/admin-message-center.ts",
+    "calls": {
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServerComponentClient"
+      ],
+      "@/app/utils/actions/message/message-actions": [
+        "getAllThreadsForUser"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/time-tracker/provider-time-tracker-functions.ts",
+    "calls": {
+      "@/app/utils/database/controller/provider_activity_audit/provider_activity_audit-api": [
+        "endSession",
+        "getProviderActivityAuditCountsBetweenDates",
+        "getProviderEstimatedPaymentBetweenDatesV2Verbose"
+      ],
+      "@/app/utils/actions/auth/server-signIn-signOut": [
+        "signOutUser"
+      ],
+      "@/app/utils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "dayjs": [
+        "dayjs"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/provider-portal/time-tracker/provider-time-tracker-types.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/renewal-orders/renewal-orders.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/rudderstack/rudderstack-utils.ts",
+    "calls": {
+      "@/app/utils/functions/utils": [
+        "getURL"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-glp1-controller.ts",
+    "calls": {
+      "utils/unvalidatedUtils/database/controller/orders/orders-api": [
+        "fetchOrderData"
+      ],
+      "utils/unvalidatedUtils/database/controller/prescription_subscriptions/prescription_subscriptions": [
+        "getStripeSubscriptionIdFromSubscription"
+      ],
+      "@/app/(administration)/admin/stripe-api/stripe-api-actions": [
+        "getStripeSubscription"
+      ],
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/split-shipment-glp1/split-shipment-variant-mappings.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/split-shipment-glp1/split_shipment_record.d.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/state-auth/utils.ts",
+    "calls": {}
+  },
+  {
+    "source": "utils/unvalidatedUtils/functions/utils.ts",
+    "calls": {
+      "utils/unvalidatedUtils/clients/supabaseServerClient": [
+        "createSupabaseServiceClient"
+      ],
+      "@/app/services/customerio/customerioApiFactory": [
+        "batchTriggerEvent"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/hooks/session-storage/useSessionStorage.ts",
+    "calls": {
+      "react": [
+        "useEffect",
+        "useState"
+      ]
+    }
+  },
+  {
+    "source": "utils/unvalidatedUtils/hooks/storage/useDualStorage.ts",
+    "calls": {
+      "react": [
+        "useEffect",
+        "useState"
+      ]
+    }
+  }
+]
