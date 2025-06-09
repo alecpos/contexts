@@ -30,9 +30,18 @@ Success is achieved when the new funnel matches the Figma designs, integrates wi
 - `global-wl-up-next`
 - `global-wl-order-summary`
 - `global-wl-whats-next`
+- A **long** variant has been added with the same structure:
+  - `global-wl-long-intro`
+  - `global-wl-long-goal-weight`
+  - `global-wl-long-interactive`
+  - `global-wl-long-medications`
+  - `global-wl-long-checkout`
+  - `global-wl-long-up-next`
+  - `global-wl-long-order-summary`
+  - `global-wl-long-whats-next`
 - Each page mirrors the existing route pattern and renders a placeholder component from `components/intake-v4/pages/`.
 - Next we will flesh out the remaining screens using the same `app/(intake)/intake/prescriptions/[product]/<route>` structure. This keeps parity with the current weight‑loss routes and makes A/B testing easier. New files will follow the pattern of a thin server component that imports a client component from `components/intake-v4/pages/`.
-- Route constants have been updated (`GLOBAL_WL_ROUTES`) so the intake controller knows about the new sequence.
+- Route constants have been updated (`GLOBAL_WL_ROUTES` and `GLOBAL_WL_LONG_ROUTES`) so the intake controller knows about the new sequences.
 - All pages now reside under the dynamic `[product]` directory so any `PRODUCT_HREF` value automatically loads the funnel.
 - With the skeleton in place, the next step is fleshing out form logic and data wiring while keeping the same server component + client component split.
 
@@ -48,6 +57,14 @@ All screens live under `app/(intake)/intake/prescriptions/[product]/` so any val
 - `global-wl-up-next/page.tsx`
 - `global-wl-order-summary/page.tsx`
 - `global-wl-whats-next/page.tsx`
+- `global-wl-long-intro/page.tsx`
+- `global-wl-long-goal-weight/page.tsx`
+- `global-wl-long-interactive/page.tsx`
+- `global-wl-long-medications/page.tsx`
+- `global-wl-long-checkout/page.tsx`
+- `global-wl-long-up-next/page.tsx`
+- `global-wl-long-order-summary/page.tsx`
+- `global-wl-long-whats-next/page.tsx`
 
 This mirrors the existing weight‑loss routes and keeps parity for analytics and A/B tests. Additional pages should follow the same naming convention.
 
