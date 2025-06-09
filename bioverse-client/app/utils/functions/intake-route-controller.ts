@@ -82,6 +82,7 @@ export function getNextIntakeRoute(
         product_href === 'semaglutide' ||
         product_href === 'tirzepatide' ||
         product_href === 'weight-loss' ||
+        product_href === 'global-weight-loss' ||
         product_href === PRODUCT_HREF.B12_INJECTION ||
         product_href === PRODUCT_HREF.NAD_INJECTION
     ) {
@@ -177,6 +178,25 @@ export function getNextIntakeRoute(
             }
 
             next_route_string = combined_route_array[indexFound + 1];
+            break;
+        }
+
+        case PRODUCT_HREF.GLOBAL_WL: {
+            const currentVersion =
+                LATEST_INTAKE_VERSIONS.global_wl.latest_version;
+
+            const routeArray = getRouteArrayForTest(
+                GLOBAL_WL_ROUTES[currentVersion],
+                vwo_test_ids
+            );
+
+            if (first) {
+                next_route_string = routeArray[0];
+                break;
+            }
+
+            const indexFound = routeArray.indexOf(currentRoute);
+            next_route_string = routeArray[indexFound + 1];
             break;
         }
 
@@ -716,6 +736,7 @@ export function getCurrentIntakeProgressBySection(
         case PRODUCT_HREF.MOUNJARO:
         case PRODUCT_HREF.ZEPBOUND:
         case PRODUCT_HREF.WL_CAPSULE:
+        case PRODUCT_HREF.GLOBAL_WL:
             const current_version_global =
                 LATEST_INTAKE_VERSIONS.global_wl.latest_version;
 
@@ -761,6 +782,7 @@ export function getCurrentIntakeProgressBySection(
             vwo_test_ids.includes(AB_TESTS_IDS.WL_HERS_FUNNEL) ||
             product_href === PRODUCT_HREF.SEMAGLUTIDE ||
             product_href === PRODUCT_HREF.TIRZEPATIDE ||
+            product_href === PRODUCT_HREF.GLOBAL_WL ||
             product_href === PRODUCT_HREF.B12_INJECTION ||
             product_href === PRODUCT_HREF.NAD_INJECTION ||
             product_href === PRODUCT_HREF.SERMORELIN
