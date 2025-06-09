@@ -183,3 +183,15 @@ The table below summarizes the planned API usage for each screen in the new funn
 - Use [b12-injection-api-flow.md](./b12-injection-api-flow.md) as the definitive reference for all API calls and analytics events used in the B12 intake.
 - Verify each global weight loss page mirrors the same network requests by consulting `call-graph.json` and `migration-plan.json`.
 - Ensure RudderStack events and Supabase queries remain consistent to maintain analytics parity.
+
+## 2025-06-10 Engineering Meeting Notes
+
+- Targeted BMI code will be gated by a VWO test via URL parameter.
+- Two major screens share layout: BMI comparison and side-by-side medication choice.
+- Questions with an "Other" input now redirect to a dedicated page rather than inline.
+- Add 5‑month supply for Metformin and a new 10‑month BIOVERSE capsule supply which ships every 5 months.
+- Retail medications are fulfilled through GogoMeds using the DoseSpot iframe.
+- Separate checkout screens exist for compounded injections, oral education, and retail meds.
+- In the product overview screen users can change medications and the subsequent pages rerender dynamically.
+- Global weight loss routes start with a temporary `weight-loss` href. `wl-supply-v3.tsx` swaps it server‑side using `getCombinedOrderV2` and `updateOrder`.
+- Orders track the chosen medication in `metadata.selected_product`; components such as `select-wl-treatment-v3.tsx` read this value.
