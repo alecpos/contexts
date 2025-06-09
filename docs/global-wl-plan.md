@@ -116,4 +116,45 @@ estimate work in related flows.
 - Connect medication options to DoseSpot integration and store selection in the patient model.
 - Add A/B routing logic so 30% of global weight loss traffic goes through these new pages.
 - Verify analytics events trigger for every screen in both the control and variant flows.
-\nFor API notes on the B12 intake see [b12-injection-api-flow.md](./b12-injection-api-flow.md).
+
+## B12 Injection Reference
+
+The B12 intake is currently the most complete implementation. Its page-by-page API sequence serves as the blueprint for the global weight loss funnel. See [call-graph.json](/call-graph.json) and [migration-plan.json](/migration-plan.json) for the underlying dependency graph.
+
+| Page | Key Functions / APIs | Tables & Services |
+| ---- | ------------------- | ----------------- |
+| **improve-function** | `readUserSession()` | `auth.sessions` via Supabase |
+| **b12-advantages** | – | – |
+| **registration-v3** | `createSupabaseServerComponentClient()` → `supabase.auth.getSession` | `auth.sessions` |
+| **state-selection** | `readUserSession()`, `getUserState()` | `profiles.state` |
+| **date-of-birth-v3** | `readUserSession()`, `getUserDateOfBirth()` | `profiles.dob` |
+| **good-news-v3** | `readUserSession()`, `getCustomerFirstNameById()` | `profiles.first_name` |
+| **demographic-collection-v3** | `readUserSession()`, `getIntakeProfileData()`, `getPriceVariantTableData()` | `profiles`, `product_variants` |
+| **greeting-v3** | `readUserSession()`, `getCustomerFirstNameById()` | `profiles.first_name` |
+| **up-next-v3** | `readUserSession()` | – |
+| **questions-v3 (hub)** | `readUserSession()`, `getOrderForProduct()`, `createQuestionnaireSessionForOrder()`, `getQuestionsForProduct_with_Version()` | `orders`, `questionnaire_sessions` |
+| **question-id-v3** | `getQuestionInformation_with_version()`, `getQuestionsForProduct_with_Version()`, `writeQuestionnaireAnswer()`, `updateSessionCompletion()`, `trackRudderstackEvent()` | `questionnaire_questions`, `hhq_answers`, RudderStack |
+| **select-supply** | `readUserSession()`, `getOrderForProduct()`, `getMonthlyAndQuarterlyPriceVariantData()`, `getNonGLPDiscountForProduct()` | `orders`, `product_variants`, `discounts` |
+| **general-order-summary** | `readUserSession()`, `getOrderForProduct()`, `getPriceDataRecordWithVariant()` | `orders`, `product_variants` |
+| **b12-reviews** | – | – |
+| **pre-id-v3** | `readUserSession()`, `getIDVerificationData()`, `getCombinedOrderV2()` | `profiles.license/selfie`, `orders` |
+| **id-verification-v3** | `updateUserProfileLicensePhotoURL()`, `updateUserProfileSelfiePhotoURL()`, `checkMixpanelEventFired()`, `trackMixpanelEvent()`, `trackRudderstackEvent()` | `storage`, `mixpanel_event_audit`, Mixpanel, RudderStack |
+| **shipping-information-v3** | `readUserSession()`, `getShippingInformationData()`, `axios.post('/api/google')`, `trackMixpanelEvent()`, `trackRudderstackEvent()`, `triggerEvent()` | `profiles.address`, Google API, Mixpanel, RudderStack, Customer.io |
+| **new-checkout** | `readUserSession()`, `checkForExistingOrderV2()`, `getFullIntakeProfileData()`, `getPriceVariantTableData()`, `updateOrderDiscount()`, `fetchProductImageAndPriceData()` | `orders`, `profiles`, `product_variants`, `product_images` |
+
+## Mapping B12 Calls to Global Weight Loss Pages
+
+The new funnel should reuse these APIs where possible. The table below lists the initial mapping of B12 calls to their global‑WL counterparts. Long variants inherit the same logic.
+
+| Global WL Page | B12 Equivalent | Primary APIs / Events |
+| -------------- | -------------- | --------------------- |
+| `global-wl-intro` | `improve-function` | `readUserSession()` |
+| `global-wl-goal-weight` | `registration-v3`, `state-selection` | `readUserSession()`, `getUserState()` |
+| `global-wl-interactive` | `date-of-birth-v3`, `good-news-v3` | `readUserSession()`, `getCustomerFirstNameById()` |
+| `global-wl-medications` | `demographic-collection-v3` | `readUserSession()`, `getPriceVariantTableData()` |
+| `global-wl-checkout` | `new-checkout` | `checkForExistingOrderV2()`, `updateOrderDiscount()` |
+| `global-wl-up-next` | `up-next-v3` | `readUserSession()` |
+| `global-wl-order-summary` | `general-order-summary` | `getOrderForProduct()`, `getPriceDataRecordWithVariant()` |
+| `global-wl-whats-next` | `shipping-information-v3` | `getShippingInformationData()`, RudderStack & Mixpanel events |
+
+For a detailed breakdown see [b12-injection-api-flow.md](./b12-injection-api-flow.md).
