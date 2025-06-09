@@ -177,3 +177,9 @@ The table below summarizes the planned API usage for each screen in the new funn
 | `global-wl-up-next` | `readUserSession()` | `auth.sessions` | – |
 | `global-wl-order-summary` | `readUserSession()`, `getOrderForProduct()`, `getPriceDataRecordWithVariant()` | `orders`, `product_variants` | – |
 | `global-wl-whats-next` | `readUserSession()`, `getShippingInformationData()`, `axios.post('/api/google')`, `trackMixpanelEvent()`, `trackRudderstackEvent()`, `triggerEvent()` | `profiles.address`, Google API, Mixpanel, RudderStack, Customer.io | `trackMixpanelEvent()`, `trackRudderstackEvent()`, `triggerEvent()` |
+
+### Integration With B12 API Flow
+
+- Use [b12-injection-api-flow.md](./b12-injection-api-flow.md) as the definitive reference for all API calls and analytics events used in the B12 intake.
+- Verify each global weight loss page mirrors the same network requests by consulting `call-graph.json` and `migration-plan.json`.
+- Ensure RudderStack events and Supabase queries remain consistent to maintain analytics parity.
