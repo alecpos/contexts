@@ -30,6 +30,8 @@ jest.mock('../app/utils/functions/intake-route-controller', () => ({
   getNextIntakeRoute: () => 'next'
 }))
 
+global.fetch = jest.fn().mockResolvedValue({ ok: true, json: async () => ({ success: true, medications: [] }) })
+
 describe('intake v4 pages', () => {
   afterEach(() => { push.mockClear() })
 
