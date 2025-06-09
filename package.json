@@ -17,7 +17,8 @@
     "@types/node": "^22.15.30",
     "express": "^5.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "stripe": "^12.15.0"
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",
@@ -47,7 +48,8 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/bioverse-client/$1",
       "^.+\\.module\\.css$": "identity-obj-proxy",
-      "^.+\\.css$": "identity-obj-proxy"
+      "^.+\\.css$": "identity-obj-proxy",
+      "^stripe$": "<rootDir>/__mocks__/stripe.ts"
     }
   }
 }
