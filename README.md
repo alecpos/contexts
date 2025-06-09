@@ -8,6 +8,8 @@
 - [Dashboard Guide](docs/dashboard-guide.md)
 - [Stripe API Reference](docs/stripe)
 - [Stripe Request Examples](docs/stripe/examples.md)
+- [Global Weight Loss Funnel Plan](docs/global-wl-plan.md)
+- [B12 Injection API Flow](docs/b12-injection-flow.md)
 
 ## SupabaseProvider
 

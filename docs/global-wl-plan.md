@@ -108,6 +108,24 @@ estimate work in related flows.
 | `wl-checkout` | ~0.5d |
 | `wl-order-summary` | ~0.5d |
 | `wl-whats-next` | ~0.25d |
+## Reference: B12 Injection API Flow
+
+The B12 intake funnel is the most complete implementation. See [b12-injection-flow.md](./b12-injection-flow.md) for a page-by-page list of API calls, Supabase tables and RudderStack events. The global weight loss funnel should mirror this structure.
+
+### Global WL API Flow Mapping
+
+Use the B12 table as the baseline for data access and analytics. Each new page in the global weight loss funnel should call the same helpers as its closest B12 counterpart:
+
+| Global WL Page | Mirrors B12 Page | Primary Calls |
+| --- | --- | --- |
+| `global-wl-intro` | `improve-function` | `readUserSession()` |
+| `global-wl-goal-weight` | `demographic-collection` | `readUserSession()`, `getIntakeProfileData()` |
+| `global-wl-interactive` | `questions` | `getQuestionsForProduct_with_Version()` |
+| `global-wl-medications` | `select-supply` | `getOrderForProduct()`, `getPriceVariantTableData()` |
+| `global-wl-checkout` | `new-checkout` | `getFullIntakeProfileData()`, `checkForExistingOrderV2()` |
+| `global-wl-order-summary` | `general-order-summary` | `getOrderForProduct()`, `getPriceDataRecordWithVariant()` |
+| `global-wl-whats-next` | `up-next` | `readUserSession()` |
+
 
 ## Next Steps
 
