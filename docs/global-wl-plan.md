@@ -162,3 +162,18 @@ The new funnel should reuse these APIs where possible. The table below lists the
 | `global-wl-whats-next` | `shipping-information-v3` | `getShippingInformationData()`, RudderStack & Mixpanel events |
 
 For a detailed breakdown see [b12-injection-api-flow.md](./b12-injection-api-flow.md).
+
+## API Call Flow – Global Weight Loss Pages
+
+The table below summarizes the planned API usage for each screen in the new funnel. Calls mirror the B12 intake implementation and reference `call-graph.json` and `migration-plan.json`.
+
+| Page | APIs & Functions | Databases/Tables | Analytics |
+| ---- | ---------------- | ---------------- | --------- |
+| `global-wl-intro` | `readUserSession()` | `auth.sessions` | – |
+| `global-wl-goal-weight` | `readUserSession()`, `getUserState()` | `auth.sessions`, `profiles.state` | – |
+| `global-wl-interactive` | `readUserSession()`, `getCustomerFirstNameById()` | `auth.sessions`, `profiles.first_name` | – |
+| `global-wl-medications` | `readUserSession()`, `getIntakeProfileData()`, `getPriceVariantTableData()` | `profiles`, `product_variants` | – |
+| `global-wl-checkout` | `readUserSession()`, `checkForExistingOrderV2()`, `getFullIntakeProfileData()`, `getPriceVariantTableData()`, `updateOrderDiscount()`, `fetchProductImageAndPriceData()` | `orders`, `profiles`, `product_variants`, `product_images` | `trackRudderstackEvent('ORDER_RECEIVED')` |
+| `global-wl-up-next` | `readUserSession()` | `auth.sessions` | – |
+| `global-wl-order-summary` | `readUserSession()`, `getOrderForProduct()`, `getPriceDataRecordWithVariant()` | `orders`, `product_variants` | – |
+| `global-wl-whats-next` | `readUserSession()`, `getShippingInformationData()`, `axios.post('/api/google')`, `trackMixpanelEvent()`, `trackRudderstackEvent()`, `triggerEvent()` | `profiles.address`, Google API, Mixpanel, RudderStack, Customer.io | `trackMixpanelEvent()`, `trackRudderstackEvent()`, `triggerEvent()` |
