@@ -34,19 +34,19 @@ describe('intake v4 pages', () => {
   afterEach(() => { push.mockClear() })
 
   it('goal weight navigates on continue', () => {
-    const { getByText } = render(<GoalWeight />)
+    const { getByText } = render(<GoalWeight userId="123" />)
     fireEvent.click(getByText('Continue'))
     expect(push).toHaveBeenCalled()
   })
 
   it('medication options navigates on continue', () => {
-    const { getByText } = render(<MedicationOptions />)
+    const { getByText } = render(<MedicationOptions userId="123" />)
     fireEvent.click(getByText('Continue'))
     expect(push).toHaveBeenCalled()
   })
 
   it('interactive BMI navigates on continue', () => {
-    const { getByText } = render(<InteractiveBMI />)
+    const { getByText } = render(<InteractiveBMI userId="123" />)
     fireEvent.click(getByText('Continue'))
     expect(push).toHaveBeenCalled()
   })

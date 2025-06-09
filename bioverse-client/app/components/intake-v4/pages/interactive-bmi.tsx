@@ -12,6 +12,10 @@ import { getIntakeURLParams } from '@/app/components/intake-v2/intake-functions'
 import { getNextIntakeRoute } from '@/app/utils/functions/intake-route-controller';
 import { useState } from 'react';
 
+function barHeight(bmi: number) {
+  return Math.min(100, Math.max(10, bmi * 2));
+}
+
 /**
  * Renders an interactive BMI comparison graph. Users can adjust their
  * current and goal weight to see projected BMI changes.
@@ -77,6 +81,22 @@ export default function InteractiveBMI({ userId }: Props) {
             <div className="h-40 w-full border flex flex-col items-center justify-center gap-2">
                 <span className="text-xs text-gray-600">Current BMI: {currentBmi.toFixed(1)}</span>
                 <span className="text-xs text-gray-600">Goal BMI: {goalBmi.toFixed(1)}</span>
+                <div className="flex items-end w-full gap-4 mt-2 px-4">
+                    <div className="flex flex-col items-center flex-1">
+                        <div
+                            className="bg-blue-500 w-6"
+                            style={{ height: `${barHeight(currentBmi)}%` }}
+                        />
+                        <span className="text-xs mt-1">Current</span>
+                    </div>
+                    <div className="flex flex-col items-center flex-1">
+                        <div
+                            className="bg-green-500 w-6"
+                            style={{ height: `${barHeight(goalBmi)}%` }}
+                        />
+                        <span className="text-xs mt-1">Goal</span>
+                    </div>
+                </div>
             </div>
             <AnimatedContinueButtonV3 onClick={pushToNextRoute} />
         </div>
