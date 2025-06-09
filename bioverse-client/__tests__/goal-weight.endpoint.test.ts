@@ -1,3 +1,4 @@
+import { Response } from 'node-fetch'
 jest.mock('next/server', () => ({
   NextResponse: { json: (b: any, init?: any) => new Response(JSON.stringify(b), { status: init?.status ?? 200 }) }
 }))
