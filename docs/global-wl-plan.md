@@ -116,3 +116,4 @@ estimate work in related flows.
 - Connect medication options to DoseSpot integration and store selection in the patient model.
 - Add A/B routing logic so 30% of global weight loss traffic goes through these new pages.
 - Verify analytics events trigger for every screen in both the control and variant flows.
+\nFor API notes on the B12 intake see [b12-injection-api-flow.md](./b12-injection-api-flow.md).
