@@ -108,6 +108,10 @@ estimate work in related flows.
 | `wl-checkout` | ~0.5d |
 | `wl-order-summary` | ~0.5d |
 | `wl-whats-next` | ~0.25d |
+## Reference: B12 Injection API Flow
+
+The B12 intake funnel is the most complete implementation. See [b12-injection-flow.md](./b12-injection-flow.md) for a page-by-page list of API calls, Supabase tables and RudderStack events. The global weight loss funnel should mirror this structure.
+
 
 ## Next Steps
 
