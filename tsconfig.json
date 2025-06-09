@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "*": ["*", "services/*", "providers/*"],
-      "@/*": ["bioverse-client/app/*"]
+      "@/*": ["bioverse-client/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
