@@ -26,6 +26,8 @@ export enum PRODUCT_HREF {
     SEMAGLUTIDE = 'semaglutide',
     ZEPBOUND = 'zepbound',
     WEIGHT_LOSS = 'weight-loss',
+    GLOBAL_WL = 'global-weight-loss',
+
     OZEMPIC_TEST = 'ozempic-test',
     ZOFRAN = 'zofran',
     WL_CAPSULE = 'wl-capsule',
