@@ -1,3 +1,4 @@
+import { Response } from 'node-fetch'
 jest.mock('next/server', () => ({
   NextResponse: { json: (b: any, init?: any) => new Response(JSON.stringify(b), { status: init?.status ?? 200 }) }
 }))
@@ -5,6 +6,10 @@ import { POST as createPrescription } from '../app/api/prescriptions/medication/
 import { GET as getOptions } from '../app/api/products/weight-loss/route'
 import axios from 'axios'
 jest.mock('../app/services/dosespot/v1/token/token', () => ({ getToken: jest.fn() }))
+jest.mock('../app/utils/clients/supabaseServerClient', () => ({
+  createSupabaseServerClient: jest.fn(() => ({ from: () => ({ insert: jest.fn().mockResolvedValue({}) }) })),
+  createSupabaseServiceClient: jest.fn(() => ({ from: () => ({ insert: jest.fn().mockResolvedValue({}) }) }))
+}))
 
 jest.mock('axios')
 

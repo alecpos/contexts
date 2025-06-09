@@ -951,6 +951,23 @@ export const GLOBAL_WL_ROUTES: IntakeRouteSpecification = {
     },
 };
 
+export const GLOBAL_WL_LONG_ROUTES: IntakeRouteSpecification = {
+    1: {
+        version: 1,
+        route_array: [
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_INTRO,
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_GOAL_WEIGHT,
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_INTERACTIVE,
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_MEDICATIONS,
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_CHECKOUT,
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_UP_NEXT,
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_ORDER_SUMMARY,
+            INTAKE_ROUTE_V3.GLOBAL_WL_LONG_WHATS_NEXT,
+        ],
+        ab_tests: [],
+    },
+};
+
 export const SKINCARE_INTAKE_ROUTES: IntakeRouteSpecification = {
     1: {
         version: 1,
@@ -1171,6 +1188,10 @@ export const LATEST_INTAKE_VERSIONS: LatestIntakeSpecification = {
         latest_version: 2,
     },
     global_wl: { route_array: GLOBAL_WL_ROUTES, latest_version: 1 },
+    global_wl_long: {
+        route_array: GLOBAL_WL_LONG_ROUTES,
+        latest_version: 1,
+    },
     semaglutide: { route_array: SEMAGLUTIDE_ROUTES, latest_version: 1 },
     tirzepatide: { route_array: TIRZEPATIDE_ROUTES, latest_version: 1 },
     metformin: { route_array: METFORMIN_INTAKE_ROUTES, latest_version: 1 },

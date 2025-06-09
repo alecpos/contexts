@@ -225,4 +225,12 @@ export enum INTAKE_ROUTE_V3 {
     GLOBAL_WL_UP_NEXT = 'global-wl-up-next',
     GLOBAL_WL_ORDER_SUMMARY = 'global-wl-order-summary',
     GLOBAL_WL_WHATS_NEXT = 'global-wl-whats-next',
+    GLOBAL_WL_LONG_INTRO = 'global-wl-long-intro',
+    GLOBAL_WL_LONG_GOAL_WEIGHT = 'global-wl-long-goal-weight',
+    GLOBAL_WL_LONG_INTERACTIVE = 'global-wl-long-interactive',
+    GLOBAL_WL_LONG_MEDICATIONS = 'global-wl-long-medications',
+    GLOBAL_WL_LONG_CHECKOUT = 'global-wl-long-checkout',
+    GLOBAL_WL_LONG_UP_NEXT = 'global-wl-long-up-next',
+    GLOBAL_WL_LONG_ORDER_SUMMARY = 'global-wl-long-order-summary',
+    GLOBAL_WL_LONG_WHATS_NEXT = 'global-wl-long-whats-next',
 }
